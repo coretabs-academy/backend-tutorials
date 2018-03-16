@@ -1,0 +1,15 @@
+[
+	"host": "https://github.com/coretabs-academy/fullstack-tutorials",
+	[
+		{
+			"title": "topic 1",
+			"path": "/1/topic.txt"
+			"type": "markdown"
+		},	
+		{
+			"title": "topic 2",
+			"path": "/2/topic.txt"
+			"type": "markdown"
+		},
+	]
+]
