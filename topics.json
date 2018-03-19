@@ -1,15 +1,36 @@
-[
-	"host": "https://github.com/coretabs-academy/fullstack-tutorials",
-	[
+{
+	"host": "https://raw.githubusercontent.com/coretabs-academy/fullstack-tutorials/master/",
+	"categories": [
 		{
-			"title": "topic 1",
-			"path": "/1/topic.txt"
-			"type": "markdown"
-		},	
+			"title": "basic python",
+			"topics": [
+				{
+					"id": 1,
+					"title": "topic 1",
+					"type": "markdown"
+				},
+				{
+					"id": 2,
+					"title": "topic 2",
+					"type": "markdown",
+					"quiz": "true"
+				}
+			]
+		}, 
 		{
-			"title": "topic 2",
-			"path": "/2/topic.txt"
-			"type": "markdown"
-		},
+			"title": "flask",
+			"topics": [
+				{
+					"id": 25,
+					"title": "topic 25",
+					"type": "markdown"
+				},
+				{
+					"id": 26,
+					"title": "topic 26",
+					"type": "markdown"
+				}
+			]
+		}
 	]
-]
+}

@@ -12,13 +12,13 @@
 
   مشابه لمنتدى المبادرة:
   
-  ![image|690x253](upload://DgAvaj1ErLsGsKHZIhsZVCz8U.png)
+  ![image|690x253](image-1.jpg)
 
 * ## ماهو الـ Wireframe:
 
   ببساطة هو مثل **الرؤية للمشروع**, مثال عليه:
 
-  ![ApplyImage|550x320](upload://q1qDvvsngTZPPy0ZgUafT0r5Ozx.jpeg)  
+  ![ApplyImage|550x320](image-2.jpg)  
 
   في الصورة في الأعلى قمنا بعمل wireframe لأحد المشاريع الذي عملنا عليها أنا وصديقي... **بحيث نرى فيه المتطلبات من المشروع** (الوظائف الذي مطلوبة من البرنامج أن يقوم بها) بشكل واضح جداً.
 
@@ -34,7 +34,7 @@
 
 * ## قصص المستخدم - User Stories:
 
-  ![image](/uploads/default/original/3X/f/a/fa276e283443d9511c0c5e126ba75ba2065de096.jpg)
+  ![image](image-3.jpg)
 
   يقوم الزبون (client) غالباً بإخبارك بما يريد بسرده كلامياً (على ايميل), أو ربما يتصل بك ويخبرك مباشرة, وبعضهم قد يلتقي بك.
 
