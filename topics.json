@@ -2,32 +2,38 @@
 	"host": "https://rawgit.com/coretabs-academy/fullstack-tutorials/master/",
 	"categories": [
 		{
-			"title": "basic python",
+			"title-ar": "أساسيات بايثون",
+			"title-en": "Python Basic",
 			"topics": [
 				{
 					"id": 1,
-					"title": "topic 1",
+					"title-ar": "الهيكلة",
+					"title-en": "Wireframing",
 					"type": "markdown"
 				},
 				{
 					"id": 2,
-					"title": "topic 2",
+					"title-ar": "Git & GitHub",
+					"title-en": "Git & GitHub",
 					"type": "markdown",
 					"quiz": "true"
 				}
 			]
 		}, 
 		{
-			"title": "flask",
+			"title-ar": "Flask",
+			"title-en": "Flask",
 			"topics": [
 				{
-					"id": 25,
-					"title": "topic 25",
+					"id": 13,
+					"title-ar": "البدء مع Flask",
+					"title-en": "Start with Flask",
 					"type": "markdown"
 				},
 				{
-					"id": 26,
-					"title": "topic 26",
+					"id": 14,
+					"title-ar": "الواجهة الرسومية",
+					"title-en": "Views",
 					"type": "markdown"
 				}
 			]
