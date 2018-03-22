@@ -1,0 +1,260 @@
+#### السلام عليكم أصدقائي,
+
+* ### فهرس المواضيع السابقة:
+
+  https://macdiscussions.udacity.com/t/topic/86623
+
+* ### مالذي قمنا به بالضبط في المهمة السابقة ؟
+
+  قمنا بكتابة المخازن stores التي ستتعامل مع البيانات data بالشكل الذي نريده (فلترة البيانات, وجلبها), ولكن بدأنا بحجر الأساس وهو جلب جميع البيانات get_all وإضافة عنصر إليها add.
+
+* ### ماذا تعتبر القائمة list التي استعملناها في حفظ البيانات (members) في الذاكرة ؟
+
+  هل تذكر الكود ؟
+  ```
+  class MemberStore:
+
+      members = []
+  ```
+  تعتبر members هنا class attribute, أي أنها مشتركة في جميع الـ instances.
+
+  أي إذا قمنا بإنشاء اثنان مخازن member_store1 و member_store2:
+  ```
+		member_store1 = stores.MemberStore()
+		member_store1.add(member1)
+		member_store1.add(member2)
+
+		member_store2 = stores.MemberStore()
+
+		if member_store1.get_all() is member_store2.get_all():
+			print("same stuff !")
+  ```
+
+  سنرى أنه سيطبع same stuff, لأن الـ members list هي نفسها في الاثنان المخازن member_store1 و member_store2, لأننا جعلناها class attribute.
+
+  أي أنه لا داعي لعمل أكثر من مخزن, يكفي فقط واحد member_store لأن مصدر البيانات (members list) هو واحد.
+
+  **تستعمل is لمقارنة إذا كان الـ object هو نفسه, لا تقارن القيمة وإنما نفس الـ id (إذا تريد فهم كيف تعمل is اقرأ الملحق بالأسفل)**.
+
+* ### هل نحتاج self لنصل إلى الـ class attributes ؟
+
+  لا, لأنه ممكن الوصول لها هكذا (من داخل أو خارج الكلاس):
+  ```
+  print(stores.MemberStore.members)
+  ```
+  لكن لا تقم بالوصول إليها من خارج الكلاس, لأننا قمنا بعمل list بدل الـ database لجعل الأمر أوضح وأسهل... حينما نستعمل قاعدة بيانات, **طريقتك الوحيدة للوصول إلى البيانات هي عن طريق دوال الـ stores**.
+
+* ### عرفنا ماهو الـ class attribute, لكن ماذا نعتبر self.balance في الـ ATM, هل هو attribute ؟
+
+  لا, فالرصيد self.balance الذي اضفناه لا يعتبر attribute **وإنما هو instance variable**.
+
+  * ماهو الفرق بين الـ instance variable و الـ class attribute ؟
+
+    ببساطة الـ self.balance الذي يعتبر instance variable, يوجد في كل instance... أي **موجود رصيد في atm1 ورصيد مختلف في atm2**.
+
+    لكن الـ class attribute (مثلاً الـ members list), يوجد منها **فقط واحدة كل الـ instances.**, لا يوجد غير قائمة واحدة من الأعضاء في member_store1 و member_store2... أو حتى member_store9 :smile: 
+
+  * كيف نعرف في بايثون, هل المتغير instance variable أو class attribute ؟
+
+    ببساطة إذا كنا نستعمل self (مثل self.balance) معناه instance variable, لكن إذا كان بدونها (خارج دوال الـ class) معناه هو class attribute (مثل الـ members list).
+
+* #### ماهي أنواع الدوال داخل class ؟
+
+  ##### يوجد ثلاثة أنواع من الدوال يمكنك استعمال method بدل كلمة function:
+
+    * ##### دوال instance method:
+      مثل دالة السحب withdraw:
+      ```
+      def withdraw(self, request):
+      ```
+
+    * ##### دوال static method:
+      ببساطة هي دالة لا تحتاج العناصر التي داخل الـ instance, مثلاً لا تحتاج العناصر التي داخل atm1:
+      ```
+   		@staticmethod
+		def print_separator():
+			print("=" * 30)
+      ```
+      هذه الدالة تطبع الفاصل, ولا تحتاج أي متغير من self, إذا يفضل أن تكون static, بإمكانك إضافة self وحذف @staticmethod... ولكن ستشاهد PyCharm يخبرك أنه الأفضل أن ترجعها static method.
+
+    * ##### دوال class method:
+      هذا النوع خارج من موضوعنا, هي تشبه كثيراً دوال static, لكن بإمكانك معرفة الفرق هنا إن أحببت:
+      https://macdiscussions.udacity.com/t/12-lists/92520/17?u=yaseralnajjar
+
+* ### انتهينا من ايضاح ما قمنا به بالضبط, أعتقد أنك الآن تعرف استخدام الأدوات التي لديك جيداً, لكن مالخطوة القادمة ؟
+    سنتابع كتابة بقية الدوال الخاصة بالـ stores.
+
+  * #### دالة get_by_id:
+
+    * #### ماهي وظيفتها ؟
+      تقوم هذه الدالة بارجاع object الـ member من القائمة, بناء على الـ id الخاص بالعضو.
+
+      ```
+      def get_by_id(self, id):
+          all_members = self.get_all()
+
+          ...
+
+          return result
+      ```
+     
+    * #### ماذا سنحتاج ؟
+
+      سنحتاج إضافة id للـ class الخاصة بالعضو Member, لأن فقط حفظ الاسم والعمر لا يكفي.
+
+    * #### كيف سيتم حساب الـ id ؟
+
+      سيكون الـ id يبدأ من رقم 1 ويزيد كل مرة, سيقوم الـ store بتعيين الـ id لكل عضو, أي أن القيمة الإفتراضية داخل member class ستكون 0, ثم سيقوم الـ store بتعيين الـ id المناسب.
+
+    * #### أين سيتم تعيين الـ id ؟
+
+      سيتم داخل دالة add في الـ store, بهذا الشكل:
+      ```
+				last_id = 1
+			
+				def add(self, member):
+					member.id = MemberStore.last_id
+					
+					MemberStore.members.append(member)
+
+					MemberStore.last_id += 1
+      ```
+
+    * #### هل يفترض بنا القيام بحساب الـ id لكل model في المستقبل ؟
+
+      لا أبداً !
+      نحن نستعمل الآن list, لكن في المستقبل ستتعامل مع database ويتم حساب الـ id عند الإضافة تلقائياً بدون تدخلك :wink: 
+     **ما نقوم به حالياً يسمى, in-memory repository (مستودع أو مخزن في الذاكرة).**
+
+  * #### دالة entity_exists:
+     تقوم هذه الدالة بمعرفة إذا ما كان العنصر موجود أو لا.
+     ```
+    def entity_exists(self, member):
+
+        result = True
+
+        # check if member exists or not
+
+        return result
+     ```
+     بإمكانك استعمال الدالة get_by_id, لتتحقق من وجود العنصر :wink:
+
+   * #### دالة delete:
+     تقوم هذه الدالة بحذف عنصر, الذي لديه نفس الـ id.
+     ```
+     def delete(self, id):
+     ```
+     بإمكانك استعمال get_by_id لتحصل على العنصر, ثم تحذفه من الـ list, باستعمال remove.
+       * ربما تتسائل, يوجد لدينا remove و del لحذف العناصر من list... ماذا نستعمل ؟
+         ما تقوم به del هو أمر مختلف, وهو حذف العنصر باستخدام index, ولكن الـ index مختلف عن الـ id, لذا لا نريدها:
+         ```
+         >>> a = [3, 2, 2, 1]
+         >>> del a[1]
+         [3, 2, 1]
+         ```
+         لكن remove تقوم بحذف الـ object المطابق (العضو المطابق) الذي حصلنا عليه من get_by_id وهو المطلوب.
+
+* ### تحقق من فهمك لما تحدثنا عنه بالأعلى:
+
+  **الإجابات ستكون متاحة في الرد الأول بالأسفل بعد الساعة 23:00 بتاريخ 15 فبراير.**
+
+  1. ####  ماذا نعتبر هذه الدالة (داخل الـ class) ؟
+     ```
+     	def print_withdrawals(self):
+     ```
+[poll name=class1 type=regular]
+* class method
+* static method
+* instance method
+* normal function
+[/poll]
+
+  2. ####  ماذا نعتبر هذه الدالة (داخل الـ class) ؟
+     ```
+     	def do_some_calculations():
+     ```
+[poll name=class2 type=regular]
+* class method
+* static method
+* instance method
+* normal function
+[/poll]
+
+  3. ####  ماذا يعتبر last_id ؟
+
+     ```
+     class MemberStore:
+
+		members = []
+		last_id = 1
+	
+		def get_all(self):
+	 		return MemberStore.members
+     ```
+
+[poll name=class3 type=regular]
+* class attribute
+* instance variable
+* normal variable
+* static function
+[/poll]
+
+   4. ####  في مهمة الـ ATM, ماذا نعتبر self.balance داخل الـ ATM class ؟
+
+[poll name=class4 type=regular]
+* class attribute
+* instance variable
+* normal variable
+* static function
+[/poll]
+
+  5. ####  ماذا نعتبر id هنا ؟
+     ```
+     def __init__(self, name, age):
+			self.id = 0
+			self.name = name
+			self.age = age	
+     ```
+[poll name=class5 type=regular]
+* class attribute
+* instance variable
+* normal variable
+* static function
+[/poll]
+
+  6. ####  أيهم أفضل ؟
+     ```
+		def get_all(self):
+    			return MemberStore.members
+		
+		def get_all(self):
+    			return self.members
+     ```
+[poll name=class6 type=regular]
+* الطريقة الأولى
+* الطريقة الثانية
+[/poll]
+
+* ### ماهي المهمة المطلوبة ؟
+
+  * تأكد من استيعابك للمفاهيم بالأعلى :wink: 
+  * اسأل إذا لديك أي غموض حول الأمر.
+  * قم بحل الأسئلة بالأعلى.
+  * اكتب الدالة get_by_id.
+  * اكتب الدالة entity_exists.
+  * اكتب الدالة delete.
+
+* ### كيفية تسليم الحل ؟
+
+  ارفع التحديثات على حسابك في GitHub في نفس المستودع (repository), **بالتعديل على نفس الملفات**.
+
+  بإمكانك تسليم الحل في هذا الموضوع:
+  https://macdiscussions.udacity.com/t/18-stores-part-2/100557
+
+* ### لا تفسد المتعة :smile::
+
+  في حال كان حلك جاهز قم برفعه على حسابك في GitHub في التوقيت المطلوب.
+
+  في حال لديك أي استفسارات, بإمكانك طرحها هنا وسأكون سعيد بالإجابة عليها :wink:
+
+  #### أتمنى الفائدة والتوفيق للجميع!

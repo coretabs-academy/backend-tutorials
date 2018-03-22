@@ -1,0 +1,183 @@
+#### السلام عليكم أصدقائي,
+
+* ### فهرس المواضيع السابقة:
+
+  https://macdiscussions.udacity.com/t/topic/86623
+
+* ### ماهي فائدة ملف views.py ؟
+
+  كما ذكرنا, هو يكون داخله controllers والتي هي جزء من MVC.
+
+  * ### ماهي MVC ؟
+
+    تم شرحها في الدرس:
+    https://macdiscussions.udacity.com/t/27-views/114955?u=yaseralnajjar
+
+* ### لما نستعمل اصلا controller ؟
+    السبب الرئيسي هو التركيز على مبدأ separation of concerns بحيث كل قطعة من البرنامج تهتم بغرض واحد، وهو معالجة requests.
+
+    بنفس الوقت نستعمل stores لكي نصل إلى البيانات (سواء من قاعدة بيانات او غيره)... اي انها Data Access Layer - DAL.
+
+* ### لماذا أصلاً جاءت MVC ؟
+
+  جاءت لغرض فصل أجزاء البرنامج عن بعضه !
+
+* ### ماهي الأجزاء التي يجب فصلها في البرنامج ؟
+
+  * #### أولاً DAL - Data Access Layer:
+
+    هي طريقة البرنامج للوصول access إلى البيانات.
+
+    لا يهمنا كيف نقوم بها ولكن يهمنا أن لدينا متطلبات معينة requirements وهي:
+
+      ```
+      CRUD_member
+      CRUD_post
+      get_top_ten_members
+      get_posts_by_date
+      ```
+
+    اي ان ما قمنا به هو abstraction (بمعنى لا يهمنا كيف تتم، من قاعدة البيانات او غيره).
+
+    حيث كل هذه ال requirements في مكان واحد وهو stores بحيث يصبح Data Access Layer - DAL.
+
+    ويجب أن تكون DAL منفصلة تماما عن بقية أجزاء البرنامج.
+    بمعنى **لا تقم بوضع الوصول إلى قاعدة البيانات داخل الـ controller أبداً**, وإنما استعمل الـ stores التي بنيناها... كما قمنا بها هنا:
+
+    ```
+    @app.route("/topic/add", methods = ["GET", "POST"])
+    def topic_add():
+        if request.method == "POST":
+            new_post = models.Post(request.form["title"], request.form["content"])
+            post_store.add(new_post)
+    ```
+
+    انتبه أن تقوم بخلط كود الوصول للبيانات بهذا الشكل:
+    ```
+    @app.route('/posts')
+    def all_posts():
+        db = get_db()
+        cur = db.execute("SELECT title, content, date FROM posts ORDER BY date DESC")
+        results = cur.fetchall()
+        return render_template('show-posts.html', results=results)
+    ```
+
+    انتبه أن **تخلط DAL مع BLL** !!
+  
+  * #### ماهي BLL - Business Logic Layer ؟
+
+    هل تتذكر الـ models التي بنيناها, هي تقوم بتحديد الـ Business Logic وهي **أهم قطعة في البرنامج**... قمنا ببناءها أولاً كونها هي القاعدة الأساسية التي يرتكز عليها البرنامج.
+
+    في حالتنا هي:
+
+    ```
+    class Member
+    class Post
+    ```
+
+    لا تقم أبداً باستعمال add أو أي شيء يتعلق بالـ data access, داخل هذه الكلاسات لأنها ليست وظيفتها !
+
+  * #### ماهي Presentation Layer - UI ؟
+ 
+    في حالتنا هي صفحات HTML, في حال كنا نقوم بعمل تطبيق أندرويد فهو ملفات XML layout, في حالة كان تطبيق desktop فهو شيء آخر وهكذا.
+
+    لهذا يجب مراعاة عدم خلط DAL داخل UI, مثلاً أحياناً أشاهد الكود التالي في php:
+
+    ```
+    echo '<h1>New Users</h1>';
+ 
+    $sql = "SELECT * FROM users ORDER BY date_registered";
+    $result = mysql_query($sql) or die(mysql_error());
+ 
+    echo '<table class="my-table-class">';
+    while($row = mysql_fetch_assoc($result)){
+        echo '<tr><td>' . $row['username'] . '</td><td>' . $row['date_registered'] . '</td></tr>';
+    }
+    echo '</table>';
+ 
+    function random_custom_function($var){
+        $var = $var + 1;
+        return '<span style="font-weight:bold;">' . $var . '</span>';
+    }
+ 
+    $sql = "SELECT * FROM table WHERE column = 'test'";
+    $result = mysql_query($sql) or die(mysql_error());
+ 
+    echo '<div id="test">';
+    $i = 0;
+    while($row = mysql_fetch_assoc($result)){
+        if($row['type'] == 3){
+            echo '<div style="margin-bottom:20px;">' . random_custom_function($row['val']) . '</div>';
+            $i++;
+        }
+        else{
+            echo '<div style="margin-bottom:20px;">' . $row['val'] . '</div>';
+        }
+    }
+ 
+    if($i == 0){
+        echo '<table>';
+        echo '<tr><td>Found none!</td></tr>';
+        echo '</table>';
+    }
+    ```
+
+    هل تلاحظ ما قام به صديقنا المبرمج السيء بالأعلى :smile:
+
+    قام بخلط UI (كود HTML) و Data Access(كود SQL) و Business Rules (كود التحقق من القيم) في كود واحد !! 
+
+
+* ### تعلمنا الكثير من الأمور... لننطلق إلى العمل !
+
+  * #### مالذي سنقوم به ؟
+
+    كما تلاحظ لا يمكننا القيام بعمل delete post إلى الآن... سنقوم بهذه الخاصية الآن.
+
+    * #### أولاً نريد ربط الخاصية في الـ UI, في حالتنا الصفحة index:
+    ```
+    <td>
+        <a href="{{ url_for("topic_delete", id = post.id) }}">delete</a>
+    </td>
+    ```
+
+    * #### ماذا عن الـ controller action ؟
+      كما قمنا بها في say hello, سنحتاج هنا الـ id:
+
+      ```
+      @app.route("/topic/delete/<id>")
+      def topic_delete(id):
+          post_store.delete(int(id))
+          return redirect(url_for("home"))
+      ```
+
+      لاحظ استعمال int(id, السبب أننا نحصل على string من الـ parameter ويجب تحويله, ولكن يوجد طريقة أفضل بالتأكيد, بعدم قبول أي parameter عدا integers وتحويلها تلقائياً:
+
+      ```
+      @app.route("/topic/delete/<int:id>")
+      def topic_delete(id):
+          post_store.delete(id)
+          return redirect(url_for("home"))
+      ```
+
+* ### أعتقد أنه بإمكانك ربط بقية الدوال topic_edit و topic_show على الصفحة :wink:
+ 
+* ### ماهي المهمة المطلوبة ؟
+  * اكتب الدالة topic_delete.
+  * اكتب الدالة topic_show, التي تعرض الموضوع في صفحة منفصلة.
+  * اكتب الدالة topic_edit, التي تسمح بتعديل الموضوع.
+  
+* ### ملحق:
+  * ماهي n-tier architecture ؟
+    https://stackify.com/n-tier-architecture/
+ 
+
+ * ### كيفية تسليم الحل ؟
+
+    ارفع التحديثات على حسابك في GitHub في نفس المستودع (repository), **بالتعديل على نفس الملفات**.
+
+   ولا تنسى **مشاركة رابط المشروع** معنا.
+
+    بإمكانك تسليم الحل في هذا الموضوع:
+    https://macdiscussions.udacity.com/t/38-crud-with-views/124186
+
+  #### أتمنى الفائدة والتوفيق للجميع!

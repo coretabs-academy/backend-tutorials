@@ -1,0 +1,78 @@
+#### السلام عليكم أصدقائي,
+
+* ## فهرس المواضيع السابقة:
+
+  https://macdiscussions.udacity.com/t/topic/86623
+
+
+* ## ماهو المطلوب ؟
+
+  مجدداً, أخبرك مدير عملك (المزعج :smile:) أنه يريد أن يرى فاتورة (receipt) فيها كل عمليات السحب withdraw... لأنه يشك أن جهاز الـ ATM يسحب الأموال بشكل صحيح !
+
+* ## كيف ستقوم بهذا ؟
+
+  ببساطة سنستعمل ما يسمى بالـ lists لحفظ كل عملية سحب withdraw.
+
+  أي أننا يجب أن نقوم بإنشاء list عند الـ initializer الخاص بالـ ATM class, بهذا الشكل:
+
+  ```
+  class ATM:
+
+      def __init__(self, balance, bank_name):
+          self.withdrawals_list = []
+          ...
+  ```
+  يجدر الإشارة إلى أن الـ list تختفي عندما يتوقف البرنامج, وعند تشغيله مرة ثانية سيقوم بعمل list جديدة.
+
+* ## لكن كيف سنقوم بتخزين كل عملية سحب ؟
+
+  الأمر سهل, سنضع داخل الـ function الخاصة بالسحب withdraw عملية اضافة (append) للرقم الذي نريد سحبه:
+  ```
+  def withdraw(self, request):
+      ...
+      ...
+      ...
+      if request > self.balance:
+            print("Can't give you all this money !!")
+
+      elif request < 0:
+            print("More than zero plz!")
+
+      else:
+            self.withdrawals_list.append(request)
+            self.balance -= request
+      ...
+      ...
+      ...  
+  ```
+
+* ## وكيف سنعرض قائمة السحب (withdrawals list) ؟
+
+  سنقوم بعمل دالة جديدة (داخل الـ class), تقوم بعرض قائمة السحب:
+  ```
+  def show_withdrawals(self):
+      for withdrawal in self.withdrawals_list:
+          print(withdrawal)
+  ```
+  بمعنى اننا سنمر على كل عملية سحب داخل ال list باستعمال for loop.
+
+* ## ماهي المهمة المطلوبة ؟
+
+  * قم بالتعديل على الـ class بإضافة list في الـ initializer.
+  * اجعل الكود يحفظ كل عملية withdraw.
+  * أضف دالة تقوم بإظهار جميع عمليات السحب withdrawals.
+
+* ## كيفية تسليم الحل ؟
+
+  قم بالتعديل على atm.py السابق, ثم ارفع التحديثات على حسابك في GitHub في نفس المستودع (repository).
+
+  بإمكانك تسليم الحل في هذا الموضوع:
+  https://macdiscussions.udacity.com/t/12-lists/92520
+
+* ## لا تفسد المتعة :smile::
+
+  في حال كان حلك جاهز قم برفعه على حسابك في GitHub في التوقيت المطلوب.
+
+  في حال لديك أي استفسارات, بإمكانك طرحها هنا وسأكون سعيد بالإجابة عليها :wink:
+
+  #### أتمنى الفائدة والتوفيق للجميع!

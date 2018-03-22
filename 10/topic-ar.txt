@@ -1,0 +1,322 @@
+#### السلام عليكم أصدقائي,
+
+* ### فهرس المواضيع السابقة:
+
+  https://macdiscussions.udacity.com/t/topic/86623
+
+* ### مالذي لدينا حتى الآن ؟
+
+  * #### دالة get_all:
+     * #### ما فائدتها ؟
+
+       هي فقط ترجع الـ list, هل لها أي فائدة ؟
+
+       نعم, ببساطة هي ترجع كل القيم (من قاعدة البيانات أو الـ list, نحن لا نهتم من أين, ولكن نهتم بالوظيفة... ترجع كل شيء).
+
+       الغرض أننا بإستخدامها سنقوم ببناء الدوال الأخرى, مثلاً نريد البحث عن الـ id في الدالة (get_by_id):
+       ```
+        def get_by_id(self, id):
+            all_members = self.get_all()
+
+            result = None
+
+            for member in all_members:
+                if member.id == id:
+                    result = member
+                    break
+
+            return result
+       ```
+
+       مثال آخر, نريد عمل دالة get_by_name, نقوم مرة أخرى باستعمال get_all:
+
+       ```
+       def get_by_name(self, name):
+           all_members = self.get_all()
+        
+           for member in all_members:
+                # algorithm for searching by name
+
+            return result
+       ```
+
+       أي أن جلب جميع الأعضاء يتم في مكان واحد (**واحد فقط**)... لتطبيق مبدأ separation of concerns :wink:
+
+  * #### دالة get_by_id:
+     * #### ما فائدتها ؟
+       غرضها إرجاع الـ object بمعرفة الـ id خاصته.
+
+       مثلاً إذا تم طلب الصفحة:
+       ```
+       www.forums.com/member/5
+       ```
+       كما تلاحظ 5 بالأعلى هي الـ id, أي أننا سنستعمل get_by_id لجلب معلومات العضو.
+      * #### أيضاً استعمال آخر:
+        الدالة أيضاً ستستعمل في الدوال الأخرى:
+        ```
+            def delete(self, id):
+                member = self.get_by_id(id)
+                MemberStore.members.remove(member)
+
+            def entity_exists(self, member):
+
+                result = True
+
+                if self.get_by_id(member.id) is None:
+                            result = False
+
+                return result
+        ```
+
+* ### مالذي ينقصنا ؟
+
+  * #### من الـ CRUD ؟
+    بقي لدينا دالة update فقط لننتهي من الـ CRUD التي معناها (Create, Read, Update, Delete).
+  
+  * #### مالذي تقوم به دالة Update ؟
+    تقوم الدالة بالتعديل على الـ object في البيانات الموجودة لدينا (في حالتنا list, وأيضاً يجب أن تتعامل حتى مع database مستقبلاً).
+    ```
+        def update(self, member):
+    ```
+
+* ### كيف سننظم المشروع ؟
+
+  * #### مالمشكلة ؟
+    هل تلاحظ أنه أصبح المشروع يكبر بشكل سريع :smile:
+
+    وأصبح ملف main.py يجرب الكثير من الدوال بشكل عشوائي... يجب أن تقوم بتنظيمه بشكل جميل  ليصبح قابل للتطوير مستقبلاً بسلاسة.
+
+  * #### كيف سنقوم بتنظيم المشروع ؟
+     سنركز على تنظيف ملف main.py ليصبح مكون من functions واضحة تقوم بمهمة واحدة (**واحدة فقط**).
+     
+     مثلاً نريد تجربة عملية إنشاء الأعضاء member instances من Member class, سنقوم بجعل الأمر داخل function كالآتي:
+     ```
+     def create_members():
+
+         member1 = models.Member("Mohammed", 20)
+         member2 = models.Member("Omar", 22)
+         member3 = models.Member("Abdo", 25)
+         print(member1)
+         print(member2)
+         print(member3)
+         print("=" * 30)
+
+         return member1, member2, member3
+     ```
+
+     **لاحظ أن الدالة ترجع object واحد فقط** من نوع tuple (يحتوي على member1 و member2 و member3), هو مشابه للـ list (يحتوي على أكثر من عنصر).
+
+     بالنسبة لإضافة الأعضاء داخل الـ store:
+     ```
+     def store_should_add_models(members_instances, member_store):
+
+         for member in members_instances:
+             member_store.add(member)
+     ```
+
+    لاحظ أننا نقوم بمهمة واحدة فقط في كل دالة اتباعاً لمبدأ Single Responsibility Principle.
+    بإمكانك الإطلاع على هذا تفاصيل هذا المفهوم في الملحق.
+
+    لكي تفهم أكثر سأقوم بطرح ملف main.py الخاص بي:
+    ```
+    import models
+    import stores
+    
+    
+    def create_members():
+    
+        member1 = models.Member("Mohammed", 20)
+        member2 = models.Member("Omar", 22)
+        member3 = models.Member("Abdo", 25)
+        print(member1)
+        print(member2)
+        print(member3)
+        print("=" * 30)
+    
+        return member1, member2, member3
+    
+    
+    def store_should_add_models(members_instances, member_store):
+    
+        for member in members_instances:
+            member_store.add(member)
+    
+    
+    def stores_should_be_similar():
+    
+        member_store1 = stores.MemberStore()
+        member_store2 = stores.MemberStore()
+        if member_store1.get_all() is member_store2.get_all():
+            print("Same stores elements !")
+    
+    
+    def print_all_members(member_store):
+        print("=" * 30)
+    
+        for member in member_store.get_all():
+            print(member)
+    
+        print("=" * 30)
+    
+    
+    def get_by_id_should_retrieve_same_object(member_store, member2):
+        member2_retrieved = member_store.get_by_id(member2.id)
+    
+        if member2 is member2_retrieved:
+            print("member2 and member2_retrieved are matching !")
+    
+    
+    def update_should_modify_object(member_store, member3):
+        member3_copy = models.Member(member3.name, member3.age)
+        member3_copy.id = 3
+    
+        if member3_copy is not member3:
+            print("member3 and member3_copy are not the same !")
+    
+        print(member3_copy)
+        member3_copy.name = "john"
+        member_store.update(member3_copy)
+        print(member_store.get_by_id(member3.id))
+    
+    
+    def catch_exception_when_deleting():
+        try:
+            member_store.delete(5)
+        except ValueError:
+            print("It should be an existence entity before deleting !")
+    
+    
+    members_instances = create_members()
+    member1, member2, member3 = members_instances
+    
+    member_store = stores.MemberStore()
+    
+    store_should_add_models(members_instances, member_store)
+    
+    stores_should_be_similar()
+    
+    print_all_members(member_store)
+    
+    get_by_id_should_retrieve_same_object(member_store, member2)
+    
+    update_should_modify_object(member_store, member3)
+    
+    catch_exception_when_deleting()
+    
+    print_all_members(member_store)
+    ```
+
+     لاحظ أنني لا أهتم بتسميه الدوال كثيراً... كونها دوال تجربة testing.
+
+     مثلاً:
+     ```
+     store_should_add_models
+     ```
+     تعني هذه الدالة (يجب أن يضيف المخزن الـ models)... أي أنني سأجرب فيه دالة add :wink:
+ 
+     يجب أن تنتبه من الوقوع في فخ تضييع الوقت في تسميه دوال تجربة الكود, كونها لن تفيدك كثيراً :smile:
+     لكن حينما تبدأ بعمل unit test (باستخدام framework مخصصة), يجب عليك اتباع طريقتهم في التسمية.
+     بإمكانك القراءة حول unit testing في الملحق إن أحببت.
+
+* ### ماذا حول filtering ؟
+
+  * #### ما فائدة عمل filtering ؟
+    أعتقد أنك تذكر المتطلبات:
+    ![image|430x286](upload://rEikNfZbAMcIe4mb22QF3hLscuV.png)
+
+    نحتاج أن نكتب دالة تقوم بالبحث, ودالة عرض أكثر 10 مشاركين.
+    هذه فائدة الـ filtering (بشكل أدق query), استخراج البيانات على شكل اسئلة, مثل:
+    * من أكثر عشرة مشاركين ؟
+    * من هم الأعضاء الذين لديهم اسم mohammed ؟
+    * من قام بالتسجيل من بعد تاريخ 20 فبراير 2018 ؟
+
+  * #### ماهي الدالة التي سنكتبها في الـ filtering ؟
+    سنقوم بكتابة الدالة get_by_name الخاصة بالـ member أعتقد أنك تعرف أي store سنكتبها فيه :wink: 
+
+   * #### كيف ستكون الدالة بالضبط get_by_name ؟
+
+     بمعرفة الـ name الذي هو عبارة عن string سنعرف من هم الأشخاص الذين بنفس الاسم (عدة نتائج all occurances).
+     فمثلاً لو لدينا mohammed أكثر من شخص, ستقوم الدالة بإرجاع جميع الـ member objects الذين اسمهم محمد.
+
+     ```
+         def get_by_name(self, member_name):
+     ```
+
+* ### تحقق من فهمك لما تحدثنا عنه بالأعلى:
+
+  **سيتم وضع الإجابات في التعليق القادم**
+
+  * #### يفضل كتابة دالة function تقوم بأكثر من مهمة ؟
+[poll name=test1 type=regular]
+* صحيح
+* خاطئ
+[/poll]
+
+  * #### بإمكاننا إرجاع أكثر من شيء من الدالة (more than one object) ؟
+[poll name=test2 type=regular]
+* صحيح
+* خاطئ
+[/poll]
+
+  * #### يفضل كتابة class تقوم بأكثر من مهمة ؟
+[poll name=test3 type=regular]
+* صحيح
+* خاطئ
+[/poll]
+
+  * #### يمكننا استخدام الدالة get_all لعمل queries بالدوال الأخرى ؟
+[poll name=test4 type=regular]
+* صحيح
+* خاطئ
+[/poll]
+
+  * #### تقوم الدالة update بتحديث أكثر من object ؟
+[poll name=test5 type=regular]
+* صحيح
+* خاطئ
+[/poll]
+
+  * #### تقوم الدالة get_by_id بإرجاع object واحد فقط ؟
+[poll name=test6 type=regular]
+* صحيح
+* خاطئ
+[/poll]
+
+  * #### تقوم الدالة get_by_name بإرجاع object واحد فقط ؟
+[poll name=test7 type=regular]
+* صحيح
+* خاطئ
+[/poll]
+
+* ### ماهي المهمة المطلوبة ؟
+
+   * أجب عن الأسئلة بالأعلى.
+   * ضع أسئلتك في حال كان هناك أي لبس في الموضوع.
+   * قم بكتابة الدالة update.
+   * قم بتنظيم الكود خاصتك في main.py.
+   * قم بكتابة الدالة get_by_name.
+  
+
+* ### ملحق:
+  * #### مبدأ Single Responsibility يشرحه العبقري Martin Fowler:
+    https://www.youtube.com/watch?v=t86v3N4OshQ
+
+  * #### تجربة الأكواد في بايثون unit testing in python:
+     https://github.com/pytest-dev/pytest
+     https://medium.com/@bfortuner/python-unit-testing-with-pytest-and-mock-197499c4623c
+     https://app.pluralsight.com/library/courses/unit-testing-python/table-of-contents
+
+ * ### كيفية تسليم الحل ؟
+
+    ارفع التحديثات على حسابك في GitHub في نفس المستودع (repository), **بالتعديل على نفس الملفات**.
+
+    بإمكانك تسليم الحل في هذا الموضوع:
+    https://macdiscussions.udacity.com/t/20-filtering/103393
+
+* ### لا تفسد المتعة :smile::
+
+  في حال كان حلك جاهز قم برفعه على حسابك في GitHub في التوقيت المطلوب.
+
+  في حال لديك أي استفسارات, بإمكانك طرحها هنا وسأكون سعيد بالإجابة عليها :wink:
+
+  #### أتمنى الفائدة والتوفيق للجميع!

@@ -1,0 +1,285 @@
+### السلام عليكم أصدقائي,
+
+* ## فهرس المواضيع السابقة:
+
+  https://macdiscussions.udacity.com/t/topic/86623
+
+* ## ماهو المطلوب؟
+  أخبرك مدير عملك أنه يريد السماح للمستخدم بالقيام بعملية سحب للأموال ومعالجتها من ATM **أكثر من مرة** بمعنى (multiple withdrawals).
+
+  ولكن أنت تذكر أن الكود الذي كتبناه كان بهذا الشكل:
+  ```
+    # allowed papers: 100, 50, 10, 5, and cents
+  
+  balance = 500
+  
+  request = 275
+  
+  if   request > balance:
+      print("Can't give you all this money !!")
+  
+  elif request < 0:
+      print("More than zero plz!")
+  
+  else:
+      while request > 0:
+  
+          if request >= 100:
+              request -= 100
+              print("give 100")
+  
+          elif request >= 50:
+              request -= 50
+              print("give 50")
+  
+          elif request >= 10:
+              request -= 10
+              print("give 10")
+  
+          elif request >= 5:
+              request -= 5
+              print("give 5")
+  
+          elif request < 5:
+              print("give " + str(request))
+              request = 0
+  ```
+
+* ## كيف يمكننا القيام بالمطلوب؟
+  مثلاً للقيام بثلاث عمليات سحب للأموال, بإمكاننا فقط أن ننسخ الكود ثلاث مرات بهذا الشكل:
+  ```
+  # allowed papers: 100, 50, 10, 5, and cents
+  
+  balance = 500
+  
+  request = 275
+  
+  if request > balance:
+      print("Can't give you all this money !!")
+  
+  elif request < 0:
+      print("More than zero plz!")
+  
+  else:
+      while request > 0:
+  
+          if request >= 100:
+              request -= 100
+              print("give 100")
+  
+          elif request >= 50:
+              request -= 50
+              print("give 50")
+  
+          elif request >= 10:
+              request -= 10
+              print("give 10")
+  
+          elif request >= 5:
+              request -= 5
+              print("give 5")
+  
+          elif request < 5:
+              print("give " + str(request))
+              request = 0
+  
+  balance = 225
+  
+  request = 100
+  
+  if request > balance:
+      print("Can't give you all this money !!")
+  
+  elif request < 0:
+      print("More than zero plz!")
+  
+  else:
+      while request > 0:
+  
+          if request >= 100:
+              request -= 100
+              print("give 100")
+  
+          elif request >= 50:
+              request -= 50
+              print("give 50")
+  
+          elif request >= 10:
+              request -= 10
+              print("give 10")
+  
+          elif request >= 5:
+              request -= 5
+              print("give 5")
+  
+          elif request < 5:
+              print("give " + str(request))
+              request = 0
+  
+  balance = 125
+  
+  request = 125
+  
+  if request > balance:
+      print("Can't give you all this money !!")
+  
+  elif request < 0:
+      print("More than zero plz!")
+  
+  else:
+      while request > 0:
+  
+          if request >= 100:
+              request -= 100
+              print("give 100")
+  
+          elif request >= 50:
+              request -= 50
+              print("give 50")
+  
+          elif request >= 10:
+              request -= 10
+              print("give 10")
+  
+          elif request >= 5:
+              request -= 5
+              print("give 5")
+  
+          elif request < 5:
+              print("give " + str(request))
+              request = 0
+
+  ```
+
+* ## لا تصدق الحل الذي أخبرتك به للتو, لأن النسخ واللصق أمر قبيح!
+
+  توجد قاعدة في البرمجة تقول:
+
+  > في حال بدأت القيام بالنسخ واللصق, يجب أن تعرف أنه يوجد شيء ما خاطئ.
+
+  هذا يعني أن **الحل بالأعلى ليس مناسب**, يجب علينا إيجاد حل.
+
+* ## ماهو الحل الصحيح؟
+
+  الجواب هو في الدوال (functions).
+
+* ## ماهي الـ function ؟
+
+  هي ببساطة طريقة لكتابة الكود مرة واحدة, واستعماله كم ما شئت من المرات (حتى مليون مرة !).
+
+* ## إذا استعملنا الـ function, كيف سيصبح شكل البرنامج ؟
+
+  بدلاً من القيام بالنسخ واللصق, سنقوم ببساطة باستدعاء الدالة مرات متتعدة, مثل هكذا:
+
+  ```
+  balance = 500
+
+  balance = withdraw(balance, 277)
+  balance = withdraw(balance, 30)
+  balance = withdraw(balance, 5)
+  ```
+
+  ببساطة, هنا نقوم باستدعاء عملية سحب الأموال (withdraw) ثلاث مرات, بدون نسخ الكود... ولكننا سنكتب دالة اسمها withdraw, تحتوي على الكود الذي قمنا بنسخه أكثر من مرة.
+
+  لاحظ أيضاً أننا نغير الرصيد (balance) كل مرة, أي أن الـ function تحسب الرصيد بعد خصم القيمة التي طلبها الشخص.
+
+* ## ولكن كيف سأكتب الـ function التي تقوم بالسحب (withdraw) ؟
+
+  * ### التعريف (def):
+    الأمر سهل جداً, بداية تقوم بتعريفها:
+    ```
+    def withdraw(balance, request):
+    ```
+    التعريف هذا يعني أنه لدينا دالة اسمها withdraw تقوم باستقبال الرصيد (balance) والطلب (request).
+
+    بعدها سنكتب داخلها 
+
+  * ### ما تقوم به الدالة:
+
+    بعدها سنكتب العمل الذي تقوم به الدالة داخلها, بهذا الشكل:
+    ```
+    def withdraw(balance, request):
+        if request > balance:
+            print("Can't give you all this money !!")
+        ...
+        ...
+    ```
+
+  * ### لا تنسى ارجاع القيمة من الدالة (return):
+
+    لاحظ أننا نقوم بتغيير قيمة balance كل مرة نستدعي الدالة, هنا:
+    
+    ```
+    balance = 500
+    balance = withdraw(...)
+    ```
+
+    أي أننا نتوقع من دالة withdraw أن ترجع الرصيد المتبقي, ولكن كيف سنرجعه؟
+
+    ببساطة باستعمال return, بهذا الشكل:
+
+    ```
+    def withdraw(balance, request):
+        if request > balance:
+            print("Can't give you all this money !!")
+        ...
+        ...
+        return balance - request
+    ```
+
+* ## ماهي المهمة المطلوبة ؟
+  * قم بكتابة دالة withdraw, بناء على الكود السابق الموجود بالأعلى.
+  * الدالة أولاً ستقوم بطباعة الرصيد balance.
+  * بعدها ستقوم بنفس الخوارزمية في الكود السابق (سحب الأموال بالشكل الذي شرحنا في الورشة السابقة).
+  * تقوم الدالة بإرجاع الرصيد balance بعد خصمه من الطلب request.
+
+  مثال على الناتج المطلوب من هذا الكود:
+    ```
+    balance = 500
+
+    balance = withdraw(balance, 277)
+    balance = withdraw(balance, 30)
+    balance = withdraw(balance, 5)
+    balance = withdraw(balance, 500)
+    ```
+
+  سيكون الناتج Output بهذا الشكل:
+
+    ```
+	Current balance = 500
+	give 100
+	give 100
+	give 50
+	give 10
+	give 10
+	give 5
+	give 2
+	Current balance = 223
+	give 10
+	give 10
+	give 10
+	Current balance = 193
+	give 5
+	Current balance = 188
+	Can't give you all this money !!
+    ```
+
+* ## أنا كتبت الـ function في المهمة السابقة, بماذا أقوم ؟
+
+  تخيل أنك تتعامل مع كود مبرمج مبتدىء بالأعلى, لذا قم بتطويره وأكتب الـ function الخاصة بالـ withdraw من الكود بالأعلى لكي يظهر الناتج المطلوب. (قم بعمل ملف جديد اسمه atm_refactored.py).
+
+* ## كيفية تسليم الحل ؟
+
+  قم بالتعديل على atm.py السابق, ثم ارفع التحديثات على حسابك في GitHub في نفس المستودع (repository).
+
+  بإمكانك تسليم الحل في هذا الموضوع:
+
+  https://macdiscussions.udacity.com/t/8-functions/88532
+
+* ## لا تفسد المتعة :smile::
+
+  في حال كان حلك جاهز قم برفعه على حسابك في GitHub في التوقيت المطلوب.
+
+  في حال لديك أي استفسارات, بإمكانك طرحها هنا وسأكون سعيد بالإجابة عليها :wink:
+
+  #### أتمنى الفائدة والتوفيق للجميع!

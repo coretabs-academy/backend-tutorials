@@ -1,0 +1,196 @@
+#### السلام عليكم أصدقائي,
+
+* ### فهرس المواضيع السابقة:
+
+  https://macdiscussions.udacity.com/t/topic/86623
+
+* ### مالذي نحتاجه أيضاً من الدوال ؟
+
+  * #### سنحتاج دالة get_posts_by_date:
+
+    ببساطة هي تقوم بجلب جميع الـ posts مرتبه حسب التاريخ date (أحدث تاريخ سيكون أول post في الناتج).
+
+  * #### ماذا سنحتاج قبل أن نكتب هذه الدالة ؟
+    سنحتاج إلى إضافة التاريخ إلى تصميم الـ model الخاص بالـ Post class, لكي تحتوي على تاريخ انشائها, القيمة الإفتراضية له (بدون السماح بالتعديل عليها) هو تاريخ انشائها (داخل __init__).
+
+         self.date = datetime.datetime.now()
+
+* ### مالذي قمنا بعمله بالضبط في store.py ؟
+
+  * #### ماهو الغرض من هذا كله ؟
+    كما شرحنا سابقاً, الغرض هو الحصول على abstraction للتعامل مع البيانات, أي أننا نتعامل مع stores ولسنا نتعامل مع قاعدة البيانات (أو list) بشكل مباشر, مستقبلاً أي تعديلات تخص التعامل مع البيانات ستتم في stores.py.
+
+* ### ولكن ألم نتفق على أن النسخ واللصق شيء سيء ؟
+
+  * #### قمنا بنسخ الدوال التالية في كلاً من MemberStore و PostStore:
+    ```
+    def get_all(self):
+    def add(self, item_instance):
+    def get_by_id(self, id):
+    def update(self, instance):
+    def delete(self, id):
+    def entity_exists(self, instance):
+    ```
+
+   * #### يعني هناك شيء ما خطأ ؟
+     نعم, هناك مشكلة... لأننا قمنا بنسخ الكود, معناه مستقبلاً أن التعديلات ستتم في الـ MemberStore و Post Store معاً, وهذا شيء سيء !
+
+   * #### ماهو الحل ؟
+
+     الحل باستخدام الوراثة Inheritance.
+
+  * #### ماهي الوراثة Inheritance ؟
+
+    هي آلية نستخدمها لعمل كود مشترك بين اثنين classes... بدلاً من نسخه ولصقه مرتين !
+
+
+* ### كيف سنقوم بها ؟
+
+  * #### سنحتاج إلى class آخر نسميه BaseStore صحيح ؟
+
+     نعم لأنه سيحتوي على الدوال المشتركة بين MemberStore و PostStore.
+
+  * #### ماهي الدوال المشتركة ؟
+    ببساطة هي الدوال المنسوخة :smile: 
+    ```
+    def get_all(self):
+    def add(self, item_instance):
+    def get_by_id(self, id):
+    def update(self, instance):
+    def delete(self, id):
+    def entity_exists(self, instance):
+    ```
+
+  * #### كيف سيكون شكل الكود ؟
+
+    لفهم الأمر, كتبت الدالتين get_all و add... البقية عليك :wink: 
+    ```
+    class BaseStore():
+
+        def get_all(self):
+            return self._data_provider
+
+        def add(self, item_instance):
+            item_instance.id = self._last_id
+            self._data_provider.append(item_instance)
+            self._last_id += 1
+    ```
+
+     لاحظ أننا أعدنا تسميه المتغيرات بدلاً من member استعملنا item_instance, لجعلها بشكل عام (لأنها ربما ستكون member أو post).
+
+  * #### لكن ماهو data_provider في الكود بالأعلى, وأيضاً كيف سيتم الحصول على last_id ؟
+
+    الأمر سهل, سنجعلها instance variables داخل الـ BaseStore, بهذا الشكل:
+    ```
+    class BaseStore():
+
+        def __init__(self, data_provider, last_id):
+            self._data_provider = data_provider
+            self._last_id = last_id
+    ```
+    أي أنه سيتم حفظها داخله عند عمل initialize.
+
+  * #### من الذي سيقوم بعمل وراثة (inherit) وكيف سيتم ذلك ؟
+
+     الذي سيقوم بعمل inherit هو الكلاسات المشتركة, بهذا الشكل:
+     ```
+     class MemberStore(BaseStore):
+
+         members = []
+         last_id = 1
+
+         def get_by_name(self, member_name):
+             all_members = self.get_all()
+        
+             for member in all_members:
+                 if member.name == member_name:
+                     yield member
+
+         def get_members_with_posts(self, all_posts):
+             all_members = copy.deepcopy(self.get_all())
+
+             for member, post in itertools.product(all_members, all_posts):
+                 if member.id == post.member_id:
+                     member.posts.append(post)
+
+             for member in all_members:
+                 yield member
+
+
+         def get_top_two(self, all_posts):
+             members_with_posts = list(self.get_members_with_posts(all_posts))
+
+             members_with_posts.sort(key=lambda member: len(member.posts), reverse=True)
+
+             yield members_with_posts[0]
+             yield members_with_posts[1]
+     ```
+
+      لاحظ السطر الأول:
+      ```
+     class MemberStore(BaseStore):
+      ```
+
+      هنا تتم الوراثة, وتم إلغاء بقية الدوال المشتركة من MemberStore كونها موجودة داخل BaseStore.
+
+  * #### لكن أين سيتم إدخال الـ data_provider و الـ last_id إلى الـ BaseStore ليحتفظ بها  ؟
+
+    سيتم في كلاً من MemberStore و PostStore, باستعمال super (أي استدعاء الأب parent):
+   ```
+   class MemberStore(BaseStore):
+
+       members = []
+       last_id = 1
+
+       def __init__(self):
+           super().__init__(MemberStore.members, MemberStore.last_id)
+   ```
+
+* ### كيف سيقوم بنفس المهمة behavior ؟
+
+  ببساطة, هو نفس الكود بالضبط !
+  لكن يوجد جزئية حفظ مزود البيانات data_provider, والـ last_id ليعمل مع الاثنين معاً بدون أن نكرر الكود Don't Repeat Yourself أو DRY :wink: 
+
+* ### كيف سنقوم بعمل testing ؟
+
+  نفس الكود في **main.py يجب أن يعمل**... لأننا غيرنا فقط التصميم الداخلي إلى شيء أفضل, ولم نغير آلية العمل في الدوال.
+
+* ### تحقق من فهمك:
+
+ * #### في المستقبل, حينما نقوم بإضافة الـ database, ستكون أغلب التعديلات في main.py ؟
+[poll name=test1 type=regular]
+* صحيح
+* خاطئ
+[/poll]
+
+ * #### الملف stores.py يحتوي على الوصول access إلى قاعدة البيانات (أو أي مزود بيانات آخر, list مثلاً), ولكنه يفضل الوصول إليها أيضاً من خارج هذا الملف ؟
+[poll name=test2 type=regular]
+* صحيح
+* خاطئ
+[/poll]
+
+* ### ماهي المهمة المطلوبة ؟
+
+  * تحقق من فهمك للموضوع بالأعلى.
+  * لا تتردد في طرح أسئلتك في حال تواجه مشكلة.
+  * قم بكتابة الدالة get_posts_by_date.
+  * أكتب الـ BaseStore  class.
+  * انقل كل الدوال المتشابه إليه من MemberStore و PostStore.
+  * قم بوراثة inherit الـ BaseStore داخل MemberStore و PostStore.
+  * اكتب الـ initializer المناسب داخل MemberStore و PostStore.
+  * جرب الكود في main.py.
+
+ * ### كيفية تسليم الحل ؟
+
+    ارفع التحديثات على حسابك في GitHub في نفس المستودع (repository), **بالتعديل على نفس الملفات**.
+
+    بإمكانك تسليم الحل في هذا الموضوع:
+    https://macdiscussions.udacity.com/t/24-inheritance/110898
+
+* ### لا تفسد المتعة :smile::
+
+  في حال كان حلك جاهز قم برفعه على حسابك في GitHub في التوقيت المطلوب.
+
+  في حال لديك أي استفسارات, بإمكانك طرحها هنا وسأكون سعيد بالإجابة عليها :wink:
+
+  #### أتمنى الفائدة والتوفيق للجميع!

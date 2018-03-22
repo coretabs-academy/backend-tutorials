@@ -1,0 +1,544 @@
+#### السلام عليكم أصدقائي,
+
+* ### فهرس المواضيع السابقة:
+
+  https://macdiscussions.udacity.com/t/topic/86623
+
+* ### مالذي قمنا بعمله إلى الآن ؟
+
+  قمنا بعمل web API نستطيع التعامل معها باستعمال Postman (حتى الآن)
+
+  * #### كيف نقوم بتجربة الـ API على Postman ؟
+
+    قمت بعمل نسخة من الـ requests التي قمت بعملها على Postman:
+
+    ![image|478x344](upload://m0vnzJ5JmTdveAxRrIV6ykYQcBx.png)
+
+    بإمكانك نسخها من هنا:
+    ```
+     {
+    	"info": {
+    		"name": "flask-api",
+    		"_postman_id": "470e442f-76a2-2abc-0281-bfbe077c6086",
+    		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    	},
+    	"item": [
+    		{
+    			"name": "show all topics",
+    			"request": {
+    				"method": "GET",
+    				"header": [],
+    				"body": {
+    					"mode": "raw",
+    					"raw": ""
+    				},
+    				"url": {
+    					"raw": "http://127.0.0.1:5000/api/topic/all",
+    					"protocol": "http",
+    					"host": [
+    						"127",
+    						"0",
+    						"0",
+    						"1"
+    					],
+    					"port": "5000",
+    					"path": [
+    						"api",
+    						"topic",
+    						"all"
+    					]
+    				}
+    			},
+    			"response": []
+    		},
+    		{
+    			"name": "topic show",
+    			"request": {
+    				"method": "GET",
+    				"header": [],
+    				"body": {},
+    				"url": {
+    					"raw": "http://127.0.0.1:5000/api/topic/show/5",
+    					"protocol": "http",
+    					"host": [
+    						"127",
+    						"0",
+    						"0",
+    						"1"
+    					],
+    					"port": "5000",
+    					"path": [
+    						"api",
+    						"topic",
+    						"show",
+    						"5"
+    					]
+    				}
+    			},
+    			"response": []
+    		},
+    		{
+    			"name": "topic add",
+    			"request": {
+    				"method": "POST",
+    				"header": [
+    					{
+    						"key": "Content-Type",
+    						"value": "application/json"
+    					}
+    				],
+    				"body": {
+    					"mode": "raw",
+    					"raw": "{\n\t\"title\": \"hello\",\n\t\"content\": \"This is the topic content !\"\n}"
+    				},
+    				"url": {
+    					"raw": "http://127.0.0.1:5000/api/topic/add",
+    					"protocol": "http",
+    					"host": [
+    						"127",
+    						"0",
+    						"0",
+    						"1"
+    					],
+    					"port": "5000",
+    					"path": [
+    						"api",
+    						"topic",
+    						"add"
+    					]
+    				}
+    			},
+    			"response": []
+    		},
+    		{
+    			"name": "topic update",
+    			"request": {
+    				"method": "PUT",
+    				"header": [
+    					{
+    						"key": "Content-Type",
+    						"value": "application/json"
+    					}
+    				],
+    				"body": {
+    					"mode": "raw",
+    					"raw": "{\n\t\"title\": \"hello\",\n\t\"content\": \"This is the topic content !\"\n}"
+    				},
+    				"url": {
+    					"raw": "http://127.0.0.1:5000/api/topic/update/5",
+    					"protocol": "http",
+    					"host": [
+    						"127",
+    						"0",
+    						"0",
+    						"1"
+    					],
+    					"port": "5000",
+    					"path": [
+    						"api",
+    						"topic",
+    						"update",
+    						"5"
+    					]
+    				}
+    			},
+    			"response": []
+    		},
+    		{
+    			"name": "topic delete",
+    			"request": {
+    				"method": "DELETE",
+    				"header": [],
+    				"body": {},
+    				"url": {
+    					"raw": "http://127.0.0.1:5000/api/topic/delete/5",
+    					"protocol": "http",
+    					"host": [
+    						"127",
+    						"0",
+    						"0",
+    						"1"
+    					],
+    					"port": "5000",
+    					"path": [
+    						"api",
+    						"topic",
+    						"delete",
+    						"5"
+    					]
+    				}
+    			},
+    			"response": []
+    		}
+    	]
+    }
+    ```
+
+  * #### كيف أقوم باستعمالها ؟
+
+    شاهد هذه الصورة المتحركة لكيفية استعمالها:
+
+    ![using-postman|690x457](upload://48gcotyXepp6v67XqDxs7PQLgM8.gif)
+
+  * #### مالذي يجب ملاحظته ؟
+
+    يجب التركيز على استعمال HTTP methods مختلفة عند عمل requests بحيث:
+
+    * نستعمل GET للحصول على البيانات.
+    * الـ POST لإرسال البيانات (الجديدة).
+    * بالنسبة لـ PUT فهو لتحديث البيانات غالباً.
+    * عند حذف البيانات نستعمل DELETE.
+
+* ### مالفائدة من كل هذه الـ API ؟
+
+  سنقوم باستعمالها في التطبيق بدل الـ controller actions المملة وارسال صفحة جديدة كل مرة, سنجعل البرنامج أفضل بكثير...
+
+  * #### ماهو البديل ؟
+
+    نعم, إنها اللغة القبيحة Javascript :smile:
+
+    سنقوم باستهلاك الخدمات Consuming API باستعمال Javascript بإرسال الـ requests إليها باستعمال المتصفح, أي أن الـ client هو المتصفح, بهذا الشكل:
+
+    ![image|500x200](/uploads/default/original/3X/c/5/c5f82566b05cafd5a88cdb8cf6274080ca30a5ce.png)
+
+     لاحظ كيف يتم الأمر بين المتصفح (chrome مثلاً), وبين الـ API كونها الوسيط إلى الـ server للقيام بالعمليات.
+
+  * #### لم أفهم, ممكن مثال واقعي ؟
+
+    بالتأكيد, هل ترى هذه الصفحة, الخاصة بإضافة موضوع topic add:
+
+    ![image|465x137](upload://bo00cqCyDbmN1FnSRD9W4A49j8H.png)
+
+    سنقوم بربط الزر Create بالـ API بدل الطريقة المملة الخاصة بالـ controller.
+
+    بحيث عند الضغط على الزر تقوم javascript بإرسال الـ POST request إلى الـ API الخاصة بإضافة موضوع.
+
+* ### كيف أتعلم Javascript - JS ؟
+
+  الأمر سهل جداً, كونك تعلمت أجزاء backend, تعتبر لغة JS متعلقة بالـ frontend, ولكنك متفوق على أصحاب الـ frontend بكثير في المجال البرمجي, لذا تعلمها بالنسبة لك شربة ماء piece of cake :smile:
+
+  * #### تشعر أنك تحتاج الأساسيات ؟
+
+    لا مشكلة أبداً, قام الأستاذ @Alhakem بشرح أساسيات Javascript في سلسلة بسيطة تستطيع انهائها في ساعة:
+
+    https://macdiscussions.udacity.com/t/topic/74682
+
+  * #### لنقم بتجربة JS على الصفحة topic add:
+
+    فقط اكتب الجزء script في نهاية صفحة html بهذا الشكل:
+
+    ```
+    <!doctype html>
+    <html>
+    
+    <head>
+        <meta charset="utf-8">
+        <title>Topic Add</title>
+        <link rel="stylesheet" href="/static/style.css">
+    </head>
+    
+    <body>
+    
+        <div class="input-form">
+            <form action="{{ url_for("topic_add") }}" method="post">
+    
+                <input type="text" name="title" />
+                <input type="text" name="content" />
+    
+                <input type="submit" id="submit_button" value="Create" />
+            </form>
+        </div>
+    
+    </body>
+    
+    </html>
+    
+    <script>
+
+    </script>
+    ```
+
+  * #### ماذا نحتاج ؟
+
+    داخل script سنقوم بإضافة كل الأكواد الخاصة بـ JS.
+    ```
+    <script>
+        document.addEventListener('DOMContentLoaded', function(){
+            // your code here
+        }, false);
+    </script>
+    ```
+
+    هذه الأسطر تضمن لنا أنه لن يتم تشغيل الكود إلا **بعد تحميل جميع العناصر في صفحة HTML**, لأنه ربما تقوم بربط العناصر وهي لم يتم تحميلها أصلاً.
+
+    العناصر داخل الصفحة موجودة داخل الـ object المسمى document الذي استعملناه بالأعلى, وهو ما يسمى DOM... شاهد هذه الصورة للتعرف على كيفية التعامل مع JS داخل المتصفح:
+
+    ![dom-js|690x413](upload://pTlYlN8l7ssf66MwxEkoRy1Gwkr.gif)
+
+    قمت باستعمال الاختصار ctrl + shift + i لإظهار الـ dev tools الخاصة بمتصفح Chrome
+    ثم قمت بتجربة إظهار DOM بكتابة document ورأينا أنه مجرد شجرة tree لعناصر html داخل الصفحة.
+    
+
+  * #### كيف نقوم بربط الزر create ؟
+    الأمر سهل فقط نضيف الأسطر داخل الـ block الخاص بـ addEventListener بالأعلى:
+    ```
+            var submitButton = document.getElementById("submit_button");
+    
+            submitButton.onclick = (function() {
+                alert("hello");
+            });
+    ```
+
+    ببساطة نحن نقوم بأخذ الـ button باستعمال الـ id الخاص به submit_button (أضفته إلى كود html).
+
+    وبعدها نقوم بربطه عند الضغط عليه onclick, وإضافة alert عند الضغط عليه, بإمكانك التجربة بنفسك, يجب أن يظهر لك الضغط على الزر هذه النتيجة:
+
+    ![image|408x128](upload://v2P9ISBVMg8W7bIKeDjCCZh5gU6.png)
+
+* ### ماهي فائدة استعمال javascript ؟
+
+  الفائدة الأساسية من javascript هو التلاعب بالـ DOM لصنع موقع تفاعلي.
+
+  * #### ممكن تفاصيل أكثر عن DOM ؟
+
+    هنا شرح مفصل حول الأمر:
+
+    https://macdiscussions.udacity.com/t/dom-javascript/53128?u=yaseralnajjar
+
+  * #### طيب لو تلاعبنا بالـ DOM, ماهي الفائدة ؟
+
+     الحصول على موقع تفاعلي يعني **استمتاع المستخدم بالموقع great user experience**, بدون الحاجة لفتح صفحات أخرى وبدون الإنتظار لوقت أطول, لاحظ كيف يعمل المنتدى (مليون مبرمج عربي):
+
+     ![forums-ajax|690x413](upload://qaCvlTtdZ8zMiQBJfeLCuWOMfYq.gif)
+
+    هذا ما يجعل المنتدى ممتع وجميل, أي أنه يقوم باستعمال javascript بدلاً من فتح صفحة جديدة عند القيام بالـ requests.
+
+    يستعمل المنتدى ما يسمى بـ AJAX للقيام بهذه الـ requests.
+    
+* ### ماهي Asynchronous JavaScript And XML - AJAX؟
+
+  هي طريقة لإرسال requests بدون جعل المتصفح يتوقف freeze بينما يقوم بمعالجة هذا الطلب... يجب الإنتباه إلى أن ajax هي تقنية مشهورة جداً في framework اسمها jQuery مصنوعة بالـ Javascript.
+
+  يوجد frameworks كثيرة مثل Angular و React و Vue, ولكننا سنستعمل أشهر **وأقدم** مكتبة (**ليست الأفضل**), وهي jQuery.
+
+  * #### ماذا تعني asynchronous ؟
+
+     تعني لا تزامني, أي أنها تعمل في الخلفية, ثم تنتظر النتيجة (بدون أن تجعل المتصفح يعلق hang).
+
+     مثال على الطريقة التزامنية السيئة synchronous, والطريقة الجميلة async:
+     ![image](http://www.sangadjiprabowo.com/image.axd?picture=/Comparing%20Asynchronous%20vs%20Synchronous%20Program%20Execution%20Time%20in%20.NET/ExecutionTimeStopwatch.gif)
+
+     الأهم من هذا كله, أن البرامج الـ synchronous السيئة **تجعل الموقع يعلق بينما يتم معالجة الطلب, حتى ينتهي** !
+
+  * #### ماهي فائدة استعمال AJAX مع API ؟
+
+     إذا قمت بجعل تطبيق الويب خاصتك يعمل باستخدام ajax, ستضمن حينها أن الـ web API تسمح لك بعمل تطبيق android أو iOS بسهولة وبدون مشاكل.
+
+      فضلاً عن أنها تسمح لك بجعل الموقع أجمل بكثير كما وضحنا سابقاً.
+
+  * #### لما سأضمن أن الموقع يقبل الامتداد إلى تطبيق هاتف expendable into phone app ؟
+
+    ببساطة لأن الـ API مجرد خدمة service, بإمكان العديد من clients التعامل معها, في حالتنا حينما نستعمل ajax, سيكون المتصفح (chrome مثلاً) هو الـ client.
+
+     ومستقبلاً ممكن يكون الـ client هو تطبيق الهاتف على الأندرويد android app client.
+
+     يعمل موقع فيسبوك بالضبط بنفس الآلية !
+
+* ### أعجبتني الفكرة, كيف سأقوم بعمل import للـ jQuery على صفحة الـ html ؟
+
+  الأمر سهل جداً, في نهاية صفحة html, أكتب السطر:
+  ```
+  <script
+    src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+  ```
+   سيقوم هذا السطر, بإستدعاء مكتبة jQuery من السيرفر الرسمي.
+
+   بإمكانك تحميل المكتبة, ووضعها في السيرفر الخاص بك ثم تغيير المسار :wink:
+
+  * #### مالخطوة التالية, كيف سأكتب الكود الذي بالأعلى باستعمال jQuery ؟
+
+     أعتقد أنك لاحظت أن كود javascript الأول طويل لدرجة مملة !
+
+     لذا سنعيد كتابته باستعمال jQuery:
+
+     ```
+    <script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    
+    <script>
+        jQuery(function() {
+            var submitButton = jQuery("#submit_button");
+    
+            submitButton.click(function() {
+                alert("hello");
+            });
+        });
+    </script>
+     ```
+
+     لاحظ كيف أصبح أجمل وأسهل !
+     بدلاً من عمل addEventListener, فقط نكتب jQuery ونضع الكود داخل function :smile:
+
+     وأيضاً لاحظ أننا قمنا بتحديد العنصر بالـ id باستعمال السطر:
+     ```
+            var submitButton = jQuery("#submit_button");
+     ```
+      
+     أي أننا نقوم بتحديد العناصر بنفس الطريقة الخاصة بالـ css, بحيث أي id نستعمل معاه #.
+     و لتحديد باستعمال class نستعمل معاه نقطة (.)
+
+     للمزيد حول عمل selecting elements in jQuery شاهد هذا الفيديو:
+
+    https://www.youtube.com/watch?v=1tP3E6Y5OhY
+
+  * #### هل يجب أن نكتب jQuery كل مرة نستعملها ؟
+
+    أعتقد أنك لاحظت أننا نستعمل jQuery في كل سطر نستعمل فيه المكتبة... الأمر ممل, مالحل ؟
+
+    فقط نستبدلها بالـ $, أي أن علامة الدولار ترجع jQuery object بهذا الشكل:
+     ```
+    <script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    
+    <script>
+        $(function() {
+            var submitButton = $("#submit_button");
+    
+            submitButton.click(function() {
+                alert("hello");
+            });
+        });
+    </script>
+     ```
+
+    ببساطة هذا ما يقوم به مبرمجي الجافاسكربت عند العمل على jQuery... لأنها أبسط وأسرع !
+
+  * #### لا تنسى أن تقوم بوضع jQuery import قبل أن تقوم بكتابة script يستعمل jQuery مع مراعاة الترتيب !
+
+  
+* ### لدينا كل الأساسيات, لندخل لما نريده وهو عمل ajax request للـ API:
+
+  قم بحذف جميع الأكواد التي جربناها بالأعلى, **وفقط أبقي على jQuery import**.
+
+  * #### كيف سنقوم بربط الـ submit button بـ function ؟
+
+    الأمر سهل بهذا الشكل:
+    ```
+    <script>
+        $(function ()
+        {
+            $("form").submit(function (event)
+            {
+                event.preventDefault();
+                
+            });
+        });
+    </script>
+    ```
+
+  * #### لما قمنا بكتابة preventDefault ؟
+
+    ببساطة لكي نمنع الزر submit بالقيام بأي شيء, لأننا نريد كتابة الـ request بأنفسنا, أي أن الزر الآن لا يستطيع القيام بأي شيء.
+
+    من أين تعلمت هذه الأشياء ؟
+    لا يوجد أجمل من مرجع jQuery الرسمي في شرحها, هنا مرجع سريع لكيفية التعامل مع submit:
+    https://api.jquery.com/submit/
+
+  * #### كيف نقوم بجلب البيانات التي داخل الـ form (مربعات النصوص title & content) ؟
+ 
+    فقط سنكتب:
+
+    ```
+    var topicTitle = $("input[name='title']").val();
+    var topicContent = $("input[name='content']").val();
+    ```
+
+    لاحظ أنني أقوم بكتابة النوع input ثم أقوم بتحديد العنصر الذي لديه attribute تسمى title أو content.
+
+    من أين تعملت هذه الأشياء ؟
+    مجدداً, القليل من البحث في قوقل, مثلاً كتبت jquery get input with attribute... وحصلت على الطريقة من موقع jQuery.
+
+    بقي أن نقوم بتجهيز هذه البيانات على شكل object يقوم السيرفر بالتعامل معه:
+
+    ```
+    var topicData = {
+                    "title": topicTitle,
+                    "content": topicContent
+                    };
+    ```
+
+  * #### كيف سنقوم بارسال topicData object باستعمال ajax ؟
+
+    سنقوم بها بهذا الشكل (مجدداً, صديقنا قوقل يساعدنا دائماً :smile: ) :
+
+    ```
+    $.ajax({
+        type: "POST",
+        url: "/api/topic/add",
+        data: JSON.stringify(topicData),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response)
+        {
+            alert("Added topic successfully !");
+        }
+    });
+    ```
+
+  * #### ماهي مكونات ajax request ؟
+
+     1. #### الرابط ونوع الطلب type & url:
+
+        ```
+        type: "POST",
+        url: "/api/topic/add",
+        ```
+        لاحظ أننا نريد عمل POST request لاستعمال topic add api.
+
+     2. #### البيانات data:
+
+        ```
+        data: JSON.stringify(topicData),
+        ```
+        نقوم هنا بتحويل topicData object إلى صيغة JSON.
+
+     3. #### نوع البيانات types:
+        ```
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        ```
+        لإخبار السيرفر بنوع البيانات التي سنرسلها نكتبها في contentType.
+        ثم نخبره نوع البيانات التي سنستقبلها باستعمال dataType.
+
+     4. #### دالة النجاح on success function:
+        ```
+        success: function (response)
+        {
+            alert("Added topic successfully !");
+        }
+        ```
+        حينما ينجح الـ request, سنقوم بإظهار رسالة Added topic successfully
+
+* ### ماهي المهمة المطلوبة ؟
+
+  * قم بتجربة جميع الـ requests باستعمال Postman.
+  * أكتب ajax POST request لإضافة موضوع جديد باستعمال topic add API.
+  * أكتب ajax DELETE request لحذف موضوع باستعمال topic delete API.
+
+ * ### كيفية تسليم الحل ؟
+
+    ارفع التحديثات على حسابك في GitHub في نفس المستودع (repository), **بالتعديل على نفس الملفات**.
+
+   ولا تنسى **مشاركة رابط المشروع** معنا.
+
+    بإمكانك تسليم الحل في هذا الموضوع:
+    https://macdiscussions.udacity.com/t/40-consuming-api/131654
+
+
+  #### أتمنى الفائدة والتوفيق للجميع!

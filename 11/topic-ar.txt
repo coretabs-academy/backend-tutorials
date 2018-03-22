@@ -1,0 +1,410 @@
+#### السلام عليكم أصدقائي,
+
+* ### حول إنشاء مجموعة للتواصل على Slack:
+  سيتم طرح المعلومات لاحقاً.
+
+* ### فهرس المواضيع السابقة:
+
+  https://macdiscussions.udacity.com/t/topic/86623
+
+* ### مالذي لدينا حتى الآن ؟
+
+  * #### دالة update:
+     * #### ما فائدتها ؟
+       التعديل على عنصر داخل مزود البيانات (في حالتنا list), بمعرفة الـ object نفسه.
+
+       يفترض أن لا تقوم بالتعديل على الـ properties الخاصة بالـ object وإنما تحديث الـ object بكله, بهذا الشكل:
+       ```
+       def update(self, member):
+            result = member
+            all_members = self.get_all()
+
+            # This is not pythonic !
+            # Just for demonstration
+            # If you wanna know the pythonic code, use comprehension:
+            # https://stackoverflow.com/questions/2582138/finding-and-replacing-elements-in-a-list-python
+            for index, current_member in enumerate(all_members):
+                if current_member.id == member.id:
+                    all_members[index] = member
+                    break
+
+            return result
+       ```
+
+        لا يهم حقيقة كيف تعمل, لأن التعامل مع الـ database سيكون مختلف قليلاً (سنتعامل مع queries), لكن المهم أن تستوعب المفهوم بشكل عام :wink: 
+       
+     * #### كيف نقوم بتجربتها testing update function ؟
+       ```
+       def update_should_modify_object(member_store, member3):
+           member3_copy = models.Member(member3.name, member3.age)
+           member3_copy.id = 3
+
+           if member3_copy is not member3:
+               print("member3 and member3_copy are not the same !")
+
+           print(member3_copy)
+           member3_copy.name = "John"
+           member_store.update(member3_copy)
+           print(member_store.get_by_id(member3.id))
+       ```
+
+       لاحظ أنني أقوم بعمل نسخة من الـ object لكي لا يكون مطابق للأول أي أن member3 و member3_copy يحملان نفس القيم, ولكنهما ليسوا نفس الـ object وإنما نسختين مختلفتين (**not in same memory location**).
+
+       وبعدها أقوم بتحديثه داخل الـ data provider الذي لدينا (في حالتنا list), بإستخدام الدالة update, ثم أقوم بطباعة العضو.
+
+  * #### دالة get_by_name:
+
+     * #### قام الجميع بكتابتها في المهمة السابقة, ولكن ماهي الطرق المحتملة للقيام بها ؟
+
+       لدينا ثلاث طرق:
+       1. باستعمال list, مثلاً:
+           ```
+           def get_by_name(self, member_name):
+                result = []
+
+                # algorithm for appending
+                # result.append(matching_member)
+
+                return result
+           ```
+
+       2. باستعمال comprehension, هي تعطي نفس النتيجة (performance) ولكنها أفضل من الطريقة الأولى من ناحية جمالية الكود وأيضاً تعتبر pythonic:
+           ```
+           return [member for member in self.get_all() if member.name == member_name]
+           ```
+
+           تسمى هذه العبارة بـ **comprehension expression**.
+
+           عند عمل for loop للناتج سيعمل بهذا الشكل:
+           ![member_comprehnsion|690x350](upload://cEW4XXF0vSeTDCmgcmm9qgwsqT8.gif)
+
+     * #### لكن كلا الطريقتين سيئة :smile:... لما ؟
+
+       السبب أن الطريقتين **تستهلك الذاكرة**, بمعنى النتيجة كلها توضع في الذاكرة.
+       تخيل أن لدينا مليون member, معناه أننا سنضع مليون member object في الذاكرة :scream:
+       ببساطة ستمتلئ الذاكرة ويصبح الجهاز بطئ, وسيترك الجميع موقعك... لأنه بدون فائدة !
+
+     * #### هل يوجد حل ؟
+
+        بالتأكيد يوجد حل, ولكنه يتطلب منا فهم تقنية Lazy Loading.
+
+     * #### ماهي تقنية Lazy Loading ؟
+
+       ببساطة هي تقنية تهدف إلى استخدام العدد المطلوب من الـ objects, وليس وضعها جميعها في الذاكرة... يعني تأخذ الـ object عند الطلب.
+       مثلاً تقوم بطلب أول عشر نتائج فقط من الأعضاء الذين اسمهم mohammed, ثم عند طلب آخر تأخذ ثاني عشر نتائج وهكذا.
+
+     * #### كيف بإمكاننا تنفيذ هذه التقنية في بايثون ؟
+       الأمر سهل, بدلاً من استعمال comprehension نستعمل ما يسمى بـ generators.
+
+       لفلترة الأعضاء بالاسم كما نريد, فقط:
+       ```
+           def get_by_name(self, member_name):
+               all_members = self.get_all()
+
+               for member in all_members:
+                   if member.name == member_name:
+                       yield member
+       ```
+
+       بهذا الشكل سيعمل البرنامج على إرجاع (**عضو واحد فقط في كل مرة**) عند عمل for loop للناتج, بهذا الشكل:
+       ![member_generator|690x350](upload://r9s4Qscr4SrL9Pc0LCaavk46cjc.gif)
+
+       لأن الناتج ليس في الذاكرة, **ولكنه يتم حسابه عند الطلب**.
+
+       لاحظ الفرق بين الصورتين الأعلى :wink: 
+
+
+     * #### هل يوجد لدينا أيضاً generator expression ؟
+
+       نعم, إذا كان لا يعجبك استعمال yield, كونها خورازمية مملة وأيضاً not quite-pythonic, هذا الكود يعمل بنفس الصورة الأخيرة بالضبط:
+       ```
+       return (member for member in self.get_all() if member.name == member_name)
+       ```
+
+       الفرق فقط باستعمال أقواس brackets () بدلاً أقواس مستطيلة square brackets [] :smile:
+ 
+
+* ### ماذ تبقى لنا لدينا من دوال filtering ؟
+
+  * #### دالة الحصول على الأعضاء مع المشاركات get_members_with_posts
+    ```
+    def get_members_with_posts(self, all_posts):
+    ```
+
+    * #### ما فائدتها ؟
+      ترجع جميع الأعضاء لكن مع المنشورات posts التي كتبوها.
+
+     * #### مالذي نحتاج للقيام به قبل كتابة هذه الدالة ؟
+
+       نحتاج لبعض التعديلات على تصميم الـ models بهذا الشكل:
+       ```
+       class Member():
+
+           def __init__(self, name, age):
+               self.id = 0
+               self.name = name
+               self.age = age
+               self.posts = []
+
+           def __str__(self):
+               return f"Name: {self.name}, Age: {self.age}"
+
+
+       class Post():
+
+           def __init__(self, title, content, member_id=0):
+               self.id = 0
+               self.title = title
+               self.content = content
+               self.member_id = member_id
+
+           def __str__(self):
+               return f"Title: {self.title}, Content: {self.content}"
+              ```
+
+     * #### مالغرض ؟
+       ببساطة ما نقوم به يسمى عمل علاقة بين الـ member والـ post تسمى بـ one-to-many.
+
+       هذه العلاقة معناها أن **كل member, لديه posts متعددة.**
+       ولكن **كل post لديها member واحد فقط.**
+
+     * #### كيف سنكتب هذه الدالة ؟
+       يجب أن تقوم بعمل join بناء على الـ id كعامل مشترك بين الـ member والـ post... بحيث تقوم بإضافة الـ posts الخاصة بالـ member إلى القائمة الفارغة التي داخل الـ Member model.
+
+        تذكر أن ما تقوم به يجب أن يكون **سريع efficient** وليس مجرد كود يعمل !
+
+     * #### ماذا ترجع هذه الدالة ؟
+       ترجع نفس الأعضاء الذي في MemberStore, لكن هذه المرة كل عضو لديه posts list داخلها كل المواضيع التي كتبها
+
+
+  * #### دالة  الأعضاء الأعلى مشاركات get_top_ten:
+
+     * #### ما فائدتها ؟
+       يجب أن ترجع أعلى الأعضاء مشاركات, أي أنها أولاً ستستخدم الدالة get_members_with_posts وبعدها ستحسب العدد بناء على ذلك :wink:
+
+      * #### كيف سنكتبها ؟
+        الأمر سهل ستقوم بعمل ترتيب sort لقائمة الأعضاء بناء على عدد الـ posts ثم تأخذ أول عشرة !
+
+        لكي **تجرب بسهولة** اجعلها أعلى اثنين اعضاء get_top_two (أعلى عضوين), وبإمكانك تغيير الرقم لاحقاً :smile: 
+ 
+* #### لا تنسى عمل tests للكود خاصتك:
+  قمت بتحديث main.py بهذا الشكل لعمل tests على الدوال الجديدة... سيتم فصل الدوال التي لها غرض مشابهه لاحقاً:
+```
+import models
+import stores
+
+
+def create_members():
+    member1 = models.Member("Mohammed", 20)
+    member2 = models.Member("Mohammed", 22)
+    member3 = models.Member("Abdo", 25)
+    print(member1)
+    print(member2)
+    print(member3)
+    print("=" * 30)
+
+    return member1, member2, member3
+
+
+def store_should_add_members(members_instances, member_store):
+    for member in members_instances:
+        member_store.add(member)
+
+
+def stores_should_be_similar():
+    member_store1 = stores.MemberStore()
+    member_store2 = stores.MemberStore()
+    if member_store1.get_all() is member_store2.get_all():
+        print("Same stores elements !")
+
+
+def print_members_list(members_list):
+    for member in members_list:
+        print(member)
+
+
+def print_all_members(member_store):
+    print("=" * 30)
+
+    print_members_list(member_store.get_all())
+
+    print("=" * 30)
+
+
+def get_by_id_should_retrieve_same_object(member_store, member2):
+    member2_retrieved = member_store.get_by_id(member2.id)
+
+    if member2 is member2_retrieved:
+        print("member2 and member2_retrieved are matching !")
+
+
+def update_should_modify_object(member_store, member3):
+    member3_copy = models.Member(member3.name, member3.age)
+    member3_copy.id = 3
+
+    if member3_copy is not member3:
+        print("member3 and member3_copy are not the same !")
+
+    print(member3_copy)
+    member3_copy.name = "John"
+    member_store.update(member3_copy)
+    print(member_store.get_by_id(member3.id))
+
+
+def store_should_get_members_by_name(member_store):
+
+    print("*" * 30)
+    print("Getting by name:")
+    members_by_name_retrieved = member_store.get_by_name("Mohammed")
+    print_members_list(members_by_name_retrieved)
+
+
+def catch_exception_when_deleting():
+    try:
+        member_store.delete(5)
+    except ValueError:
+        print("It should be an existence entity before deleting !")
+
+
+def create_posts(members_instances):
+
+    post1 = models.Post("Agriculture", "Agriculture is amazing", members_instances[0].id)
+    post2 = models.Post("Engineering", "I love engineering", members_instances[0].id)
+
+    post3 = models.Post("Medicine", "Medicine is great", members_instances[1].id)
+    post4 = models.Post("Architecture", "Spectacular art", members_instances[1].id)
+    post5 = models.Post("Astronomy", "Space is awesome", members_instances[1].id)
+
+    post6 = models.Post("Geology", "Earth is our friend", members_instances[2].id)
+    post7 = models.Post("ComputerSci", "Our passion", members_instances[2].id)
+    post8 = models.Post("Algorithms", "Yeah, more of that", members_instances[2].id)
+    post9 = models.Post("Operating Systems", "Ewww", members_instances[2].id)
+
+    print(post1)
+    print(post2)
+    print(post3)
+    print("=" * 30)
+
+    return post1, post2, post3, post4, post5, post6, post7, post8, post9
+
+
+def store_should_add_posts(posts_instances, post_store):
+    for member in posts_instances:
+        post_store.add(member)
+
+
+def store_should_get_members_with_posts(member_store, post_store):
+    members_with_posts = member_store.get_members_with_posts(post_store.get_all())
+
+    for member_with_posts in members_with_posts:
+        print(f"{member_with_posts} has posts:")
+        for post in member_with_posts.posts:
+            print(f"\t{post}")
+
+        print("=" * 10)
+
+
+def store_should_get_top_two(member_store, post_store):
+    top_two_members = member_store.get_top_two(post_store.get_all())
+
+    for member_with_posts in top_two_members:
+        print(f"{member_with_posts} has posts:")
+        for post in member_with_posts.posts:
+            print(f"\t{post}")
+
+members_instances = create_members()
+member1, member2, member3 = members_instances
+
+member_store = stores.MemberStore()
+
+store_should_add_members(members_instances, member_store)
+
+stores_should_be_similar()
+
+print_all_members(member_store)
+
+get_by_id_should_retrieve_same_object(member_store, member2)
+
+update_should_modify_object(member_store, member3)
+
+catch_exception_when_deleting()
+
+print_all_members(member_store)
+
+store_should_get_members_by_name(member_store)
+
+
+
+posts_instances = create_posts(members_instances)
+post1, post2, post3, post4, post5, post6, post7, post8, post9 = posts_instances
+
+post_store = stores.PostStore()
+
+store_should_add_posts(posts_instances, post_store)
+
+store_should_get_members_with_posts(member_store, post_store)
+
+store_should_get_top_two(member_store, post_store)
+
+```
+
+* ### تحقق من فهمك لما تحدثنا عنه بالأعلى:
+
+  **سيتم وضع الإجابات في التعليق القادم**
+
+  * #### يفضل استعمال comprehension عند التعامل مع البيانات بشكل عام ؟
+[poll name=test1 type=regular]
+* صحيح
+* خاطئ
+[/poll]
+
+  * #### يفضل استعمال generators حتى في حالة كانت الـ list متأكدين أن حجمها صغير ؟
+[poll name=test2 type=regular]
+* صحيح
+* خاطئ
+[/poll]
+
+  * #### عند نريد عمل generator expression نستعمل square brackets [] ؟
+[poll name=test3 type=regular]
+* صحيح
+* خاطئ
+[/poll]
+
+
+* ### ماهي المهمة المطلوبة ؟
+
+   * أجب عن الأسئلة بالأعلى.
+   * **ضع أسئلتك** في حال كان هناك أي لبس في الموضوع **أو في التطبيق**.
+   * قم بتحديث ملف main.py لديك.
+   * ستحتاج تغيير تصميم الموديلز models design كما وضحنا.
+   * اكتب دالة get_members_with_posts.
+   * اكتب دالة get_top_two (**أكثر عضوين مشاركة** لكي يسهل الأمر).
+  
+
+* ### ملحق:
+  * #### الفرق بين generators و comprehension:
+    https://www.youtube.com/watch?v=bD05uGo_sVI
+    https://stackoverflow.com/questions/47789/generator-expressions-vs-list-comprehension
+
+  * #### علاقة one-to-many relationship:
+    https://fmhelp.filemaker.com/help/16/fmp/en/index.html#page/FMP_Help/one-to-many-relationships.html
+
+  * #### ترتيب الـ lists:
+     https://stackoverflow.com/questions/403421/how-to-sort-a-list-of-objects-based-on-an-attribute-of-the-objects
+
+   * #### عمل join لـ two lists:
+     https://stackoverflow.com/questions/29394215/combine-two-lists-based-on-a-column?rq=1
+ * ### كيفية تسليم الحل ؟
+
+    ارفع التحديثات على حسابك في GitHub في نفس المستودع (repository), **بالتعديل على نفس الملفات**.
+
+    بإمكانك تسليم الحل في هذا الموضوع:
+    https://macdiscussions.udacity.com/t/22-filtering-part-2/107093
+
+* ### لا تفسد المتعة :smile::
+
+  في حال كان حلك جاهز قم برفعه على حسابك في GitHub في التوقيت المطلوب.
+
+  في حال لديك أي استفسارات, بإمكانك طرحها هنا وسأكون سعيد بالإجابة عليها :wink:
+
+  #### أتمنى الفائدة والتوفيق للجميع!

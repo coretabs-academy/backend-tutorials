@@ -1,0 +1,345 @@
+#### السلام عليكم أصدقائي,
+
+* ### فهرس المواضيع السابقة:
+
+  https://macdiscussions.udacity.com/t/topic/86623
+
+* ### مالذي قمنا بعمله إلى الآن ؟
+
+  قمنا بعمل موقع website يقوم بعمل مهام بسيطة.
+
+* ### مالذي سنقوم بعمله ؟
+
+  سنقوم ببناء أجزاء أخرى من تطبيق الويب web app, بحيث يعمل الـ website بشكل أفضل.
+
+* ### دراسة برمجيات البنك التركي Türkiye İş Bankası:
+
+  (اش بنك) هو أحد أشهر البنوك التركية, لنرى كيف يعرض أسعار العملات الأجنبية foreign currencies على تطبيق الأندرويد خاصته:
+
+  ![Screenshot_20180309-223702_%C4%B0%C5%9FCep%20(1)|243x500](upload://cfkhKHQnaGEez02XLk0QgYV2QeX.jpg)
+
+  * #### ماذا عن عرض الأسعار على الموقع الخاص بهم, على الرابط:
+
+  >https://www.isbank.com.tr/EN/prices-and-rates/foreign-exchange-rates/Pages/foreign-exchange-rates.aspx
+
+  ![image|690x321](upload://beUhDeKik2G2zBQRGU2xjbsLo3f.png)
+
+
+  نفس الأمر على جهاز iPhone, يوجد تطبيق مخصص.
+
+  * ### من أين تأتي نفس البيانات ؟
+
+      * #### هل تقوم هذه التطبيقات المختلفة باستعمال نفس الكود والتخاطب مع قاعدة البيانات كل مرة ؟!
+
+      * #### يعني كل مرة نكتب نفس الكود للتخاطب مع قاعدة البيانات ؟؟ غير معقول !
+
+  * ### ماهو الحل المستعمل في البنك ؟
+
+    الحل الذهبي هو ما يسمى بـ Web API.
+
+    ![webapi-overview|690x332](upload://kAAmem02zkTjn8RxjH1yVD9bauS.png)
+
+* ### ماهو API ؟
+
+  يطلق على أي **كود يستطيع التخاطب مع كود** آخر بـ Application Programming Interface - API, ولكن بدون معرفة أي شيء عن بعضهما وكيف يعمل أو حتى كيف تم بناءه !
+
+  فقط الكود الأول يطلب من الكود الآخر القيام بمهمة, وهو يقوم بالإستجابه respond بشكل سحري :smile:
+
+  * #### ممكن مثال واقعي على API ؟
+
+    إذا أردت العمل على الخرائط, مثلاً بمعرفة نقطة على الخريطة... أريد معرفة ماهو اسم المكان. 
+
+    يوجد مكتبة اسمها ArcGIS توفر لنا API للقيام بذلك:
+
+    ```
+    location = {'Y':34.13419,'X':-118.29636,
+        'spatialReference':{
+        'wkid':4326}
+       }
+    unknown_pt = Point(location)
+    address = reverse_geocode(location=unknown_pt)
+    >address
+    >380 New York St, Redlands, CA
+    ```
+
+    كما ترى في المثال, بمجرد معرفة النقاط x y, أرسلت إلى reverse_geocode التي تعتبر API, وهي أخبرتني بأن المكان هذا هو New York St.
+
+    لا أعرف تفاصيل كيف تعمل الـ API, أو أي شيء... فقط أعرف المدخلات, وأعرف أنه ستأتيني المخرجات, هذه API ببساطة !
+
+* ### ماذا عن Web API ؟
+
+  ببساطة, هي طريقة لأخذ البيانات من خدمة تعمل على النت online service, بنفس الآلية.
+
+  كمثال, لدينا بنك İş Bankası, يقوم بتوفير الـ api على هذا الرابط:
+  >https://www.isbank.com.tr/_layouts/ISB_DA/HttpHandlers/FxRatesHandler.ashx?Lang=en&fxRateType=INTERACTIVE&date=2018-3-7&time=1520383655744
+
+  إذا فتحت الرابط سيظهر لك:
+
+  ![image|690x425](upload://klVJyYMO9kpmytyy0iaMJPwialF.png)
+
+  أسعار العملات على شكل format غريب... صحيح !
+
+  يسمى هذا الشكل JSON.
+
+  بحيث يوفر السيرفر server هذه الـ API, ليقوم client بإظهار البيانات بالشكل المناسب.
+
+* ### ماهو الفرق بين Server و Client ؟
+
+  * #### ما الذي يقوم به السيرفر server ؟
+
+    يقوم السيرفر بتوفير الـ API, والقيام بتشغيل الكود الخاص بك (في حالتنا كود بايثون).
+
+    بالنسبة لآخر موقع لـ IsBank فهو يقوم بتوفير API أسعار العملات.
+
+  * #### مالذي يقوم به العميل client ؟
+
+    يقوم بالتخاطب مع السيرفر بالقيام بالـ requests... مثلاً القيام بعمل HTTP GET request لطلب المعلومات, أو إرسال المعلومات باستعمال HTTP POST request.
+
+    نسمي عملية استعمال الـ API أو استهلاك الـ API بـ Consuming API.
+
+  * #### عرفنا أن السيرفر عبارة عن جهاز كمبيوتر بعيد, يقوم بمعالجة الطلبات... من هو الـ client ؟
+ 
+    تطبيق الهاتف android app الخاص بـ IsBank حينما يطلب البيانات هو الـ client.
+
+    وحينما تدخل من جهازك باستعمال المتصفح chrome فإن المتصفح هو الـ client.
+
+    وحينما تستعمل Internet Explorer, فإنه هو الـ client, وهكذا.
+
+    أي أن السيرفر server يتخاطب مع **العديد من العملاء clients** ويجيب عليهم repsond.
+
+* #### مالذي سنقوم ببناء هذه المرة ؟
+
+  سنقوم ببناء الأجزاء المتعلقة بالـ server.
+  أي أننا سنكتب المرة هذه فقط server-side code, وهي الـ web api.
+
+* ### كيف ستظهر البيانات لمن يقوم باستهلاك الـ API ؟
+
+  ستظهر له على هيئة JSON, كما بالصورة الخاصة بالـ IsBank API.
+
+  يوجد formats أخرى غير JSON مثل XML... لكنها لا تستعمل بكثرة مؤخراً !
+
+* ### ماهي JavaScript Object Notation - JSON ؟
+
+  هي طريقة لعرض البيانات, كما نقوم بعرض objects الخاصة بلغة JavaScript.
+
+  وهي سهلة جداً, مثلاً عند عمل Serialize لأحد المواضيع post object تكون JSON format الخاصة به بهذا الشكل الجميل:
+
+  ```
+  {
+      "id": 1,
+      "title": "hello",
+      "content": "topic content goes here",
+      "member_id": 0
+  }
+  ```
+
+  بالنسبة لـ isbank فهو يقوم بحذف الأسطر لجعل حجم الـ package أصغر بهذا الشكل:
+
+  ```
+  {
+      "id": 1, "title": "hello", "content": "topic content goes here", "member_id": 0
+  }
+  ```
+
+  * #### ماذا تقصد بـ Serialize ؟
+
+    أقصد به تحويل الـ object إلى صيغة JSON أو أي صيغة أخرى.
+
+  * #### ماهي فائدة عمل Serialize ؟
+
+    السؤال الأصح, كيف سيقوم الـ client بتحويل هذه الصيغة (JSON) إلى objects مجدداً ؟
+
+    ببساطة, السيرفر سيقوم بعمل serialize لكي يقوم بالـ client بعكس العملية (تحويل JSON إلى objects مجدداً), تسمى العملية العكسية deserialize .
+
+
+  * #### ممكن مثال واقعي على Serialize و Deserialize ؟
+
+    صديقنا بنك IsBank هو أفضل مثال :smile:
+
+    يقوم السيرفر بعمل serialize لأسعار العملات وارسالها على شكل JSON. كما في الرابط بالأعلى.
+
+    ويقوم تطبيق android بأخذ هذه البيانات وعمل deserialize لإرجاعها objects لإظهارها بالشكل المناسب.
+
+  * #### كيف يمكننا تهيئة الـ post object والـ member object لتصبح قابلة للتحويل إلى JSON ؟
+
+    تذكر أن JSON format هي مشابهه جداً لـ dictionary, أي أننا فقط نريد كل object إلى dictionary format بهذا الشكل (لاحظ استعمال الدالة dict):
+
+```
+class Member():
+
+    def __init__(self, name, age):
+        self.id = 0
+        self.name = name
+        self.age = age
+        self.posts = []
+
+    def __str__(self):
+        return f"Name: {self.name}, Age: {self.age}"
+
+    def __dict__(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "age": self.age,
+            "posts": self.posts,
+        }
+
+
+class Post():
+
+    def __init__(self, title, content, member_id=0):
+        self.id = 0
+        self.title = title
+        self.content = content
+        self.member_id = member_id
+
+    def __str__(self):
+        return f"Title: {self.title}, Content: {self.content}"
+
+    def __dict__(self):
+        return {
+            "id": self.id,
+            "title": self.title,
+            "content": self.content,
+            "member_id": self.member_id,
+        }
+```
+
+* ### كيف سنقوم بكتابة الـ API ؟
+
+  كما كتبنا الـ controller actions من قبل... سنقوم بكتابة controller action تقوم بعمل route للـ api بهذا الشكل (بالنسبة لي قمت بعمل ملف api.py لجعل الأمور أوضح):
+
+  ```
+  @app.route("/api/topic/all")
+  def topic_get_all():
+      posts = [post.__dict__() for post in post_store.get_all()]
+      return jsonify(posts)
+  ```
+
+  لاحظ استعمالنا لـ comprehension لتحويل كل الـ objects في الـ list إلى dictionary format.
+
+  عند العمل مع database, فلا تحتاج لكل هذا... لأن العناصر تأتي جاهزة لعمل jsonify.
+
+  تقوم jsonify بتحويل الـ objects إلى JSON format.
+
+  هذه الدالة تقوم بعرض all topics بصيغة JSON.
+
+* ### كيف سنقوم بتجربة الـ API ؟
+
+  يوجد طريقتين, إما بالمتصفح بالدخول إلى الرابط:
+
+  >http://127.0.0.1:5000/api/topic/all
+
+  قم بفتح الرابط, وسترى النتيجة:
+
+  ![image|328x339](upload://3YiJeDXVv4fvrGsSKvhFWPVIJun.png)
+
+  كما توقعنا... كل المواضيع على صيغة JSON.
+
+* ### ولكن هل المتصفح هو الأداة المناسبة لتجربة الـ API ؟
+
+  بالتأكيد لا, يوجد أداة مخصصة لذلك وهي Postman.
+
+  ![image|232x500](upload://v56E9ztX2Wi0jcCIrvzfiiRUUBg.png)
+
+  قم بتحميلها من هنا:
+
+  https://www.getpostman.com
+
+  وقم بعمل نفس الـ request الأخير عليه.
+
+  يوجد chrome plugin إذا لم ترد تحميل البرنامج, ولكنني أفضل البرنامج !
+
+  * #### هل يعتبر Postman سيرفر أم client ؟
+
+    أعتقد أنك تعرف الإجابة مسبقاً, فهو يقوم باستهلاك الـ API, أي أنه client.
+
+  * #### كيف يمكننا استعماله ؟
+
+    شاهد الصورة المتحركة:
+
+    ![postman-get|690x421](upload://jFDBtTX1Grq29pp6iQGvt6KLIea.gif)
+    
+  * #### ماهي أفضل مميزة feature في Postman ؟
+
+    حقيقة أكثر شيء أحبه, هو أنه يمكنك من حفظ الـ requests بشكل منظم... بحيث يمكنك العود لتجربة نفس الـ requests مستقبلاً بدلاً من كتابتها مجدداً.
+
+
+* ### نريد أيضاً api لعمل topic add, كيف سنقوم بها ؟
+
+  الأمر سهل... فقط نحتاج لعمل الـ controller action بهذا الشكل:
+  ```
+  @app.route("/api/topic/add", methods = ["POST"])
+  def topic_create():
+      request_data = request.get_json()
+      new_post = models.Post(request_data["title"], request_data["content"])
+      post_store.add(new_post)
+      return jsonify(new_post.__dict__())
+  ```
+
+  * #### كيف يقوم بأخذ البيانات من الـ client ؟
+
+     ببساطة هو يقوم بعمل request.get_json بحيث يحول الطلب إلى JSON, ثم يقوم بأخذ البيانات باستعمال:
+
+        request_data["title"]
+
+  * #### لاحظ نوع الـ request, انه POST لأننا نقوم بارسال بيانات !
+
+* ### كيف سنقوم بتجربة topic add api على Postman ؟
+
+  الأمر سهل, تابع الصورة المتحركة:
+
+  ![postman-post|690x373](upload://2JDLhkpLisnrIiMujw7I2WeXwiC.gif)
+
+  * #### لاحظ كيف يتم ارجاع الـ object (مع الـ id) بعد اضافته.
+
+  * #### بعد عمل add افتح الصفحة الرئيسية لترى أن الـ topic الذي أضفناه (hello) موجود:
+     >http://127.0.0.1:5000/
+ 
+* ### تحقق من فهمك:
+
+  * #### ماهي عملية Serialize ؟
+
+[poll name=test1 type=regular]
+* تحويل JSON format إلى object
+* تحويل object إلى JSON format
+* تحويل قاعدة البيانات إلى JSON
+[/poll]
+
+  * #### بإمكانك عمل website بدون الحاجة إلى API ؟
+
+[poll name=test2 type=regular]
+* صحيح
+* خاطئ
+[/poll]
+
+* ### ماهي المهمة المطلوبة ؟
+
+  * قم بكتابة جميع الـ action controllers التي كتبناها سابقاً كـ web api.
+
+  * لا تنسى أنه يجب أن تكتب جميع دوال CRUD الخاصة بالـ topic وجعلها web api.
+
+* ### ملحق:
+  * #### الفرق بين API و Web API:
+
+    https://stackoverflow.com/questions/41189842/what-is-difference-between-rest-and-api
+
+  * #### مكتبة ArcGIS:
+
+    https://developers.arcgis.com/labs/python/search-and-geocode/
+
+
+ * ### كيفية تسليم الحل ؟
+
+    ارفع التحديثات على حسابك في GitHub في نفس المستودع (repository), **بالتعديل على نفس الملفات**.
+
+   ولا تنسى **مشاركة رابط المشروع** معنا.
+
+    بإمكانك تسليم الحل في هذا الموضوع:
+    https://macdiscussions.udacity.com/t/40-web-api/127615
+
+* ### شكر خاص:
+
+  أشكر الأخوة @hichem2h @ahmedalrifai @LouayHamada على العمل الجبار الذي يقوموا به... وأخص بالشكر الأخ هشام, على مساعدته لي في هذا الدرس :blush:    
+
+  #### أتمنى الفائدة والتوفيق للجميع!

@@ -1,0 +1,336 @@
+#### السلام عليكم أصدقائي,
+
+* ### فهرس المواضيع السابقة:
+
+  https://macdiscussions.udacity.com/t/topic/86623
+
+
+* #### مالذي قمنا بعمله في المهمة السابقة ؟
+
+  قمنا بعمل ملف index.html الخاص بالصفحة الرئيسية, بهذا الشكل:
+```
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Forums Workshop</title>
+    <style>
+body {
+    font-size: 20px
+}
+
+.content {
+    max-width: 600px;
+    margin: 0 auto;
+    border-top: 1px solid #ccc;
+    padding: 20px;
+}
+
+table td {
+    min-width: 100px;
+}
+
+    table td:first-child {
+        min-width: 400px;
+    }
+
+thead {
+    text-align: left;
+}
+
+.centered-item {
+    text-align: center;
+    margin: 10px auto;
+}
+
+    </style>
+</head>
+
+<body>
+
+    <div class="centered-item">
+        <h1>OneMillion</h1>
+    </div>
+
+    <div class="centered-item">
+        <a href="#">Members</a>
+
+        <a href="#">Profile</a>
+    </div>
+
+    <div class="content">
+        <a href="#">Create</a>
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>
+                        Title
+                    </th>
+
+                    <th>
+                        Edit
+                    </th>
+
+                    <th>
+                        Delete
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody>
+            <tr>
+                <td>
+                    topic1
+                </td>
+
+                <td>
+                    <a href="#">edit</a>
+                </td>
+
+                <td>
+                    <a href="#">delete</a>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    topic2
+                </td>
+
+                <td>
+                    <a href="#">edit</a>
+                </td>
+
+                <td>
+                    <a href="#">delete</a>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    topic3
+                </td>
+
+                <td>
+                    <a href="#">edit</a>
+                </td>
+
+                <td>
+                    <a href="#">delete</a>
+                </td>
+            </tr>
+            
+            </tbody>
+        </table>
+    </div>
+
+</body>
+
+</html>
+```
+
+  * #### ماهي المشكلة بالضبط ؟
+
+     قمنا بوضع أكواد css داخل كود html ببساطة **لأن مجلد templates يوضع فيه ملفات html فقط** (ملفات الـ views).
+
+  * #### هل خلط كود html و css فكرة جيدة ؟
+
+    لا أبداً, لأنك تريد استعمال نفس ملفات css لعمل ستايلات لأكثر من صفحة html.
+
+  * #### مالعمل إذا ؟
+
+    ببساطة, يجب علينا فصل الملفات باستعمال هذا الجزء في كود html:
+    ```
+    <link rel="stylesheet" href="/static/style.css">
+    ```
+
+     ثم استخراج كود css إلى ملف آخر (styles.css مثلاً) ووضعه في مجلد خارجي اسمه static.
+
+     ليصبح لديك شكل المشروع:
+     ![Untitled|382x306](upload://2IOVSPfqEqV1f7r5wlwg0XM4RwH.png)
+
+  * لماذا سمينا المجلد static ؟
+
+    تعتبر ملفات css وملفات جافاسكربت js وملفات الصور images كلها ملفات ستاتيكة static. تسمى عملية جلب الملفات هذه Serving Static Files.
+
+    في flask, توضع الملفات الستاتيكة في مجلد static.
+
+  * #### هل جربت فتح الملف index.html مباشرة من المتصفح بدون فتح الرابط ؟
+
+    في حال ذهبت إلى الملف index.html وقمت بفتحه مباشرة, لن يستطيع جلب ملف style.css, لكن حينما تقوم بتشغيل المشروع (من الملف app.py) ستشاهد أن الصفحة لديها ملف css.
+
+     * #### ماهو السبب ؟
+
+       لأن السيرفر الذي نقوم بتشغيله (السيرفر المحلي بالرابط 127.0.0.1) هو المسؤول عن جلب الملفات الـ static... لاحظ بعد تشغيل المشروع (يخبرنا بجلب الملف style.css):
+
+> 127.0.0.1 - - [28/Feb/2018 01:22:28] "GET /static/style.css HTTP/1.1" 200 -
+
+* ### كيف سنقوم بإظهار المواضيع بشكل ديناميكي (من كود python) ؟
+
+  * #### من أين سنجلب المواضيع ؟
+
+    من المخزن الذي بنيناه store... هذا هو الغرض أصلاً منه :smile: 
+
+  * #### أين سنظهر المواضيع ؟
+
+     بالتأكيد في الـ view الذي قمنا بتصميمه (واجهة العرض), وهي صفحة index.html التي تظهر المواضيع, كما تلاحظ أننا نقوم بكتابة المواضيع داخل كود html بشكل ثابت hard coded, نريد جعل الأمر ديناميكي dynamically.
+
+  * #### كيف سنقوم بذلك ؟
+
+     فقط سنحتاج أن نقوم بإضافة الـ store عند بدء البرنامج بهذا الشكل:
+     ```
+     from forums import models
+     from forums import stores
+
+     app = Flask(__name__)
+
+     post_store = stores.PostStore()
+     post_store.add(models.Post("Life", "Life is alawys great"))
+     post_store.add(models.Post("Sunshine", "Sunshine is amazing"))
+
+     @app.route("/")
+     @app.route("/index")
+     def home():
+     ```
+
+     بإمكانك أن تقوم بعمل stores و model instances **في ملف آخر تقوم بإستدعاءه (dummy_data.py مثلاً)**, بدلاً من خلط الكود كما في الأعلى.
+
+     ثم تقوم بإرسال هذه البيانات إلى صفحة index.html:
+     ```
+     def home():
+         return render_template("index.html", posts = post_store.get_all())
+     ```
+
+  * #### لكن لم نقم بالتعديل على صفحة index.html, كيف ستظهر المواضيع التي نرسلها ؟
+
+     سنقوم بالتعديل على ملف index ونضيف عليه كود Python.. يقوم بمعالجة الكود ما يسمى بمحرك Jinja.
+
+     لاحظ أننا أرسلنا الـ posts مع ذكر اسم المتغير بهذا الشكل:
+     ```
+     posts = post_store.get_all()
+     ```
+
+     أي أنه سيوجد لدينا في صفحة index متغير posts نستطيع استعماله.
+
+  * #### أين سنقوم بكتابة كود python داخل الصفحة ؟
+
+    هل تتذكر هذه القطعة من الكود في index:
+    ```
+    <tr>
+        <td>
+            topic1
+        </td>
+
+        <td>
+            <a href="#">edit</a>
+        </td>
+
+        <td>
+            <a href="#">delete</a>
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            topic2
+        </td>
+
+        <td>
+            <a href="#">edit</a>
+        </td>
+
+        <td>
+            <a href="#">delete</a>
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            topic3
+        </td>
+
+        <td>
+            <a href="#">edit</a>
+        </td>
+
+        <td>
+            <a href="#">delete</a>
+        </td>
+    </tr>
+
+    ```
+
+    سنقوم باستبدالها بكود بايثون باستعمال for loop:
+
+    ```
+    {% for post in posts %}
+        <tr>
+            <td>
+                {{post.title}}
+            </td>
+
+            <td>
+                <a href="#">edit</a>
+            </td>
+
+            <td>
+                <a href="#">delete</a>
+            </td>
+        </tr>
+    {% endfor %}
+    ```
+
+    لاحظ كيف يتم كتابة for loop ليتعرف عليه محرك Jinja:
+    ```
+    {% for post in posts %}
+        ...
+    {% endfor %}
+    ```
+
+    وأيضاً للحصول على متغير post, نستعمل:
+    ```
+    {{post.title}}
+    ```
+
+    الغرض هو أن يستطيع محرك Jinja التفريق بين كود HTML وكود Python, لأن الإثنان بنفس الصفحة :smile: 
+
+
+* ### ماهي المهمة المطلوبة ؟
+
+  * أنشأ مجلد static.
+  * قم بنقل محتوى كود css إلى ملف style.css داخل المجلد static.
+  * قم بإنشاء PostStore instance داخل ملف app,py قبل بدء التعامل مع أي request.
+  * اعمل التعديل اللازم على دالة home, لإرسال الـ posts إلى صفحة index.
+  * اظهر المواضيع التي ترسلها داخل index باستعمال كود بايثون.
+
+* ### ملحق:
+
+  * عمل serving static files في flask:
+   https://www.techcoil.com/blog/serve-static-files-python-3-flask/
+
+  * أساسيات Jinja:
+    https://www.tutorialspoint.com/flask/flask_templates.htm
+
+   * تفاصيل Jinja:
+    https://damyanon.net/post/flask-series-templating/
+
+   * كورس pluralsight يشرح فيه jinja:
+    https://app.pluralsight.com/player?course=flask-micro-framework-introduction&author=reindertjan-ekker&name=flask-micro-framework-introduction-m4-viewlogic&clip=4&mode=live
+    
+ * ### كيفية تسليم الحل ؟
+
+    ارفع التحديثات على حسابك في GitHub في نفس المستودع (repository), **بالتعديل على نفس الملفات**.
+
+    بإمكانك تسليم الحل في هذا الموضوع:
+    https://macdiscussions.udacity.com/t/30-jinja/116911
+
+* ### لا تفسد المتعة :smile::
+
+  في حال كان حلك جاهز قم برفعه على حسابك في GitHub في التوقيت المطلوب.
+
+  في حال لديك أي استفسارات, بإمكانك طرحها هنا وسأكون سعيد بالإجابة عليها :wink:
+
+  #### أتمنى الفائدة والتوفيق للجميع!

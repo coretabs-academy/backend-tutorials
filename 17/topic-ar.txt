@@ -1,0 +1,257 @@
+#### السلام عليكم أصدقائي,
+
+* ### فهرس المواضيع السابقة:
+
+  https://macdiscussions.udacity.com/t/topic/86623
+
+* ### نريد تنظيف بعض الأجزاء أولاً !
+
+  * #### نحتاج أولاً ملف dummy_data.py لنطرح فيه البيانات على الذاكرة:
+
+```
+from forums import models
+
+dummy_members = [
+    models.Member("Mohammed", 20),
+    models.Member("Mohammed", 22),
+    models.Member("Abdo", 25),
+]
+
+dummy_posts = [
+    models.Post("Agriculture", "Agriculture is amazing", dummy_members[0].id),
+    models.Post("Engineering", "I love engineering", dummy_members[0].id),
+
+    models.Post("Medicine", "Medicine is great", dummy_members[1].id),
+    models.Post("Architecture", "Spectacular art", dummy_members[1].id),
+    models.Post("Astronomy", "Space is awesome", dummy_members[1].id),
+
+    models.Post("Geology", "Earth is our friend", dummy_members[2].id),
+    models.Post("ComputerSci", "Our passion", dummy_members[2].id),
+    models.Post("Algorithms", "Yeah, more of that", dummy_members[2].id),
+    models.Post("Operating Systems", "Ewww", dummy_members[2].id),
+]
+
+def seed_stores(member_store, post_store):
+    for member in dummy_members:
+        member_store.add(member)
+
+    for post in dummy_posts:
+        post_store.add(post)
+
+```
+
+  * #### ثم في ملف app.py:
+    ```
+    member_store = stores.MemberStore()
+    post_store = stores.PostStore()
+
+    from forums.views import *
+
+    if __name__  == "__main__":
+        dummy_data.seed_stores(member_store, post_store)
+        app.run()
+    ```
+
+    لاحظ أننا نقوم ببناء stores ثم في البرنامج الأساسي, ثم نقوم بتعبئتها في مكان آخر (داخل dummy_data.py) :wink: 
+
+* ### لنقم أيضاً بعمل الـ controllers داخل ملف آخر, حسب flask (تسمى views.py):
+
+  سنضع فيه أي controller action, بهذا الشكل:
+
+  ```
+  from flask import render_template
+  from forums import models
+  from app import app, member_store, post_store
+
+  @app.route("/")
+  @app.route("/index")
+  def home():
+      return render_template("index.html", posts = post_store.get_all())
+  ```
+
+* ### كيف سنقوم بإضافة موضوع Topic داخل الموقع ؟
+
+  * #### مالذي سنحتاجه ؟
+     هل تتذكر إستعمالنا لـ GET Request, قلنا أنه **يستخدم لطلب البيانات**.
+     هذه المرة **سنرسل البيانات**, يعني سنحتاج POST request.
+
+  * #### كيف يمكن للمستخدم أن يضع البيانات داخل الموقع ؟
+    بداية, سنحتاج action controller يستقبل مثل هذا الطلب, سيكون من نوع GET, لأننا أولاً **سنطلب صفحة ملئ البيانات** على هذا الرابط مثلاً:
+    > http://127.0.0.1:5000/topic/add
+
+    أعتقد أنك تعرف شكل الـ action controller, صحيح ؟
+    ```
+    @app.route("/topic/add")
+    def topic_add():
+         return render_template("topic_add.html")
+    ```
+
+* ### لكن ملف topic_add.html غير موجود ؟!
+
+  * #### كيف سنقوم بكتابته ؟
+
+     بنفس الطريقة التي كتبنا فيها ملف index.html, سنقوم بكتابة ملف topic_add.html بحيث يكون فيه form ادخال بيانات الموضوع.
+
+  * #### ماهو HTML form ؟
+
+     هو عنصر HTML يتيح لمستخدم الموقع ملئ البيانات التي سنقوم بارسالها إلى السيرفر, ليتعامل معها.
+
+     مثال, هذا form تسجيل عضو جديد على facebook:
+
+     ![image|362x500](upload://rjoSOdoDn0wUkxSAST0wD6gxPqU.png)
+
+  * #### هل تلاحظ المكونات المطلوبة لعمل form ؟
+
+     1. أجزاء يقوم فيها المستخدم بادخال البيانات input elements (بالأعلى First Name, Last Name... إلخ).
+     2. زر button لارسال البيانات submit (الزر بالأعلى Create Account).
+
+  * #### كيف يمكننا كتابة HTML form ؟
+
+    الأمر سهل, فقط بهذا الشكل:
+    ```
+    <form method="post">
+
+    </form>
+    ```
+
+     لاحظ أننا نخبره باستعمال HTTP POST Request عندما يضغط المستخدم على submit, بكتابة نوع method.
+
+  * #### كيف ستعرف الصفحة كيف تذهب إلى الـ action controller المناسب ؟
+
+    يجب عليك أن تخبره بهذا الشكل:
+    ```
+    <form action="{{ url_for("topic_add") }}" method="post">
+    ```
+
+     لاحظ أننا استعملنا كود بايثون (يقوم بفهمه محرك Jinja), لنخبره بأن يأخذ الرابط url_for, الدالة topic_add التي هي الـ controller action خاصتنا.
+
+  * #### كيف سنقوم بعمل user input داخل الـ form ؟
+
+     فقط استعمال input tag لعمل العناصر المناسبة, ثم قم بتحديد نوعها:
+     ```
+     <input type="text" name="title" />
+     <input type="text" name="content"/>
+     ```
+
+     لاحظ أننا نخبره بأن الـ type من نوع text, أي أن هذا العنصر سيقوم المستخدم بوضع نصوص فيه.
+
+  * #### كيف سيقوم المستخدم بعمل submit للبيانات التي أدخلها ؟
+
+    نحتاج أن نقوم بإضافة زر عمل submit... بهذا الشكل:
+    ```
+    <input type="submit" value="Create"/>
+    ```
+
+  * #### كيف ستبدو النتيجة النهائية ؟
+
+    بالتأكيد, لم أقم باستعمال css, لهذا النتيجة قبيحة :smile:
+
+     ![image|516x88](upload://m3GYf713S2YJwsfV1dOyDBpm1KF.png)
+
+     ولكنها تكفي للمتابعة, بالتأكيد بإمكانك استعمال css لجعل الأمر أجمل مثل موقع فيسبوك.
+
+* ### كيف سنستقبل POST Request ؟
+
+  * #### سنحتاج أولاً لإضافة التعامل مع POST Request في الـ route:
+    بهذا الشكل:
+    ```
+    @app.route("/topic/add", methods = ["GET", "POST"])
+    ```
+     هنا نخبره بأن يستقبل كلاً من GET و POST في نفس الدالة.
+
+  * #### لا تنسى عمل import لـ request من flask:
+    ```
+    from flask import ..., request
+    ```
+
+  * #### بما أننا نستقبل كلاً من GET و POST كيف سنتعامل مع كل واحد بشكل منفصل ؟
+
+    سنقوم بالتحقق من الـ request أولاً, يعتبر هذا المتغير global variable:
+    ```
+    if request.method == "POST":
+        ...
+    else:
+        return render_template("topic_add.html")
+    ```
+
+     ببساطة, هنا نتحقق إذا كان POST سنقوم بالقيام بشيء وإذا GET (أي شيء آخر else), سنقوم بإظهار الصفحة السابقة.
+
+    حقيقة, ما نقوم به هو **شيء ليس جيد** (استقبال GET و POST في نفس الدالة)... ولكن **لجعل الأمور أوضح** نقوم بها بهذا الشكل.
+
+  * #### كيف سنقوم بالحصول على البيانات التي كتبها المستخدم داخل input ؟
+
+    هل تذكر اننا استعملنا name بهذا الشكل:
+
+         <input type="text" name="title" />
+
+    للوصول إلى العنصر, فقط نحتاج استعمال المتغير request الذي يحتوي على القيم الذي يرسلها المستخدم بهذا الشكل:
+
+         request.form["title"]
+
+    بمعنى أننا سنقوم ببناء Post object بهذا الشكل:
+
+         new_post = models.Post(request.form["title"], request.form["content"])
+
+  * #### كيف سنقوم بإضافة الـ object إلى store ؟
+
+     كما كنا نقوم بها سابقاً (جعلنا الأمر سهل على أنفسنا :smile: ):
+
+        post_store.add(new_post)
+
+* ### في حالة GET كنا نرجع صفحة topic_add.html, لكن أين سيذهب المستخدم بعد عمل submit ؟
+
+  * #### تحتاج أن تقوم بتحويله إلى صفحة index مجدداً بهذا الشكل:
+
+    ```
+    return redirect(url_for("home"))
+    ```
+
+  * #### لا تنسى عمل import للدالة redirect من flask.
+      
+
+* ### كيف سيكون شكل controller action لعمل topic_add ؟
+
+```
+@app.route("/topic/add", methods = ["GET", "POST"])
+def topic_add():
+    if request.method == "POST":
+        new_post = models.Post(request.form["title"], request.form["content"])
+        post_store.add(new_post)
+        return redirect(url_for("home"))
+
+    else:
+        return render_template("topic_add.html")
+```
+
+* ### ماهي المهمة المطلوبة ؟
+
+  * قم بتنظيف المشروع.
+  * قم بعمل دالة topic_add لاستقبال GET و POST.
+  * في حالة GET تعرض الصفحة topic_add.html.
+  * في حالة POST تحفظ الموضوع باستعمال post_store.
+
+* ### ملحق:
+
+  * ماهي html form:
+     https://www.w3schools.com/html/html_forms.asp
+  * كيفية ارسال البيانات من GET إلى view ثم إلى POST:
+     https://www.tutorialspoint.com/flask/flask_sending_form_data_to_template.htm
+  * حول HTTP POST Request:
+     https://www.tutorialspoint.com/flask/flask_http_methods.htm
+  * حول views and webforms:
+     https://damyanon.net/post/flask-series-views/
+
+ * ### كيفية تسليم الحل ؟
+
+    ارفع التحديثات على حسابك في GitHub في نفس المستودع (repository), **بالتعديل على نفس الملفات**.
+
+    بإمكانك تسليم الحل في هذا الموضوع:
+    https://macdiscussions.udacity.com/t/32-http-post-request/119091
+
+* ### لا تفسد المتعة :smile::
+
+  في حال كان حلك جاهز قم برفعه على حسابك في GitHub في التوقيت المطلوب.
+
+  في حال لديك أي استفسارات, بإمكانك طرحها هنا وسأكون سعيد بالإجابة عليها :wink:
+
+  #### أتمنى الفائدة والتوفيق للجميع!
