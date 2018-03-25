@@ -2,15 +2,15 @@
 	"host": "https://rawgit.com/coretabs-academy/fullstack-tutorials/master/",
 	"categories": [
 		{
-			"title-ar": "أساسيات بايثون",
-			"title-en": "Python Basic",
-			"desc-ar": "تعلم أساسيات بايثون، اللغة الديناميكية المعروفة لتطوير تطبيقات الإنترنت، البيانات الضخمة والأبحات العلمية",
-			"desc-en": "This Python Fundamentals Course gets you started with Python, a dynamic language popular for web development, big data, science, and scripting.",
+			"title-ar": "بدء المشروع",
+			"title-en": "Starting the project",
+			"desc-ar": "بدء المشاريع قد يكون مربك... لا تقلق, فالأمر سهل جداً وسترى الخطوات الأساسية لبدء العمل بشكل سلس.",
+			"desc-en": "Starting a project can be confusing... no worries, this module will show how to get started with your projects in no time !",
 			"image": "python.png",
 			"topics": [
 				{
 					"id": 1,
-					"title-ar": "الهيكلة",
+					"title-ar": "الهيكلة Wireframing",
 					"title-en": "Wireframing",
 					"type": "markdown"
 				},
@@ -24,8 +24,94 @@
 			]
 		}, 
 		{
-			"title-ar": "Flask",
-			"title-en": "Flask",
+			"title-ar": "أساسيات بايثون",
+			"title-en": "Python Basic",
+			"desc-ar": "تعلم أساسيات بايثون، اللغة الديناميكية المعروفة لتطوير تطبيقات الإنترنت، البيانات الضخمة والأبحات العلمية",
+			"desc-en": "This Python Fundamentals Course gets you started with Python, a dynamic language popular for web development, big data, science, and scripting.",
+			"image": "python.png",
+			"topics": [
+				{
+					"id": 3,
+					"title-ar": "الشروط والحلقات Loop & If",
+					"title-en": "Loops & If",
+					"type": "markdown"
+				},
+				{
+					"id": 4,
+					"title-ar": "الدوال Functions",
+					"title-en": "Functions",
+					"type": "markdown",
+					"quiz": "true"
+				},
+				{
+					"id": 5,
+					"title-ar": "Classes",
+					"title-en": "Classes",
+					"type": "markdown",
+					"quiz": "true"
+				},
+				{
+					"id": 6,
+					"title-ar": "Lists",
+					"title-en": "Lists",
+					"type": "markdown",
+					"quiz": "true"
+				}
+			]
+		}, 
+		{
+			"title-ar": "بناء المشروع",
+			"title-en": "Building the project",
+			"desc-ar": "بعد أن تعلمنا الأساسيات, سننطلق في بناء المشروع الذي بدأناه !",
+			"desc-en": "We already got the basics, let's build our project !",
+			"image": "python.png",
+			"topics": [
+				{
+					"id": 7,
+					"title-ar": "Entities",
+					"title-en": "Entities",
+					"type": "markdown"
+				},
+				{
+					"id": 8,
+					"title-ar": "Stores Part-1",
+					"title-en": "Stores Part-1",
+					"type": "markdown",
+					"quiz": "true"
+				},
+				{
+					"id": 9,
+					"title-ar": "Stores Part-2",
+					"title-en": "Stores Part-2",
+					"type": "markdown",
+					"quiz": "true"
+				},
+				{
+					"id": 10,
+					"title-ar": "Filtering Part-1",
+					"title-en": "Filtering Part-1",
+					"type": "markdown",
+					"quiz": "true"
+				},
+				{
+					"id": 11,
+					"title-ar": "Filtering Part-2",
+					"title-en": "Filtering Part-2",
+					"type": "markdown",
+					"quiz": "true"
+				},
+				{
+					"id": 12,
+					"title-ar": "Inheritance",
+					"title-en": "Inheritance",
+					"type": "markdown",
+					"quiz": "true"
+				}
+			]
+		}, 
+		{
+			"title-ar": "تطوير برمجيات المواقع مع Flask",
+			"title-en": "Building web-apps in Flask",
 			"desc-ar": "ابدأ بتطوير أول موقع الكتروني بمساعدة فلاسك، البيئة التطويرية المبنية على بايثون، الخفيفة، البسيطة وسهلة الاستخدام.",
 			"desc-en": "Start building your first web site by Flask, a Python web framework with a small core, simple and easy to use.",
 			"image": "flask.png",
@@ -38,8 +124,56 @@
 				},
 				{
 					"id": 14,
-					"title-ar": "الواجهة الرسومية",
+					"title-ar": "الواجهة الرسومية Views",
 					"title-en": "Views",
+					"type": "markdown"
+				},
+				{
+					"id": 15,
+					"title-ar": "Templates with Jinja",
+					"title-en": "Templates with Jinja",
+					"type": "markdown"
+				},
+				{
+					"id": 16,
+					"title-ar": "HTTP POST Request",
+					"title-en": "HTTP POST Request",
+					"type": "markdown"
+				},
+				{
+					"id": 17,
+					"title-ar": "Early Deployment",
+					"title-en": "Early Deployment",
+					"type": "markdown"
+				},
+				{
+					"id": 18,
+					"title-ar": "Continuous Integration",
+					"title-en": "Continuous Integration",
+					"type": "markdown"
+				},
+				{
+					"id": 19,
+					"title-ar": "CRUD with Views",
+					"title-en": "CRUD with Views",
+					"type": "markdown"
+				},
+				{
+					"id": 20,
+					"title-ar": "Web API",
+					"title-en": "Web API",
+					"type": "markdown"
+				},
+				{
+					"id": 21,
+					"title-ar": "Consuming API",
+					"title-en": "Consuming API",
+					"type": "markdown"
+				},
+				{
+					"id": 22,
+					"title-ar": "Database",
+					"title-en": "Database",
 					"type": "markdown"
 				}
 			]
