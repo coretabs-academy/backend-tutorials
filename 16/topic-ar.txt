@@ -150,7 +150,7 @@ thead {
      ثم استخراج كود css إلى ملف آخر (styles.css مثلاً) ووضعه في مجلد خارجي اسمه static.
 
      ليصبح لديك شكل المشروع:
-     ![Untitled|382x306](upload://2IOVSPfqEqV1f7r5wlwg0XM4RwH.png)
+     ![Untitled|382x306](image-1.png)
 
   * لماذا سمينا المجلد static ؟
 

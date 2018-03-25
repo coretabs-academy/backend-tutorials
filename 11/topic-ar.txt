@@ -76,7 +76,7 @@
            تسمى هذه العبارة بـ **comprehension expression**.
 
            عند عمل for loop للناتج سيعمل بهذا الشكل:
-           ![member_comprehnsion|690x350](upload://cEW4XXF0vSeTDCmgcmm9qgwsqT8.gif)
+           ![member_comprehnsion|690x350](image-1.gif)
 
      * #### لكن كلا الطريقتين سيئة :smile:... لما ؟
 
@@ -107,7 +107,7 @@
        ```
 
        بهذا الشكل سيعمل البرنامج على إرجاع (**عضو واحد فقط في كل مرة**) عند عمل for loop للناتج, بهذا الشكل:
-       ![member_generator|690x350](upload://r9s4Qscr4SrL9Pc0LCaavk46cjc.gif)
+       ![member_generator|690x350](image-2.gif)
 
        لأن الناتج ليس في الذاكرة, **ولكنه يتم حسابه عند الطلب**.
 

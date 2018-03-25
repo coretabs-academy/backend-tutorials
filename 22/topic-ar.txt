@@ -12,7 +12,7 @@
 
     قمت بعمل نسخة من الـ requests التي قمت بعملها على Postman:
 
-    ![image|478x344](upload://m0vnzJ5JmTdveAxRrIV6ykYQcBx.png)
+    ![image|478x344](image-1.png)
 
     بإمكانك نسخها من هنا:
     ```
@@ -178,7 +178,7 @@
 
     شاهد هذه الصورة المتحركة لكيفية استعمالها:
 
-    ![using-postman|690x457](upload://48gcotyXepp6v67XqDxs7PQLgM8.gif)
+    ![using-postman|690x457](image-2.gif)
 
   * #### مالذي يجب ملاحظته ؟
 
@@ -199,7 +199,7 @@
 
     سنقوم باستهلاك الخدمات Consuming API باستعمال Javascript بإرسال الـ requests إليها باستعمال المتصفح, أي أن الـ client هو المتصفح, بهذا الشكل:
 
-    ![image|500x200](/uploads/default/original/3X/c/5/c5f82566b05cafd5a88cdb8cf6274080ca30a5ce.png)
+    ![image|500x200](image-3.png)
 
      لاحظ كيف يتم الأمر بين المتصفح (chrome مثلاً), وبين الـ API كونها الوسيط إلى الـ server للقيام بالعمليات.
 
@@ -207,7 +207,7 @@
 
     بالتأكيد, هل ترى هذه الصفحة, الخاصة بإضافة موضوع topic add:
 
-    ![image|465x137](upload://bo00cqCyDbmN1FnSRD9W4A49j8H.png)
+    ![image|465x137](image-4.png)
 
     سنقوم بربط الزر Create بالـ API بدل الطريقة المملة الخاصة بالـ controller.
 
@@ -273,7 +273,7 @@
 
     العناصر داخل الصفحة موجودة داخل الـ object المسمى document الذي استعملناه بالأعلى, وهو ما يسمى DOM... شاهد هذه الصورة للتعرف على كيفية التعامل مع JS داخل المتصفح:
 
-    ![dom-js|690x413](upload://pTlYlN8l7ssf66MwxEkoRy1Gwkr.gif)
+    ![dom-js|690x413](image-5.gif)
 
     قمت باستعمال الاختصار ctrl + shift + i لإظهار الـ dev tools الخاصة بمتصفح Chrome
     ثم قمت بتجربة إظهار DOM بكتابة document ورأينا أنه مجرد شجرة tree لعناصر html داخل الصفحة.
@@ -293,7 +293,7 @@
 
     وبعدها نقوم بربطه عند الضغط عليه onclick, وإضافة alert عند الضغط عليه, بإمكانك التجربة بنفسك, يجب أن يظهر لك الضغط على الزر هذه النتيجة:
 
-    ![image|408x128](upload://v2P9ISBVMg8W7bIKeDjCCZh5gU6.png)
+    ![image|408x128](image-6.png)
 
 * ### ماهي فائدة استعمال javascript ؟
 
@@ -309,7 +309,7 @@
 
      الحصول على موقع تفاعلي يعني **استمتاع المستخدم بالموقع great user experience**, بدون الحاجة لفتح صفحات أخرى وبدون الإنتظار لوقت أطول, لاحظ كيف يعمل المنتدى (مليون مبرمج عربي):
 
-     ![forums-ajax|690x413](upload://qaCvlTtdZ8zMiQBJfeLCuWOMfYq.gif)
+     ![forums-ajax|690x413](image-7.gif)
 
     هذا ما يجعل المنتدى ممتع وجميل, أي أنه يقوم باستعمال javascript بدلاً من فتح صفحة جديدة عند القيام بالـ requests.
 
@@ -326,7 +326,7 @@
      تعني لا تزامني, أي أنها تعمل في الخلفية, ثم تنتظر النتيجة (بدون أن تجعل المتصفح يعلق hang).
 
      مثال على الطريقة التزامنية السيئة synchronous, والطريقة الجميلة async:
-     ![image](http://www.sangadjiprabowo.com/image.axd?picture=/Comparing%20Asynchronous%20vs%20Synchronous%20Program%20Execution%20Time%20in%20.NET/ExecutionTimeStopwatch.gif)
+     ![image](image-8.gif)
 
      الأهم من هذا كله, أن البرامج الـ synchronous السيئة **تجعل الموقع يعلق بينما يتم معالجة الطلب, حتى ينتهي** !
 

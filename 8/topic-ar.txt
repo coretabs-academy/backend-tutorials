@@ -79,7 +79,7 @@
 
        تسمى هذه التقنية Abstraction... أي أن التفاصيل مخفية عن البرنامج !
 
-       ![image](/uploads/default/original/3X/5/c/5c57e48ef33bc8ebe24236b8e043c93133fb47e7.png)
+       ![image](image-1.png)
 
        لاحظ في الصورة البرنامج يتعامل مع الـ Store (أو يسمى Repository), والـ Store يتعامل مع أي شيء آخر.
        *مصدر الصورة (http://tupilabs.com).

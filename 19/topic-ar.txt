@@ -21,31 +21,31 @@
 
     * ##### فقط أفتح موقع Heroku وافتح التطبيق خاصتك, ثم اختر deploy:
 
-    ![heroku-deploy|676x499](upload://s8AVkb2EFyuyskvGfSut4XqSfTF.png)
+    ![heroku-deploy|676x499](image-1.png)
 
     * ##### ثم اختر GitHub ==> Connect to GitHub:
 
-    ![github-connect|607x500](upload://z0bgYKVx8O9xey3VE8UojYrOveg.png)
+    ![github-connect|607x500](image-2.png)
 
     * ##### ثم قم بعمل authorize للسماح لـ Heroku بالإرتباط بـ GitHub:
 
-    ![github-auth|606x387](upload://xHuydcOoNDo1GipuvUXuHrHC7dH.png)
+    ![github-auth|606x387](image-3.png)
 
     * #### كيف سنحدد الـ repository ؟
 
-      ![github-search|670x140](upload://ey7vrqSCY7oR2XOLIRNgBCPTz8e.png)
-      ![github-repo-connect|690x315](upload://3HZfHWaiv7h1GGoiSGnzryXcmvO.png)
+      ![github-search|670x140](image-4.png)
+      ![github-repo-connect|690x315](image-5.png)
 
     * #### كيف تعرف إذا كان مرتبط بالـ GitHub ؟
 
       سيظهر لك بهذا الشكل:
 
-      ![github-connected|690x119](upload://dXHKa6Jz2cy80ZBQpykz7VOnBcH.png)
+      ![github-connected|690x119](image-6.png)
 
     * #### كيف أقوم بجعله يقوم بعمل تحديث للمشروع كلما أقوم بعمل push على GitHub  ؟
 
       فقط تضغط على enable auto deploy
-      ![auto-deploy|476x382](upload://tOmNCt2l7NjRRQ2DpSyzpWSTPlU.png)
+      ![auto-deploy|476x382](image-7.png)
 
 * ### مالذي قمنا بعمله ؟
 
@@ -96,7 +96,7 @@
 
   * #### كيف تبدو هذه الـ workflow ؟
 
-  ![image](/uploads/default/original/3X/c/8/c8597aa18a0a43d80c26757cca1b326ee27c36fb.png)
+  ![image](image-8.png)
 
   كما ترى في الصورة, فإنه يتم التعامل مع master فقط لإصدار النسخ 0.1 و 0.2... إلخ.
 
@@ -118,7 +118,7 @@
 
     لا تنسى عمل checkout على الفرع develop للعمل عليه, لكي لا تذهب الـ commits مباشرة إلى master.
 
-    ![image|690x371](upload://4DdlE3FJAHeM7rhjqUU6Wiy1IVU.png)
+    ![image|690x371](image-9.png)
 
   * #### ماهي الـ branches المستعملة في gitflow ؟
 
@@ -157,13 +157,13 @@
 
   سيكون الناتج بهذا الشكل:
 
-  ![merge-result|517x89](upload://k6WGvabejoSL3IDK9ihvK03ZIx8.png)
+  ![merge-result|517x89](image-10.png)
 
 * ### ماذا إن قمت بإرسال التعديلات مباشرة إلى master ؟
 
   الأمر سهل, فقط قم بعمل rebase بهذا الشكل:
 
-  ![rebase|690x346](upload://7LyZ3mDWdbuQ1OXE0xY4n4JB3WQ.png)
+  ![rebase|690x346](image-11.png)
 
   #### لا تنسى:
   عمل rebase سيحذف كل التغييرات إلى المكان الذي ترجع إليه... قم **بعمل نسخة من المشروع** قبل عمل rebase.

@@ -98,7 +98,7 @@ def seed_stores(member_store, post_store):
 
      مثال, هذا form تسجيل عضو جديد على facebook:
 
-     ![image|362x500](upload://rjoSOdoDn0wUkxSAST0wD6gxPqU.png)
+     ![image|362x500](image-1.png)
 
   * #### هل تلاحظ المكونات المطلوبة لعمل form ؟
 
@@ -146,7 +146,7 @@ def seed_stores(member_store, post_store):
 
     بالتأكيد, لم أقم باستعمال css, لهذا النتيجة قبيحة :smile:
 
-     ![image|516x88](upload://m3GYf713S2YJwsfV1dOyDBpm1KF.png)
+     ![image|516x88](image-2.png)
 
      ولكنها تكفي للمتابعة, بالتأكيد بإمكانك استعمال css لجعل الأمر أجمل مثل موقع فيسبوك.
 

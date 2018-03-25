@@ -37,7 +37,7 @@
 
     ببساطة تقوم ببناء المشروع, وترسله للزبون ليقوم بمراجعته, ثم يخبرك بالتعديلات وتقوم بها... ثم ترسله مرة أخرى وهكذا :smile:
 
-    ![image](/uploads/default/original/3X/6/7/67924a91e2fd8693b9d887e32d26ca1e5021eeaf.png)
+    ![image](image-1.png)
 
     كما تلاحظ, كل مرة تقوم بها بالعملية (تصميم, تطوير, تجربة, اكتشاف)... تسمى Sprint.
 
@@ -112,7 +112,7 @@
          لهذا قمنا بتسمية الملف app.py بهذا الشكل.
 
          النتيجة النهائية:
-         ![image|384x435](upload://33VGRtp68NW3Sc4pE2lW9sFMwxV.png)
+         ![image|384x435](image-2.png)
 
        * #### أين سنضع محتويات المشروع ؟
 
@@ -133,7 +133,7 @@
              Flask==0.12.2
 
          بعد إضافتها, ستلاحظ PyCharm يطلب منك إضافة flask للمشروع في حال لم تضيفه:
-            ![requirements|690x326](upload://5sn2JdCKYvovuong5acmn1LHzuo.png)
+            ![requirements|690x326](image-3.png)
 
        * #### ليس لدينا مجلد forums يعني يجب أن نصلح الـ imports, صحيح ؟
 
@@ -201,7 +201,7 @@
 
     الأمر سهل جداً فقط تكتب الأمر heroku login وتدخل مباشرة, هنا صورة متحركة:
 
-    ![heroku%20login|690x433](upload://ynec5dGfFcZG9Uxw2P3RrjzfyuM.gif)
+    ![heroku%20login|690x433](image-4.gif)
 
     لإظهار العنصر open command line here, يجب الضغط على shift + الزر الأيمن للفأرة.
 
@@ -223,7 +223,7 @@
 
     وسترى التطبيق موجود أمامك :smile:
 
-    ![image|534x375](upload://1dfqZSWSTfnTrc1SyHhWVxWWEjd.png)
+    ![image|534x375](image-5.png)
 
 
   * #### لماذا نحتاج git repository أخرى على heroku ؟
@@ -238,7 +238,7 @@
 
     وبعدها تقوم بعمل git push heroku master, لإرسال التطبيق إلى heroku, هذه صورة متحركة للأمر:
 
-   ![heroku%20create|690x433](upload://6vG6bMQfoRjv04tAV37VjUrov9q.gif)
+   ![heroku%20create|690x433](image-6.gif)
 
    كما تعرف, المشروع على heroku هو عبارة عن git repository أي أنك ستقوم بإرسال مشروع git خاصتك إليه باستعمال الأمر السابق.
 
@@ -246,7 +246,7 @@
 
     فقط انسخ الرابط, أو من لوحة التحكم ستجد زر open app يسمح لك بفتح المشروع:
 
-    ![image|620x354](upload://hcUZhMlS7ArLWncgGXvDQTdkxKx.png)
+    ![image|620x354](image-7.png)
 
   * #### المشروع لا يعمل, مالمشكلة ؟
 
@@ -276,7 +276,7 @@
 
      **تنبيه مهم**: ملف Procfile **لا يتبع باللاحقة txt** أو أي شيء آخر, فقط Procfile بهذا الشكل:
 
-     ![image|524x230](upload://gyys49hrxRPjMkUZ80LWkE1Dxrf.png)
+     ![image|524x230](image-8.png)
 
 * ### الآن البرنامج جاهز, كيف نقوم بتحديثه ؟
 

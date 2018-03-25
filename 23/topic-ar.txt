@@ -17,7 +17,7 @@
 
     هل لاحظت موقع YouTube:
 
-    ![youtube-spa|690x455](upload://aYkI8M9h3JtDgtkgtCNqj8IqmML.gif)
+    ![youtube-spa|690x455](image-1.gif)
 
     ببساطة هو يستعمل SPA
 
@@ -102,7 +102,7 @@
 
      معناه أن كل البيانات متعلقة ببعضها البعض, مثلاً موقع twitter بالإمكان تصوره بهذا الشكل:
 
-     ![image](/uploads/default/original/3X/9/3/933f3dabc99fd0f9b8d4c240887db36a52a066fd.png)
+     ![image](image-2.png)
 
      بحيث كل عضو user لديه مشاركات tweets, ولديه متابعين followings.
 
@@ -112,7 +112,7 @@
 
      لها أنواع كثيرة, أشهرها هو document model
 
-     ![image|259x302](upload://bYPktuene3wPBQiRJRqGkRDjXiZ.jpg)
+     ![image|259x302](image-3.jpg)
 
      بحيث كل عنصر هو عبارة عن document (ربما مكتوب بصيغة JSON).
 
@@ -144,14 +144,14 @@
 
     ببساطة هي طريقة لعرض البيانات بشكل مستطيل rectangle data-structure, مثال على كيفية تخزين الأعضاء members:
 
-    ![image|412x247](upload://oKsoBgFmTKVNv81CybdGRBvAnPa.png)
+    ![image|412x247](image-4.png)
 
     نقوم فيها بتخزين البيانات على شكل أعمدة columns وصفوف rows.
 
     * #### ماهو الـ column ؟
 
        هي الأعمدة داخل الـ table:
-       ![image|412x247](upload://j021DTXzjzzrKWgeAOh1fTC4HHW.png)
+       ![image|412x247](image-5.png)
 
         وهي التي تحدد ما سنقوم بتخزينه, فمثلاً لدينا name column سنقوم بتخزين الاسم فيه, وهكذا... يعني أن الـ table محدود بالـ columns التي فيه.
 
@@ -167,7 +167,7 @@
 
        هي الصفوف داخل الجدول
 
-       ![image|412x247](upload://52orJPjGULzUBFUsUGZBDw1GQ3C.png)
+       ![image|412x247](image-6.png)
 
 
        كل row يمثل entity واحدة, مثلاً الصف الثالث يمثل شخص عضو اسمه John, وعمره 25.
@@ -188,7 +188,7 @@
 
     الأمر بسيط جداً, نستعمل ما يسمى بـ foreign key, مثال على شكل المواضيع posts وعلاقتها بالأعضاء members:
 
-    ![image|391x273](upload://vwXnwDs1KZWIptoBZsqImAJ5BSr.png)
+    ![image|391x273](image-7.png)
 
     لاحظ أن كل post لديه member_id مرتبط مع الـ id الخاص بالعضو.
 
@@ -196,7 +196,7 @@
 
       يجب أن يشير الـ foreign key إلى الـ primary key الخاص بـ table آخر !
 
-      ![image|690x153](upload://wAs8nYd0EjTiJX9gLLtjl5w3Umb.png)
+      ![image|690x153](image-8.png)
 
   * #### ماهي اللغة المشهورة في التعامل مع البيانات ذو علاقات relational data ؟
 
@@ -282,7 +282,7 @@
 
   ليصبح شكل الملفات هكذا:
 
-  ![image|177x323](upload://cvOYxduiGLQ3KhM74ViWyUsgfGD.png)
+  ![image|177x323](image-9.png)
 
 * ### كيف نجعل البرنامج يعرف أننا نستعمل الـ db ؟
 
@@ -536,7 +536,7 @@ class PostStore(BaseStore):
 
   تقوم بفتح ملف قاعدة البيانات ويظهر لك البيانات بهذا الشكل:
 
-  ![image|690x289](upload://ukKYO6T1WayG5D9xoC9U2BkcTTt.png)
+  ![image|690x289](image-10.png)
 
 * ### هل يوجد تغييرات على views.py ؟
 
@@ -586,7 +586,7 @@ class PostStore(BaseStore):
 
       فقط أدخل على موقع Heroku ثم التطبيق خاصتك, ومن تبويب Resources اكتب postgre في الإضافات add-ons
 
-      ![heroku-postgre|690x464](upload://mkpV7PieQ3riamuqEsp3b0TRDve.png)
+      ![heroku-postgre|690x464](image-11.png)
 
       قم بعدها بتشغيل التطبيق وسترى أنه يعمل بدون مشاكل !
 
@@ -594,7 +594,7 @@ class PostStore(BaseStore):
 
       قام Heroku بشكل تلقائي بإضافاتها على settings الخاصة بالتطبيق خاصتك, لاحظ اسمها DATABASE_URL كما سميناها في environment variable config بالأعلى :
 
-      ![heroku-postgre-settings|673x381](upload://kY8MkOBAnjQDs8Q7mrPSEtqPRnw.png)
+      ![heroku-postgre-settings|673x381](image-12.png)
 
 * ### كيف أقوم بالاتصال على قاعدة البيانات من جهازي الشخصي ؟
 
@@ -621,13 +621,13 @@ class PostStore(BaseStore):
 
      بعد تحميله تقوم بعمل Test Connection بهذا الشكل (صورة متحركة):
 
-     ![postgre-connect-db|690x498](upload://va4po2KgJB3jffT5XiZVyQWi9RF.gif)
+     ![postgre-connect-db|690x498](image-13.gif)
 
   * #### كيف نطلع على الـ Topics الموجودة داخل قاعدة البيانات ؟
 
      الأمر سهل, تابع معي (صورة متحركة):
 
-     ![postgre-show-data|690x498](upload://oNx6kcgBtcHP1BLqt7p0lVHdvls.gif)
+     ![postgre-show-data|690x498](image-14.gif)
 
 
  * ### ماهي المهمة المطلوبة ؟

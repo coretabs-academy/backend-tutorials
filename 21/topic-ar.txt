@@ -16,13 +16,13 @@
 
   (اش بنك) هو أحد أشهر البنوك التركية, لنرى كيف يعرض أسعار العملات الأجنبية foreign currencies على تطبيق الأندرويد خاصته:
 
-  ![Screenshot_20180309-223702_%C4%B0%C5%9FCep%20(1)|243x500](upload://cfkhKHQnaGEez02XLk0QgYV2QeX.jpg)
+  ![Screenshot_20180309-223702_%C4%B0%C5%9FCep%20(1)|243x500](image-1.jpg)
 
   * #### ماذا عن عرض الأسعار على الموقع الخاص بهم, على الرابط:
 
   >https://www.isbank.com.tr/EN/prices-and-rates/foreign-exchange-rates/Pages/foreign-exchange-rates.aspx
 
-  ![image|690x321](upload://beUhDeKik2G2zBQRGU2xjbsLo3f.png)
+  ![image|690x321](image-2.png)
 
 
   نفس الأمر على جهاز iPhone, يوجد تطبيق مخصص.
@@ -37,7 +37,7 @@
 
     الحل الذهبي هو ما يسمى بـ Web API.
 
-    ![webapi-overview|690x332](upload://kAAmem02zkTjn8RxjH1yVD9bauS.png)
+    ![webapi-overview|690x332](image-3.png)
 
 * ### ماهو API ؟
 
@@ -75,7 +75,7 @@
 
   إذا فتحت الرابط سيظهر لك:
 
-  ![image|690x425](upload://klVJyYMO9kpmytyy0iaMJPwialF.png)
+  ![image|690x425](image-4.png)
 
   أسعار العملات على شكل format غريب... صحيح !
 
@@ -232,7 +232,7 @@ class Post():
 
   قم بفتح الرابط, وسترى النتيجة:
 
-  ![image|328x339](upload://3YiJeDXVv4fvrGsSKvhFWPVIJun.png)
+  ![image|328x339](image-5.png)
 
   كما توقعنا... كل المواضيع على صيغة JSON.
 
@@ -240,7 +240,7 @@ class Post():
 
   بالتأكيد لا, يوجد أداة مخصصة لذلك وهي Postman.
 
-  ![image|232x500](upload://v56E9ztX2Wi0jcCIrvzfiiRUUBg.png)
+  ![image|232x500](image-5.png)
 
   قم بتحميلها من هنا:
 
@@ -258,7 +258,7 @@ class Post():
 
     شاهد الصورة المتحركة:
 
-    ![postman-get|690x421](upload://jFDBtTX1Grq29pp6iQGvt6KLIea.gif)
+    ![postman-get|690x421](image-6.gif)
     
   * #### ماهي أفضل مميزة feature في Postman ؟
 
@@ -289,7 +289,7 @@ class Post():
 
   الأمر سهل, تابع الصورة المتحركة:
 
-  ![postman-post|690x373](upload://2JDLhkpLisnrIiMujw7I2WeXwiC.gif)
+  ![postman-post|690x373](image-7.gif)
 
   * #### لاحظ كيف يتم ارجاع الـ object (مع الـ id) بعد اضافته.
 

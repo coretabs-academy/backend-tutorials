@@ -80,7 +80,7 @@
 * ### ماهي النتيجة المطلوبة منك ؟
 
   بإمكانك أن تقوم بتصميم بسيط جداً للصفحة الرئيسية (index) التي في الـ wireframe خاصتك.. بالنسبة لي قمت بعمل شيء بسيط جداً كمثال:
-  ![image|690x425](upload://ty8SiHrPJo3hd5KLQyUYuWjhg5o.png)
+  ![image|690x425](image-1.png)
 
 
 * ### كيف سأعرض صفحة الـ html باستعمال flask ؟
@@ -119,7 +119,7 @@
      نعم, تحتاج أن تغير اسم ملف main.py إلى tests.py لأنه يقوم بعمل testing :smile:
 
      بإمكانك اتباع هذا الـ structure لتنظيم مشروعك:
-      ![image|465x267](upload://keEXxGvc81906vkRSI5zqajpRdC.png)
+      ![image|465x267](image-2.png)
 
 
 * ### ماهي المهمة المطلوبة ؟
