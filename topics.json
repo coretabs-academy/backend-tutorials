@@ -26,7 +26,7 @@
 		{
 			"title-ar": "أساسيات بايثون",
 			"title-en": "Python Basic",
-			"desc-ar": "تعلم أساسيات بايثون، اللغة الديناميكية المعروفة لتطوير تطبيقات الإنترنت، البيانات الضخمة والأبحات العلمية",
+			"desc-ar": "تعلم أساسيات بايثون، اللغة الديناميكية المعروفة لتطوير تطبيقات الإنترنت، البيانات الضخمة والأبحات العلمية.",
 			"desc-en": "This Python Fundamentals Course gets you started with Python, a dynamic language popular for web development, big data, science, and scripting.",
 			"image": "python.png",
 			"topics": [
@@ -62,7 +62,7 @@
 		{
 			"title-ar": "بناء المشروع",
 			"title-en": "Building the project",
-			"desc-ar": "بعد أن تعلمنا أساسيات البايثون, سننطلق في بناء المشروع الذي بدأناه !",
+			"desc-ar": "بعد أن تعلمنا أساسيات البايثون, سننطلق في بناء المشروع الذي بدأناه, وسنتعامل أيضاً مع البيانات بشكل عملي !",
 			"desc-en": "We already got the basics, let's build our project !",
 			"image": "python.png",
 			"topics": [
@@ -110,9 +110,9 @@
 			]
 		}, 
 		{
-			"title-ar": "تطوير برمجيات المواقع مع Flask",
+			"title-ar": "تطوير الموقع الإلكتروني",
 			"title-en": "Building web-apps in Flask",
-			"desc-ar": "ابدأ بتطوير أول موقع الكتروني بمساعدة فلاسك، البيئة التطويرية المبنية على بايثون، الخفيفة، البسيطة وسهلة الاستخدام.",
+			"desc-ar": "ابدأ بتطوير أول موقع الكتروني بمساعدة Flask, البيئة التطويرية المبنية على بايثون, الخفيفة, البسيطة وسهلة الاستخدام.",
 			"desc-en": "Start building your first web site by Flask, a Python web framework with a small core, simple and easy to use.",
 			"image": "flask.png",
 			"topics": [
