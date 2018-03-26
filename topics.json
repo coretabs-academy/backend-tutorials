@@ -62,7 +62,7 @@
 		{
 			"title-ar": "بناء المشروع",
 			"title-en": "Building the project",
-			"desc-ar": "بعد أن تعلمنا الأساسيات, سننطلق في بناء المشروع الذي بدأناه !",
+			"desc-ar": "بعد أن تعلمنا أساسيات البايثون, سننطلق في بناء المشروع الذي بدأناه !",
 			"desc-en": "We already got the basics, let's build our project !",
 			"image": "python.png",
 			"topics": [

@@ -23,7 +23,7 @@
 
   * #### سنستعمل منصة Flask.
 
-    ![image|400x200](/uploads/default/original/3X/a/f/af7c87ad5c10d03abf7de0c56e2de9d83a5641de.png)
+    ![image|400x200](image-1.png)
 
   * #### ولكن ما هي Flask ؟
      هي منصة عمل مصغرة (microframework). بإمكانك عمل المواقع بها بشكل بسيط جداً.
@@ -41,16 +41,16 @@
 
      * ##### في حال كنت تستعمل PyCharm:
         فقط افتح File ==> Settings:
-        ![image|281x322](upload://8FXgiG4VCJnxppSP83zApVpw0Tj.png)
+        ![image|281x322](image-2.png)
 
         ثم اختر المشروع الذي تعمل عليه:
-        ![image|690x423](upload://wguG0PFu9i0qzZy1lb6ECB5BiJo.png)
+        ![image|690x423](image-3.png)
 
          اختر install:
-         ![image|506x357](upload://lTF5jVMlPGsGGVehc6rZ4FSpAcB.png)
+         ![image|506x357](image-4.png)
 
          اكتب flask, ثم install package:
-         ![image|453x479](upload://6eoiRfgR8f7LrPzYlKj807YmxZZ.png)
+         ![image|453x479](image-5.png)
 
 
      * ##### في حال كنت تريد تنصيبها يدوياً (بدون الحاجة لـ PyCharm):
@@ -107,7 +107,7 @@
        > http://127.0.0.1:5000/
 
         سيظهر لك:
-        ![image|500x100](upload://fDSxDpuJrIfgsslgtpseazOA765.png)
+        ![image|500x100](image-6.png)
 
     * #### لما ؟
 

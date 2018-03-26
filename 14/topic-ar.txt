@@ -1,188 +1,150 @@
 #### السلام عليكم أصدقائي,
 
-* ### بالنسبة لقروب Slack:
-
-  * #### مالفائدة منه ؟
-
-     لجعل التواصل أسهل بين الجميع بشكل مباشر, وأيضاً لربط الأعضاء ببعض (حتى بعد انتهاء المدة 31 مارس), ولا ننسى أن الأمر سيجعل الأمر أسهل لإتمام الورشة, خصوصاً أجزاء git التعاونية (collaborative git)... قمت بعمل قروب slack (**غير رسمي**).
-
-  * #### كيف يمكنني التسجيل ؟
-
-     فقط ادخل على هذا الرابط, وستنضم مباشرة للمجموعة:
-     https://join.slack.com/t/fullstack-coders/shared_invite/enQtMzE4NzM0Mzg1OTI3LTdhZmEyZjkyYjUwZDgwOGMyY2E3MTZjNzNlOTRkYjdmOTE3YTI4ZjllNDQ3MzNhMDBiOTVjNjQ0ZTBiYzZhN2U
-
-  * #### الدعوة عامة, بإمكان الجميع الإنضمام !
-
 * ### فهرس المواضيع السابقة:
 
   https://macdiscussions.udacity.com/t/topic/86623
 
-* ### قطعنا شوط كبير جداً ! الآن سنبدأ على تحويل المشروع إلى موقع (web app).
+* ### مالذي قمنا بعمله say_hello ؟
+  ```
+  @app.route("/SayHello/<name>")
+  def say_hello(name):
+      return f"Hello {name}"
+  ```
 
-* ### كيف سنقوم بعمل موقع ؟
+  * #### قمنا بعمل controller action يقوم باستقبال HTTP GET request.
 
-  * #### سنستعمل منصة Flask.
+  * #### ماهو الـ HTTP GET request ؟
+     حينما تقوم بفتح صفحة قوقل:
+     > www.google.com
 
-    ![image|400x200](image-1.png)
+     فأنت ببساطة تطلب من **المتصفح أن يقوم بعمل طلب HTTP GET** إلى سيرفر قوقل, وهو بدوره يرجع لك بيانات صفحة قوقل !
 
-  * #### ولكن ما هي Flask ؟
-     هي منصة عمل مصغرة (microframework). بإمكانك عمل المواقع بها بشكل بسيط جداً.
+     أي أنه ببساطة **طلب لجلب البيانات**.
 
-  * #### ماهي Framework ؟
-     ببساطة هي مجموعة من الأدوات والحزم packages تستطيع بها القيام بوظائف كثيرة, بدلاً من كتابتها من أول وجديد :smile: 
+  * #### هل يوجد أنواع أخرى من الـ requests ؟
 
-  * #### لماذا Flask وليس Django؟
+     نعم, يوجد لدينا POST أيضاً, وهو يقوم **بوضع البيانات** بدلاً من جلبها.
 
-    لا يهم حقيقة, لأننا نريد تعلم الأساسيات وليس تعلم أفضل framework :smile:
+    ويوجد أيضاً PUT و DELETE وغيرها... لا تهمنا الآن.
 
-     في Flask, الأساسيات ستكون واضحة وسلسة.
+* ### أين الواجهة الرسومية للموقع ؟
 
-  * #### كيف يمكنني تنصيب Flask ؟
+  * #### كيف سنقوم بها ؟
 
-     * ##### في حال كنت تستعمل PyCharm:
-        فقط افتح File ==> Settings:
-        ![image|281x322](image-2.png)
+     سنقوم بعمل الـ view هذه المرة باستعمال لغتي HTML و CSS.
 
-        ثم اختر المشروع الذي تعمل عليه:
-        ![image|690x423](image-3.png)
+  * #### ماهي الـ view ؟
 
-         اختر install:
-         ![image|506x357](image-4.png)
+     ببساطة هي ما سيراه المستخدم ويتعامل معه... أي أنها الواجهة الرسومية (User Interface - UI) للموقع.
 
-         اكتب flask, ثم install package:
-         ![image|453x479](image-5.png)
+     لأننا نتبع نمط MVC.
 
+  * #### ماهو MVC Pattern ؟
 
-     * ##### في حال كنت تريد تنصيبها يدوياً (بدون الحاجة لـ PyCharm):
+    هو فقط نمط لتصميم المشروع, يجعل الأمور مرتبة أكثر... بدلاً من خلط كل شيء في ملف واحد (كما يقوم بها أغلب مبرمجي php :smile:)
 
-        تحتاج أولاً لأن تحصل على pip (بايثون 3 يوجد فيها pip بشكل طبيعي) :wink: 
+  * #### حرف M من MVC:
 
-        في حالة لديك بايثون 2, **تأكد من أن النسخة هي (2.7.9)** ليعمل pip بدون مشاكل
+    تشير إلى الـ Models التي قمنا بعملها (Member class & Post class).
 
-        * ##### في حال pip لا يعمل لديك , قم بتطبيق الخطوات في الفيديو:
-          https://www.youtube.com/watch?v=QnAuKOeiSEk
+  * #### حرف V من MVC:
+    تشير إلى الـ views التي سنقوم بعملها باستخدام HTML و CSS.
 
-        * ##### في حالة كان يعمل:
-          فقط اكتب:
-            ```
-            pip install flask
-            ```
+  * #### حرف C:
+    تشير إلى Controller, هل تذكر دالة say_hello ؟
 
-* ### كيف نقوم بعمل مشروع تجريبي demo ؟
+    تعتبر هذه الدالة controller action (أي جزء من الـ controller). أي أن الـ controller هو المسؤول عن استقبال الطلبات requests ثم يقوم بإرجاع نتيجة مثل hello mohammed عند طلب:
+    > http://127.0.0.1:5000/SayHello/mohammed
 
-  * #### ببساطة أبدأ مشروع جديد.
-     بإمكانك تسميته flask-demo.
+  * #### تعتمد Flask تسمية أخرى للـ MVC:
 
-  * #### هل سنحتاج import ؟
+     يجب الإنتباه على اختلاف المسميات في Flask, **بحيث لدينا template و view**, بدلاً view و controller
+     >**M**odel ( M ) = Model
+       **V**iew ( V ) = Template
+       **C**ontroller ( C ) = View
 
-    نعم, ستحتاج إضافة:
-    ```
-    from flask import Flask
-    ```
+* ### ماهي HTML و CSS ؟
 
-  * #### هل يوجد أي كود لإضافته ليعمل البرنامج ؟
+  هي لغتين تستعمل في تصميم صفحات المواقع, **سهلة جداً** كونها فقط تحتاج منك أن تتخيل الصفحة التي تقوم برسمها.
 
-    نعم, بعد عمل import ستحتاج لكتابة الكود الذي يبدأ به أي برنامج flask:
-    ```
-    app = Flask(__name__)
-		
-    app.run()
-    ```
+  يجدر الإشارة أن HTML **ليست لغة برمجة** وإنما Markup language, و CSS هي لغة styling لعمل ستايل على كود الـ HTML التي كتبته.
 
-  * #### بقي فقط اضافة كود فعلي قبل السطر app.run:
-    ```
-    @app.route("/index")
-    def home():
-        return "Hi there"
+  قام **الأستاذ محمد الحكيم المتخصص** في قسم تطوير واجهات الويب Front-End بعمل ورشة سهلة التتبع (تابعتها لأراجع الأساسيات عندي :smile:) :
+  https://macdiscussions.udacity.com/t/topic/74682
 
-    ```
+  استغرق مني قرائتها كلها **أقل من نصف ساعة**... أي أنه بإمكانك قرائتها والتطبيق هنا :wink: 
 
-    * #### هل التطبيق جاهز للعمل ؟
+  كمطور full-stack ليس عليك أن تتقن تصميم الصفحات وإنما تعلم الأساسيات, لتعمل مع المطورين الآخرين بدون مشاكل.
+  لأن المجال front-end كبير جداً, مثل مجال back-end !
 
-       نعم, قم بتشغيله, وسيظهر لك:
-       ```
-        * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
-       ```
-       افتح الرابط المشار إليه:
-       > http://127.0.0.1:5000/
+* ### ماهي النتيجة المطلوبة منك ؟
 
-        سيظهر لك:
-        ![image|500x100](image-6.png)
-
-    * #### لما ؟
-
-      لأننا اخترنا المسار index, بمعنى لو دخلت على الرابط:
-       > http://127.0.0.1:5000/index/
-
-      ستجده يظهر لك Hi there.
-
-      أي أننا جعلنا الـ routing مخصص للصفحة التي اسمها index.
+  بإمكانك أن تقوم بتصميم بسيط جداً للصفحة الرئيسية (index) التي في الـ wireframe خاصتك.. بالنسبة لي قمت بعمل شيء بسيط جداً كمثال:
+  ![image|690x425](image-1.png)
 
 
-* ### ماهو routing ؟
+* ### كيف سأعرض صفحة الـ html باستعمال flask ؟
 
-  * #### ببساطة, هو مثل حينما تدل شخص كيف يصل لبيته... أي تدله على المسار route.
+  * #### أولاً قم بإضافة flask إلى مشروع forums (في حالة كنت تستعمل virtual environment).
 
-  * #### لماذا index ؟
+  * #### هل نحتاج لأي import ؟
+     نعم سنحتاج لإضافة render_template:
+     ```
+     from flask import Flask, render_template
+     ```
 
-     بإمكانك إضافة أي route آخر, مثلاً:
+  * #### ماذا عن ارجاع الصفحة ؟
+     فقط قم بعمل return render_template بهذا الشكل:
      ```
      @app.route("/")
      @app.route("/index")
      def home():
-          return "Hi there"
+         return render_template("index.html")
      ```
 
-     هذا الكود سيجعل فتح الصفحة الأولى (بدون index) يعمل بدون مشاكل, لأنك تخبره:
-     في الصفحتين **index وبدون أي مسار**, قم بإظهار الرسالة Hi there.
+     بهذا الشكل نحن نخبره بأن يعرض ملف index.html عندما يقوم باستعراض الصفحة:
+     > http://127.0.0.1:5000
+
+     أو:
+     > http://127.0.0.1:5000/index/
+
+  * #### أين هي صفحة index.html ؟
+
+    قم بعمل مجلد اسمه templates ثم اكتب فيه ملف index.html.
+
+* ### كيف سننظم المشروع ؟
+
+  * #### هل نحتاج تغيير ترتيب الملفات وأسمائها ؟
+
+     نعم, تحتاج أن تغير اسم ملف main.py إلى tests.py لأنه يقوم بعمل testing :smile:
+
+     بإمكانك اتباع هذا الـ structure لتنظيم مشروعك:
+      ![image|465x267](image-2.png)
+
 
 * ### ماهي المهمة المطلوبة ؟
 
-  * قم بعمل مجلد جديد اسمه flask-demo.
-  * أنشأ مشروع جديد (لتجربة flask) داخل مجلد flask-demo.
-  * اكتب home function كما شرحنا بالأعلى.
-  * جربها.
-  * اكتب دالة اسمها say_hello, تقوم باستقبال الطلب هذا:
-     ```
-     http://127.0.0.1:5000/SayHello/YaserAlNajjar
-    ```
-    وتظهر:
-    ```
-    Hello YaserAlNajjar
-    ```
-
-    لكن **في حالة الطلب** هذا:
-    ```
-    http://127.0.0.1:5000/SayHello/mohammed
-    ```
-    ستظهر:
-    ```
-    Hello mohammed
-    ```
+  * قم بإضافة flask إلى مشروع forums (في حال كنت تستعمل virtual environment).
+  * قم بترتيب المشروع كما شرحنا بالأعلى.
+  * أنشأ مجلد templates.
+  * اكتب ملف index.html داخل المجلد templates.
+  * قم بعمل تصميم بسيط لأول wireframe صنعته (الصفحة الرئيسية)... لا داعي لتضييع وقت طويل في التصميم :wink:
+  * ارجع صفحة index من دالة home.  
 
 * ### ملحق:
-  * #### شرح أساسيات لـ Flask:
-     http://flask.pocoo.org/docs/0.12/quickstart/
 
-  * #### شرح routing:
-     http://flask.pocoo.org/docs/0.10/quickstart/#routing
+  * #### شرح أساسيات HTML و CSS:
+     https://macdiscussions.udacity.com/t/topic/74682
 
-  * #### كورس Flask:
-    https://app.pluralsight.com/library/courses/flask-micro-framework-introduction/table-of-contents
-
-   * #### التسجيل مجاناً على Pluralsight:
-     من هذا الموقع تقوم بربط ايميلك (hotmail أو outlook), ثم تحصل على كوبون مجاني ثلاثة أشهر:
-     https://www.visualstudio.com/dev-essentials/
-
-   * #### معلومات حول virtual environment:
-     https://macdiscussions.udacity.com/t/virtualenv/110133
+  * #### أنواع الـ HTTP requests:
+     https://www.w3schools.com/tags/ref_httpmethods.asp
 
  * ### كيفية تسليم الحل ؟
 
     ارفع التحديثات على حسابك في GitHub في نفس المستودع (repository), **بالتعديل على نفس الملفات**.
 
     بإمكانك تسليم الحل في هذا الموضوع:
-    https://macdiscussions.udacity.com/t/26-flask/113321
+    https://macdiscussions.udacity.com/t/28-views/114958
 
 * ### لا تفسد المتعة :smile::
 

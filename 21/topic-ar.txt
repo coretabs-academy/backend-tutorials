@@ -6,328 +6,530 @@
 
 * ### مالذي قمنا بعمله إلى الآن ؟
 
-  قمنا بعمل موقع website يقوم بعمل مهام بسيطة.
+  قمنا بعمل web API نستطيع التعامل معها باستعمال Postman (حتى الآن)
 
-* ### مالذي سنقوم بعمله ؟
+  * #### كيف نقوم بتجربة الـ API على Postman ؟
 
-  سنقوم ببناء أجزاء أخرى من تطبيق الويب web app, بحيث يعمل الـ website بشكل أفضل.
+    قمت بعمل نسخة من الـ requests التي قمت بعملها على Postman:
 
-* ### دراسة برمجيات البنك التركي Türkiye İş Bankası:
+    ![image|478x344](image-1.png)
 
-  (اش بنك) هو أحد أشهر البنوك التركية, لنرى كيف يعرض أسعار العملات الأجنبية foreign currencies على تطبيق الأندرويد خاصته:
+    بإمكانك نسخها من هنا:
+    ```
+     {
+    	"info": {
+    		"name": "flask-api",
+    		"_postman_id": "470e442f-76a2-2abc-0281-bfbe077c6086",
+    		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    	},
+    	"item": [
+    		{
+    			"name": "show all topics",
+    			"request": {
+    				"method": "GET",
+    				"header": [],
+    				"body": {
+    					"mode": "raw",
+    					"raw": ""
+    				},
+    				"url": {
+    					"raw": "http://127.0.0.1:5000/api/topic/all",
+    					"protocol": "http",
+    					"host": [
+    						"127",
+    						"0",
+    						"0",
+    						"1"
+    					],
+    					"port": "5000",
+    					"path": [
+    						"api",
+    						"topic",
+    						"all"
+    					]
+    				}
+    			},
+    			"response": []
+    		},
+    		{
+    			"name": "topic show",
+    			"request": {
+    				"method": "GET",
+    				"header": [],
+    				"body": {},
+    				"url": {
+    					"raw": "http://127.0.0.1:5000/api/topic/show/5",
+    					"protocol": "http",
+    					"host": [
+    						"127",
+    						"0",
+    						"0",
+    						"1"
+    					],
+    					"port": "5000",
+    					"path": [
+    						"api",
+    						"topic",
+    						"show",
+    						"5"
+    					]
+    				}
+    			},
+    			"response": []
+    		},
+    		{
+    			"name": "topic add",
+    			"request": {
+    				"method": "POST",
+    				"header": [
+    					{
+    						"key": "Content-Type",
+    						"value": "application/json"
+    					}
+    				],
+    				"body": {
+    					"mode": "raw",
+    					"raw": "{\n\t\"title\": \"hello\",\n\t\"content\": \"This is the topic content !\"\n}"
+    				},
+    				"url": {
+    					"raw": "http://127.0.0.1:5000/api/topic/add",
+    					"protocol": "http",
+    					"host": [
+    						"127",
+    						"0",
+    						"0",
+    						"1"
+    					],
+    					"port": "5000",
+    					"path": [
+    						"api",
+    						"topic",
+    						"add"
+    					]
+    				}
+    			},
+    			"response": []
+    		},
+    		{
+    			"name": "topic update",
+    			"request": {
+    				"method": "PUT",
+    				"header": [
+    					{
+    						"key": "Content-Type",
+    						"value": "application/json"
+    					}
+    				],
+    				"body": {
+    					"mode": "raw",
+    					"raw": "{\n\t\"title\": \"hello\",\n\t\"content\": \"This is the topic content !\"\n}"
+    				},
+    				"url": {
+    					"raw": "http://127.0.0.1:5000/api/topic/update/5",
+    					"protocol": "http",
+    					"host": [
+    						"127",
+    						"0",
+    						"0",
+    						"1"
+    					],
+    					"port": "5000",
+    					"path": [
+    						"api",
+    						"topic",
+    						"update",
+    						"5"
+    					]
+    				}
+    			},
+    			"response": []
+    		},
+    		{
+    			"name": "topic delete",
+    			"request": {
+    				"method": "DELETE",
+    				"header": [],
+    				"body": {},
+    				"url": {
+    					"raw": "http://127.0.0.1:5000/api/topic/delete/5",
+    					"protocol": "http",
+    					"host": [
+    						"127",
+    						"0",
+    						"0",
+    						"1"
+    					],
+    					"port": "5000",
+    					"path": [
+    						"api",
+    						"topic",
+    						"delete",
+    						"5"
+    					]
+    				}
+    			},
+    			"response": []
+    		}
+    	]
+    }
+    ```
 
-  ![Screenshot_20180309-223702_%C4%B0%C5%9FCep%20(1)|243x500](image-1.jpg)
+  * #### كيف أقوم باستعمالها ؟
 
-  * #### ماذا عن عرض الأسعار على الموقع الخاص بهم, على الرابط:
+    شاهد هذه الصورة المتحركة لكيفية استعمالها:
 
-  >https://www.isbank.com.tr/EN/prices-and-rates/foreign-exchange-rates/Pages/foreign-exchange-rates.aspx
+    ![using-postman|690x457](image-2.gif)
 
-  ![image|690x321](image-2.png)
+  * #### مالذي يجب ملاحظته ؟
 
+    يجب التركيز على استعمال HTTP methods مختلفة عند عمل requests بحيث:
 
-  نفس الأمر على جهاز iPhone, يوجد تطبيق مخصص.
+    * نستعمل GET للحصول على البيانات.
+    * الـ POST لإرسال البيانات (الجديدة).
+    * بالنسبة لـ PUT فهو لتحديث البيانات غالباً.
+    * عند حذف البيانات نستعمل DELETE.
 
-  * ### من أين تأتي نفس البيانات ؟
+* ### مالفائدة من كل هذه الـ API ؟
 
-      * #### هل تقوم هذه التطبيقات المختلفة باستعمال نفس الكود والتخاطب مع قاعدة البيانات كل مرة ؟!
+  سنقوم باستعمالها في التطبيق بدل الـ controller actions المملة وارسال صفحة جديدة كل مرة, سنجعل البرنامج أفضل بكثير...
 
-      * #### يعني كل مرة نكتب نفس الكود للتخاطب مع قاعدة البيانات ؟؟ غير معقول !
+  * #### ماهو البديل ؟
 
-  * ### ماهو الحل المستعمل في البنك ؟
+    نعم, إنها اللغة القبيحة Javascript :smile:
 
-    الحل الذهبي هو ما يسمى بـ Web API.
+    سنقوم باستهلاك الخدمات Consuming API باستعمال Javascript بإرسال الـ requests إليها باستعمال المتصفح, أي أن الـ client هو المتصفح, بهذا الشكل:
 
-    ![webapi-overview|690x332](image-3.png)
+    ![image|500x200](image-3.png)
 
-* ### ماهو API ؟
+     لاحظ كيف يتم الأمر بين المتصفح (chrome مثلاً), وبين الـ API كونها الوسيط إلى الـ server للقيام بالعمليات.
 
-  يطلق على أي **كود يستطيع التخاطب مع كود** آخر بـ Application Programming Interface - API, ولكن بدون معرفة أي شيء عن بعضهما وكيف يعمل أو حتى كيف تم بناءه !
+  * #### لم أفهم, ممكن مثال واقعي ؟
 
-  فقط الكود الأول يطلب من الكود الآخر القيام بمهمة, وهو يقوم بالإستجابه respond بشكل سحري :smile:
+    بالتأكيد, هل ترى هذه الصفحة, الخاصة بإضافة موضوع topic add:
 
-  * #### ممكن مثال واقعي على API ؟
+    ![image|465x137](image-4.png)
 
-    إذا أردت العمل على الخرائط, مثلاً بمعرفة نقطة على الخريطة... أريد معرفة ماهو اسم المكان. 
+    سنقوم بربط الزر Create بالـ API بدل الطريقة المملة الخاصة بالـ controller.
 
-    يوجد مكتبة اسمها ArcGIS توفر لنا API للقيام بذلك:
+    بحيث عند الضغط على الزر تقوم javascript بإرسال الـ POST request إلى الـ API الخاصة بإضافة موضوع.
+
+* ### كيف أتعلم Javascript - JS ؟
+
+  الأمر سهل جداً, كونك تعلمت أجزاء backend, تعتبر لغة JS متعلقة بالـ frontend, ولكنك متفوق على أصحاب الـ frontend بكثير في المجال البرمجي, لذا تعلمها بالنسبة لك شربة ماء piece of cake :smile:
+
+  * #### تشعر أنك تحتاج الأساسيات ؟
+
+    لا مشكلة أبداً, قام الأستاذ @Alhakem بشرح أساسيات Javascript في سلسلة بسيطة تستطيع انهائها في ساعة:
+
+    https://macdiscussions.udacity.com/t/topic/74682
+
+  * #### لنقم بتجربة JS على الصفحة topic add:
+
+    فقط اكتب الجزء script في نهاية صفحة html بهذا الشكل:
 
     ```
-    location = {'Y':34.13419,'X':-118.29636,
-        'spatialReference':{
-        'wkid':4326}
-       }
-    unknown_pt = Point(location)
-    address = reverse_geocode(location=unknown_pt)
-    >address
-    >380 New York St, Redlands, CA
-    ```
-
-    كما ترى في المثال, بمجرد معرفة النقاط x y, أرسلت إلى reverse_geocode التي تعتبر API, وهي أخبرتني بأن المكان هذا هو New York St.
-
-    لا أعرف تفاصيل كيف تعمل الـ API, أو أي شيء... فقط أعرف المدخلات, وأعرف أنه ستأتيني المخرجات, هذه API ببساطة !
-
-* ### ماذا عن Web API ؟
-
-  ببساطة, هي طريقة لأخذ البيانات من خدمة تعمل على النت online service, بنفس الآلية.
-
-  كمثال, لدينا بنك İş Bankası, يقوم بتوفير الـ api على هذا الرابط:
-  >https://www.isbank.com.tr/_layouts/ISB_DA/HttpHandlers/FxRatesHandler.ashx?Lang=en&fxRateType=INTERACTIVE&date=2018-3-7&time=1520383655744
-
-  إذا فتحت الرابط سيظهر لك:
-
-  ![image|690x425](image-4.png)
-
-  أسعار العملات على شكل format غريب... صحيح !
-
-  يسمى هذا الشكل JSON.
-
-  بحيث يوفر السيرفر server هذه الـ API, ليقوم client بإظهار البيانات بالشكل المناسب.
-
-* ### ماهو الفرق بين Server و Client ؟
-
-  * #### ما الذي يقوم به السيرفر server ؟
-
-    يقوم السيرفر بتوفير الـ API, والقيام بتشغيل الكود الخاص بك (في حالتنا كود بايثون).
-
-    بالنسبة لآخر موقع لـ IsBank فهو يقوم بتوفير API أسعار العملات.
-
-  * #### مالذي يقوم به العميل client ؟
-
-    يقوم بالتخاطب مع السيرفر بالقيام بالـ requests... مثلاً القيام بعمل HTTP GET request لطلب المعلومات, أو إرسال المعلومات باستعمال HTTP POST request.
-
-    نسمي عملية استعمال الـ API أو استهلاك الـ API بـ Consuming API.
-
-  * #### عرفنا أن السيرفر عبارة عن جهاز كمبيوتر بعيد, يقوم بمعالجة الطلبات... من هو الـ client ؟
- 
-    تطبيق الهاتف android app الخاص بـ IsBank حينما يطلب البيانات هو الـ client.
-
-    وحينما تدخل من جهازك باستعمال المتصفح chrome فإن المتصفح هو الـ client.
-
-    وحينما تستعمل Internet Explorer, فإنه هو الـ client, وهكذا.
-
-    أي أن السيرفر server يتخاطب مع **العديد من العملاء clients** ويجيب عليهم repsond.
-
-* #### مالذي سنقوم ببناء هذه المرة ؟
-
-  سنقوم ببناء الأجزاء المتعلقة بالـ server.
-  أي أننا سنكتب المرة هذه فقط server-side code, وهي الـ web api.
-
-* ### كيف ستظهر البيانات لمن يقوم باستهلاك الـ API ؟
-
-  ستظهر له على هيئة JSON, كما بالصورة الخاصة بالـ IsBank API.
-
-  يوجد formats أخرى غير JSON مثل XML... لكنها لا تستعمل بكثرة مؤخراً !
-
-* ### ماهي JavaScript Object Notation - JSON ؟
-
-  هي طريقة لعرض البيانات, كما نقوم بعرض objects الخاصة بلغة JavaScript.
-
-  وهي سهلة جداً, مثلاً عند عمل Serialize لأحد المواضيع post object تكون JSON format الخاصة به بهذا الشكل الجميل:
-
-  ```
-  {
-      "id": 1,
-      "title": "hello",
-      "content": "topic content goes here",
-      "member_id": 0
-  }
-  ```
-
-  بالنسبة لـ isbank فهو يقوم بحذف الأسطر لجعل حجم الـ package أصغر بهذا الشكل:
-
-  ```
-  {
-      "id": 1, "title": "hello", "content": "topic content goes here", "member_id": 0
-  }
-  ```
-
-  * #### ماذا تقصد بـ Serialize ؟
-
-    أقصد به تحويل الـ object إلى صيغة JSON أو أي صيغة أخرى.
-
-  * #### ماهي فائدة عمل Serialize ؟
-
-    السؤال الأصح, كيف سيقوم الـ client بتحويل هذه الصيغة (JSON) إلى objects مجدداً ؟
-
-    ببساطة, السيرفر سيقوم بعمل serialize لكي يقوم بالـ client بعكس العملية (تحويل JSON إلى objects مجدداً), تسمى العملية العكسية deserialize .
-
-
-  * #### ممكن مثال واقعي على Serialize و Deserialize ؟
-
-    صديقنا بنك IsBank هو أفضل مثال :smile:
-
-    يقوم السيرفر بعمل serialize لأسعار العملات وارسالها على شكل JSON. كما في الرابط بالأعلى.
-
-    ويقوم تطبيق android بأخذ هذه البيانات وعمل deserialize لإرجاعها objects لإظهارها بالشكل المناسب.
-
-  * #### كيف يمكننا تهيئة الـ post object والـ member object لتصبح قابلة للتحويل إلى JSON ؟
-
-    تذكر أن JSON format هي مشابهه جداً لـ dictionary, أي أننا فقط نريد كل object إلى dictionary format بهذا الشكل (لاحظ استعمال الدالة dict):
-
-```
-class Member():
-
-    def __init__(self, name, age):
-        self.id = 0
-        self.name = name
-        self.age = age
-        self.posts = []
-
-    def __str__(self):
-        return f"Name: {self.name}, Age: {self.age}"
-
-    def __dict__(self):
-        return {
-            "id": self.id,
-            "name": self.name,
-            "age": self.age,
-            "posts": self.posts,
-        }
-
-
-class Post():
-
-    def __init__(self, title, content, member_id=0):
-        self.id = 0
-        self.title = title
-        self.content = content
-        self.member_id = member_id
-
-    def __str__(self):
-        return f"Title: {self.title}, Content: {self.content}"
-
-    def __dict__(self):
-        return {
-            "id": self.id,
-            "title": self.title,
-            "content": self.content,
-            "member_id": self.member_id,
-        }
-```
-
-* ### كيف سنقوم بكتابة الـ API ؟
-
-  كما كتبنا الـ controller actions من قبل... سنقوم بكتابة controller action تقوم بعمل route للـ api بهذا الشكل (بالنسبة لي قمت بعمل ملف api.py لجعل الأمور أوضح):
-
-  ```
-  @app.route("/api/topic/all")
-  def topic_get_all():
-      posts = [post.__dict__() for post in post_store.get_all()]
-      return jsonify(posts)
-  ```
-
-  لاحظ استعمالنا لـ comprehension لتحويل كل الـ objects في الـ list إلى dictionary format.
-
-  عند العمل مع database, فلا تحتاج لكل هذا... لأن العناصر تأتي جاهزة لعمل jsonify.
-
-  تقوم jsonify بتحويل الـ objects إلى JSON format.
-
-  هذه الدالة تقوم بعرض all topics بصيغة JSON.
-
-* ### كيف سنقوم بتجربة الـ API ؟
-
-  يوجد طريقتين, إما بالمتصفح بالدخول إلى الرابط:
-
-  >http://127.0.0.1:5000/api/topic/all
-
-  قم بفتح الرابط, وسترى النتيجة:
-
-  ![image|328x339](image-5.png)
-
-  كما توقعنا... كل المواضيع على صيغة JSON.
-
-* ### ولكن هل المتصفح هو الأداة المناسبة لتجربة الـ API ؟
-
-  بالتأكيد لا, يوجد أداة مخصصة لذلك وهي Postman.
-
-  ![image|232x500](image-5.png)
-
-  قم بتحميلها من هنا:
-
-  https://www.getpostman.com
-
-  وقم بعمل نفس الـ request الأخير عليه.
-
-  يوجد chrome plugin إذا لم ترد تحميل البرنامج, ولكنني أفضل البرنامج !
-
-  * #### هل يعتبر Postman سيرفر أم client ؟
-
-    أعتقد أنك تعرف الإجابة مسبقاً, فهو يقوم باستهلاك الـ API, أي أنه client.
-
-  * #### كيف يمكننا استعماله ؟
-
-    شاهد الصورة المتحركة:
-
-    ![postman-get|690x421](image-6.gif)
+    <!doctype html>
+    <html>
     
-  * #### ماهي أفضل مميزة feature في Postman ؟
+    <head>
+        <meta charset="utf-8">
+        <title>Topic Add</title>
+        <link rel="stylesheet" href="/static/style.css">
+    </head>
+    
+    <body>
+    
+        <div class="input-form">
+            <form action="{{ url_for("topic_add") }}" method="post">
+    
+                <input type="text" name="title" />
+                <input type="text" name="content" />
+    
+                <input type="submit" id="submit_button" value="Create" />
+            </form>
+        </div>
+    
+    </body>
+    
+    </html>
+    
+    <script>
 
-    حقيقة أكثر شيء أحبه, هو أنه يمكنك من حفظ الـ requests بشكل منظم... بحيث يمكنك العود لتجربة نفس الـ requests مستقبلاً بدلاً من كتابتها مجدداً.
+    </script>
+    ```
 
+  * #### ماذا نحتاج ؟
 
-* ### نريد أيضاً api لعمل topic add, كيف سنقوم بها ؟
+    داخل script سنقوم بإضافة كل الأكواد الخاصة بـ JS.
+    ```
+    <script>
+        document.addEventListener('DOMContentLoaded', function(){
+            // your code here
+        }, false);
+    </script>
+    ```
 
-  الأمر سهل... فقط نحتاج لعمل الـ controller action بهذا الشكل:
+    هذه الأسطر تضمن لنا أنه لن يتم تشغيل الكود إلا **بعد تحميل جميع العناصر في صفحة HTML**, لأنه ربما تقوم بربط العناصر وهي لم يتم تحميلها أصلاً.
+
+    العناصر داخل الصفحة موجودة داخل الـ object المسمى document الذي استعملناه بالأعلى, وهو ما يسمى DOM... شاهد هذه الصورة للتعرف على كيفية التعامل مع JS داخل المتصفح:
+
+    ![dom-js|690x413](image-5.gif)
+
+    قمت باستعمال الاختصار ctrl + shift + i لإظهار الـ dev tools الخاصة بمتصفح Chrome
+    ثم قمت بتجربة إظهار DOM بكتابة document ورأينا أنه مجرد شجرة tree لعناصر html داخل الصفحة.
+    
+
+  * #### كيف نقوم بربط الزر create ؟
+    الأمر سهل فقط نضيف الأسطر داخل الـ block الخاص بـ addEventListener بالأعلى:
+    ```
+            var submitButton = document.getElementById("submit_button");
+    
+            submitButton.onclick = (function() {
+                alert("hello");
+            });
+    ```
+
+    ببساطة نحن نقوم بأخذ الـ button باستعمال الـ id الخاص به submit_button (أضفته إلى كود html).
+
+    وبعدها نقوم بربطه عند الضغط عليه onclick, وإضافة alert عند الضغط عليه, بإمكانك التجربة بنفسك, يجب أن يظهر لك الضغط على الزر هذه النتيجة:
+
+    ![image|408x128](image-6.png)
+
+* ### ماهي فائدة استعمال javascript ؟
+
+  الفائدة الأساسية من javascript هو التلاعب بالـ DOM لصنع موقع تفاعلي.
+
+  * #### ممكن تفاصيل أكثر عن DOM ؟
+
+    هنا شرح مفصل حول الأمر:
+
+    https://macdiscussions.udacity.com/t/dom-javascript/53128?u=yaseralnajjar
+
+  * #### طيب لو تلاعبنا بالـ DOM, ماهي الفائدة ؟
+
+     الحصول على موقع تفاعلي يعني **استمتاع المستخدم بالموقع great user experience**, بدون الحاجة لفتح صفحات أخرى وبدون الإنتظار لوقت أطول, لاحظ كيف يعمل المنتدى (مليون مبرمج عربي):
+
+     ![forums-ajax|690x413](image-7.gif)
+
+    هذا ما يجعل المنتدى ممتع وجميل, أي أنه يقوم باستعمال javascript بدلاً من فتح صفحة جديدة عند القيام بالـ requests.
+
+    يستعمل المنتدى ما يسمى بـ AJAX للقيام بهذه الـ requests.
+    
+* ### ماهي Asynchronous JavaScript And XML - AJAX؟
+
+  هي طريقة لإرسال requests بدون جعل المتصفح يتوقف freeze بينما يقوم بمعالجة هذا الطلب... يجب الإنتباه إلى أن ajax هي تقنية مشهورة جداً في framework اسمها jQuery مصنوعة بالـ Javascript.
+
+  يوجد frameworks كثيرة مثل Angular و React و Vue, ولكننا سنستعمل أشهر **وأقدم** مكتبة (**ليست الأفضل**), وهي jQuery.
+
+  * #### ماذا تعني asynchronous ؟
+
+     تعني لا تزامني, أي أنها تعمل في الخلفية, ثم تنتظر النتيجة (بدون أن تجعل المتصفح يعلق hang).
+
+     مثال على الطريقة التزامنية السيئة synchronous, والطريقة الجميلة async:
+     ![image](image-8.gif)
+
+     الأهم من هذا كله, أن البرامج الـ synchronous السيئة **تجعل الموقع يعلق بينما يتم معالجة الطلب, حتى ينتهي** !
+
+  * #### ماهي فائدة استعمال AJAX مع API ؟
+
+     إذا قمت بجعل تطبيق الويب خاصتك يعمل باستخدام ajax, ستضمن حينها أن الـ web API تسمح لك بعمل تطبيق android أو iOS بسهولة وبدون مشاكل.
+
+      فضلاً عن أنها تسمح لك بجعل الموقع أجمل بكثير كما وضحنا سابقاً.
+
+  * #### لما سأضمن أن الموقع يقبل الامتداد إلى تطبيق هاتف expendable into phone app ؟
+
+    ببساطة لأن الـ API مجرد خدمة service, بإمكان العديد من clients التعامل معها, في حالتنا حينما نستعمل ajax, سيكون المتصفح (chrome مثلاً) هو الـ client.
+
+     ومستقبلاً ممكن يكون الـ client هو تطبيق الهاتف على الأندرويد android app client.
+
+     يعمل موقع فيسبوك بالضبط بنفس الآلية !
+
+* ### أعجبتني الفكرة, كيف سأقوم بعمل import للـ jQuery على صفحة الـ html ؟
+
+  الأمر سهل جداً, في نهاية صفحة html, أكتب السطر:
   ```
-  @app.route("/api/topic/add", methods = ["POST"])
-  def topic_create():
-      request_data = request.get_json()
-      new_post = models.Post(request_data["title"], request_data["content"])
-      post_store.add(new_post)
-      return jsonify(new_post.__dict__())
+  <script
+    src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
   ```
+   سيقوم هذا السطر, بإستدعاء مكتبة jQuery من السيرفر الرسمي.
 
-  * #### كيف يقوم بأخذ البيانات من الـ client ؟
+   بإمكانك تحميل المكتبة, ووضعها في السيرفر الخاص بك ثم تغيير المسار :wink:
 
-     ببساطة هو يقوم بعمل request.get_json بحيث يحول الطلب إلى JSON, ثم يقوم بأخذ البيانات باستعمال:
+  * #### مالخطوة التالية, كيف سأكتب الكود الذي بالأعلى باستعمال jQuery ؟
 
-        request_data["title"]
+     أعتقد أنك لاحظت أن كود javascript الأول طويل لدرجة مملة !
 
-  * #### لاحظ نوع الـ request, انه POST لأننا نقوم بارسال بيانات !
+     لذا سنعيد كتابته باستعمال jQuery:
 
-* ### كيف سنقوم بتجربة topic add api على Postman ؟
+     ```
+    <script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    
+    <script>
+        jQuery(function() {
+            var submitButton = jQuery("#submit_button");
+    
+            submitButton.click(function() {
+                alert("hello");
+            });
+        });
+    </script>
+     ```
 
-  الأمر سهل, تابع الصورة المتحركة:
+     لاحظ كيف أصبح أجمل وأسهل !
+     بدلاً من عمل addEventListener, فقط نكتب jQuery ونضع الكود داخل function :smile:
 
-  ![postman-post|690x373](image-7.gif)
+     وأيضاً لاحظ أننا قمنا بتحديد العنصر بالـ id باستعمال السطر:
+     ```
+            var submitButton = jQuery("#submit_button");
+     ```
+      
+     أي أننا نقوم بتحديد العناصر بنفس الطريقة الخاصة بالـ css, بحيث أي id نستعمل معاه #.
+     و لتحديد باستعمال class نستعمل معاه نقطة (.)
 
-  * #### لاحظ كيف يتم ارجاع الـ object (مع الـ id) بعد اضافته.
+     للمزيد حول عمل selecting elements in jQuery شاهد هذا الفيديو:
 
-  * #### بعد عمل add افتح الصفحة الرئيسية لترى أن الـ topic الذي أضفناه (hello) موجود:
-     >http://127.0.0.1:5000/
+    https://www.youtube.com/watch?v=1tP3E6Y5OhY
+
+  * #### هل يجب أن نكتب jQuery كل مرة نستعملها ؟
+
+    أعتقد أنك لاحظت أننا نستعمل jQuery في كل سطر نستعمل فيه المكتبة... الأمر ممل, مالحل ؟
+
+    فقط نستبدلها بالـ $, أي أن علامة الدولار ترجع jQuery object بهذا الشكل:
+     ```
+    <script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    
+    <script>
+        $(function() {
+            var submitButton = $("#submit_button");
+    
+            submitButton.click(function() {
+                alert("hello");
+            });
+        });
+    </script>
+     ```
+
+    ببساطة هذا ما يقوم به مبرمجي الجافاسكربت عند العمل على jQuery... لأنها أبسط وأسرع !
+
+  * #### لا تنسى أن تقوم بوضع jQuery import قبل أن تقوم بكتابة script يستعمل jQuery مع مراعاة الترتيب !
+
+  
+* ### لدينا كل الأساسيات, لندخل لما نريده وهو عمل ajax request للـ API:
+
+  قم بحذف جميع الأكواد التي جربناها بالأعلى, **وفقط أبقي على jQuery import**.
+
+  * #### كيف سنقوم بربط الـ submit button بـ function ؟
+
+    الأمر سهل بهذا الشكل:
+    ```
+    <script>
+        $(function ()
+        {
+            $("form").submit(function (event)
+            {
+                event.preventDefault();
+                
+            });
+        });
+    </script>
+    ```
+
+  * #### لما قمنا بكتابة preventDefault ؟
+
+    ببساطة لكي نمنع الزر submit بالقيام بأي شيء, لأننا نريد كتابة الـ request بأنفسنا, أي أن الزر الآن لا يستطيع القيام بأي شيء.
+
+    من أين تعلمت هذه الأشياء ؟
+    لا يوجد أجمل من مرجع jQuery الرسمي في شرحها, هنا مرجع سريع لكيفية التعامل مع submit:
+    https://api.jquery.com/submit/
+
+  * #### كيف نقوم بجلب البيانات التي داخل الـ form (مربعات النصوص title & content) ؟
  
-* ### تحقق من فهمك:
+    فقط سنكتب:
 
-  * #### ماهي عملية Serialize ؟
+    ```
+    var topicTitle = $("input[name='title']").val();
+    var topicContent = $("input[name='content']").val();
+    ```
 
-[poll name=test1 type=regular]
-* تحويل JSON format إلى object
-* تحويل object إلى JSON format
-* تحويل قاعدة البيانات إلى JSON
-[/poll]
+    لاحظ أنني أقوم بكتابة النوع input ثم أقوم بتحديد العنصر الذي لديه attribute تسمى title أو content.
 
-  * #### بإمكانك عمل website بدون الحاجة إلى API ؟
+    من أين تعملت هذه الأشياء ؟
+    مجدداً, القليل من البحث في قوقل, مثلاً كتبت jquery get input with attribute... وحصلت على الطريقة من موقع jQuery.
 
-[poll name=test2 type=regular]
-* صحيح
-* خاطئ
-[/poll]
+    بقي أن نقوم بتجهيز هذه البيانات على شكل object يقوم السيرفر بالتعامل معه:
+
+    ```
+    var topicData = {
+                    "title": topicTitle,
+                    "content": topicContent
+                    };
+    ```
+
+  * #### كيف سنقوم بارسال topicData object باستعمال ajax ؟
+
+    سنقوم بها بهذا الشكل (مجدداً, صديقنا قوقل يساعدنا دائماً :smile: ) :
+
+    ```
+    $.ajax({
+        type: "POST",
+        url: "/api/topic/add",
+        data: JSON.stringify(topicData),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response)
+        {
+            alert("Added topic successfully !");
+        }
+    });
+    ```
+
+  * #### ماهي مكونات ajax request ؟
+
+     1. #### الرابط ونوع الطلب type & url:
+
+        ```
+        type: "POST",
+        url: "/api/topic/add",
+        ```
+        لاحظ أننا نريد عمل POST request لاستعمال topic add api.
+
+     2. #### البيانات data:
+
+        ```
+        data: JSON.stringify(topicData),
+        ```
+        نقوم هنا بتحويل topicData object إلى صيغة JSON.
+
+     3. #### نوع البيانات types:
+        ```
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        ```
+        لإخبار السيرفر بنوع البيانات التي سنرسلها نكتبها في contentType.
+        ثم نخبره نوع البيانات التي سنستقبلها باستعمال dataType.
+
+     4. #### دالة النجاح on success function:
+        ```
+        success: function (response)
+        {
+            alert("Added topic successfully !");
+        }
+        ```
+        حينما ينجح الـ request, سنقوم بإظهار رسالة Added topic successfully
 
 * ### ماهي المهمة المطلوبة ؟
 
-  * قم بكتابة جميع الـ action controllers التي كتبناها سابقاً كـ web api.
-
-  * لا تنسى أنه يجب أن تكتب جميع دوال CRUD الخاصة بالـ topic وجعلها web api.
-
-* ### ملحق:
-  * #### الفرق بين API و Web API:
-
-    https://stackoverflow.com/questions/41189842/what-is-difference-between-rest-and-api
-
-  * #### مكتبة ArcGIS:
-
-    https://developers.arcgis.com/labs/python/search-and-geocode/
-
+  * قم بتجربة جميع الـ requests باستعمال Postman.
+  * أكتب ajax POST request لإضافة موضوع جديد باستعمال topic add API.
+  * أكتب ajax DELETE request لحذف موضوع باستعمال topic delete API.
 
  * ### كيفية تسليم الحل ؟
 
@@ -336,10 +538,7 @@ class Post():
    ولا تنسى **مشاركة رابط المشروع** معنا.
 
     بإمكانك تسليم الحل في هذا الموضوع:
-    https://macdiscussions.udacity.com/t/40-web-api/127615
+    https://macdiscussions.udacity.com/t/40-consuming-api/131654
 
-* ### شكر خاص:
-
-  أشكر الأخوة @hichem2h @ahmedalrifai @LouayHamada على العمل الجبار الذي يقوموا به... وأخص بالشكر الأخ هشام, على مساعدته لي في هذا الدرس :blush:    
 
   #### أتمنى الفائدة والتوفيق للجميع!
