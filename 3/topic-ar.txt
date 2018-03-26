@@ -44,13 +44,13 @@
 
   بإمكانك إكمال البرنامج التالي:
 
-  ```
-  # allowed papers: 100, 50, 10, 5, and rest of request
+```
+# allowed papers: 100, 50, 10, 5, and rest of request
 
-  money = 500
+money = 500
 
-  request = 277
-  ```
+request = 277
+```
 
   الطلب هنا request وهو 277 دولار, وكمية الأموال الموجودة في الـ ATM هي 500 دولار.
 
@@ -59,23 +59,23 @@
 
   في كل مرة تعطي المستخدم ورقة قم بطباعتها, مثال على ناتج (output) اعطاء المستخدم الأوراق في المثال السابق:
 
-  ```
-  give 100
-  give 100
-  give 50
-  give 10
-  give 10
-  give 5
-  give 2
-  ```
+```
+give 100
+give 100
+give 50
+give 10
+give 10
+give 5
+give 2
+```
 
 * ## هل يوجد أي تلميح ؟
 
   بالتأكيد, بإمكانك أن تستعمل while loop مثل هذه :
 
-  ```
-  while request > 0:
-  ``` 
+```
+while request > 0:
+``` 
 
 * ## كيفية تسليم الحل ؟
 
