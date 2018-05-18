@@ -1,33 +1,32 @@
- [
-        {
-          'text': 'bla bla bla',
-          'answers': {
-            '1': 'beboba',
-            '2': 'aeaoaa'
-          },
-          'correct': ['1'],
-          'hint': 'koko kaka',
-          choose: []
-        },
-        {
-          'text': 'ola ola ola',
-          'answers': {
-            '1': 'beboba',
-            '2': 'aeaoaa'
-          },
-          'correct': ['2'],
-          'hint': 'tiki taka',
-          choose: []
-        },
-        {
-          'text': 'pla pla pla',
-          'answers': {
-            '1': 'beboba',
-            '2': 'aeaoaa',
-            '3': 'fg fgfg '
-          },
-          'correct': ['1', '2'],
-          'hint': 'foo boo',
-          choose: []
-        }
-      ]
+[{
+         "text": "bla bla bla",
+         "answers": {
+           "1": "beboba",
+           "2": "aeaoaa"
+         },
+         "correct": ["1"],
+         "hint": "koko kaka",
+         "choose": []
+      },
+      {
+         "text": "ola ola ola",
+         "answers": {
+           "1": "beboba",
+           "2": "aeaoaa"
+         },
+         "correct": ["2"],
+         "hint": "tiki taka",
+         "choose": []
+      },
+      {
+         "text": "pla pla pla",
+         "answers": {
+           "1": "beboba",
+           "2": "aeaoaa",
+           "3": "fg fgfg "
+         },
+         "correct": ["1", "2"],
+         "hint": "foo boo",
+         "choose": []
+      }
+     ]
