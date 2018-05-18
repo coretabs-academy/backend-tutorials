@@ -1,31 +1,33 @@
-[
-    {
-        "question": "bla bla bla",
-        "answers": {
-            "1": "beboba",
-            "2": "aeaoaa"
+ [
+        {
+          'text': 'bla bla bla',
+          'answers': {
+            '1': 'beboba',
+            '2': 'aeaoaa'
+          },
+          'correct': ['1'],
+          'hint': 'koko kaka',
+          choose: []
         },
-        "correct": ["1"],
-        "hint": "koko kaka"
-    },
-    {
-        "question": "ola ola ola",
-        "answers": {
-            "1": "beboba",
-            "2": "aeaoaa"
+        {
+          'text': 'ola ola ola',
+          'answers': {
+            '1': 'beboba',
+            '2': 'aeaoaa'
+          },
+          'correct': ['2'],
+          'hint': 'tiki taka',
+          choose: []
         },
-        "correct": ["2"],
-        "hint": "tiki taka"
-    },
-    {
-        "question": "pla pla pla",
-        "answers": {
-            "1": "beboba",
-            "2": "aeaoaa",
-            "3": "cecaca",
-            "4": "eaeaea"
-        },
-        "correct": ["1", "2"],
-        "hint": "foo boo"
-    }
-]
+        {
+          'text': 'pla pla pla',
+          'answers': {
+            '1': 'beboba',
+            '2': 'aeaoaa',
+            '3': 'fg fgfg '
+          },
+          'correct': ['1', '2'],
+          'hint': 'foo boo',
+          choose: []
+        }
+      ]
