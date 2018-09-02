@@ -4,7 +4,7 @@
      "answers": {
          "1": "Just print `print('hello')`",
          "2": "Just print\n`\n print('hello') \n`",
-         "3": "Just print\n```\n print('hello') \n```",
+         "3": "Just print\n```\n print('hello') \n```"
      },
      "correct": [
          "1"
