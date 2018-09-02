@@ -2,7 +2,7 @@
    {
      "text": "مالذي يقوم به هذا الكود<pre><code>x = 5\n\n\t\tprint (x)</code></pre>",
      "answers": {
-         "1": "Just print\n`\n print('hello') \n`",
+         "1": "Just print\n```\n print('hello') \n```",
          "2": "لن يعمل الكود",
          "3": "تعريف متغير بدون إظهار شيء"
      },
