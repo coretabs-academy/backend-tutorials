@@ -3,7 +3,7 @@
      "text": "مالذي يقوم به هذا الكود\n```x = 5\n\t\tprint (x)```",
      "answers": {
          "1": "Just print `print('hello')`",
-         "2": "Just print\n```print('hello')```"
+         "2": "Just print\n```x = 5\n\t\tprint (x)```"
      },
      "correct": [
          "1"
