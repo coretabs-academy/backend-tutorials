@@ -1,6 +1,6 @@
 [
    {
-     "text": "مالذي يقوم به هذا الكود<pre><code>x = 5\n\n\t\tprint (x)</code></pre>",
+     "text": "مالذي يقوم به هذا الكود`x = 5\n\t\tprint (x)`",
      "answers": {
          "1": "Just print `print('hello')`",
          "2": "Just print\n`\n print('hello') \n`",
