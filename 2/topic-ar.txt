@@ -1,4 +1,4 @@
-How to fix this code:
+^ How to fix this code:
 
 ```
 x = 5
@@ -19,9 +19,7 @@ x = 7
 print('hello')
 ```
 
--
-
-Does this code work:
+^ Does this code work:
 
 ```
 x = 5
